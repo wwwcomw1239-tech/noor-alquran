@@ -22,18 +22,19 @@
 
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo">
-        <span class="logo-text">نور القرآن</span>
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">الرئيسية</a></li>
         <li><a href="books.html">الكتب</a></li>
         <li><a href="reflections.html">التدبرات</a></li>
         <li><a href="clips.html">المقاطع القرآنية</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="بحث">&#128269;</button>
+        <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -120,8 +121,7 @@
       <div class="footer-contact">
         <p class="footer-contact-label">للتواصل والاستفسار</p>
         <a href="mailto:almuhasab9@gmail.com" class="footer-email">
-          <span class="email-icon">&#9993;</span>
-          <span>almuhasab9@gmail.com</span>
+          <span class="email-icon">&#9993;</span><span>almuhasab9@gmail.com</span>
         </a>
       </div>
       <div class="footer-bottom">
@@ -130,6 +130,24 @@
     </div>
   </footer>
 
+  <!-- نافذة البحث -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <div class="search-header">
+        <div class="search-input-wrap">
+          <span class="search-icon-inside">&#128269;</span>
+          <input type="text" id="searchInput" placeholder="ابحث في الكتب والتدبرات والمقاطع..." autocomplete="off">
+        </div>
+        <button class="search-close" id="searchClose">&#10005;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <p class="search-hint">ابدأ الكتابة للبحث في المحتوى...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

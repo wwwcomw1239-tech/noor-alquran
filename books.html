@@ -22,18 +22,19 @@
 
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo">
-        <span class="logo-text">نور القرآن</span>
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">الرئيسية</a></li>
         <li><a href="books.html" class="active">الكتب</a></li>
         <li><a href="reflections.html">التدبرات</a></li>
         <li><a href="clips.html">المقاطع القرآنية</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="بحث">&#128269;</button>
+        <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -56,14 +57,12 @@
             <div class="book-meta">
               <span class="meta-item">&#128196; 368 صفحة</span>
               <span class="meta-item">&#127981; شركة اس بي — الكويت</span>
-              <span class="meta-item">&#128197; ط.ّ 13 &nbsp;|&nbsp; 1438هـ — 2017م</span>
+              <span class="meta-item">&#128197; ط.ّ 13 | 1438هـ — 2017م</span>
             </div>
           </div>
           <div class="card-footer">
             <a href="https://drive.google.com/file/d/17a4CbYsJ4Ds_lL2yWFhuK4Mr1YOATJWc/view?usp=drivesdk"
-               target="_blank" rel="noopener noreferrer" class="btn-download">
-              &#11015;&#65039; تحميل الكتاب
-            </a>
+               target="_blank" rel="noopener noreferrer" class="btn-download">&#11015;&#65039; تحميل الكتاب</a>
           </div>
         </div>
       </div>
@@ -76,17 +75,14 @@
         <div class="footer-logo"><span>نور القرآن</span></div>
         <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
         <nav class="footer-nav">
-          <a href="index.html">الرئيسية</a>
-          <a href="books.html">الكتب</a>
-          <a href="reflections.html">التدبرات</a>
-          <a href="clips.html">المقاطع القرآنية</a>
+          <a href="index.html">الرئيسية</a><a href="books.html">الكتب</a>
+          <a href="reflections.html">التدبرات</a><a href="clips.html">المقاطع القرآنية</a>
         </nav>
       </div>
       <div class="footer-contact">
         <p class="footer-contact-label">للتواصل والاستفسار</p>
         <a href="mailto:almuhasab9@gmail.com" class="footer-email">
-          <span class="email-icon">&#9993;</span>
-          <span>almuhasab9@gmail.com</span>
+          <span class="email-icon">&#9993;</span><span>almuhasab9@gmail.com</span>
         </a>
       </div>
       <div class="footer-bottom">
@@ -95,6 +91,23 @@
     </div>
   </footer>
 
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <div class="search-header">
+        <div class="search-input-wrap">
+          <span class="search-icon-inside">&#128269;</span>
+          <input type="text" id="searchInput" placeholder="ابحث في الكتب والتدبرات والمقاطع..." autocomplete="off">
+        </div>
+        <button class="search-close" id="searchClose">&#10005;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <p class="search-hint">ابدأ الكتابة للبحث في المحتوى...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
