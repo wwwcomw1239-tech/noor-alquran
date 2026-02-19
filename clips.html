@@ -69,35 +69,43 @@
   <section class="section">
     <div class="container">
       
-      <!-- عنوان القسم -->
-      <div class="playlist-intro">
-        <div class="playlist-icon">&#127909;</div>
-        <h2 class="playlist-title">قائمة التشغيل الرئيسية</h2>
-        <p class="playlist-desc">مجموعة مختارة من المقاطع القرآنية والتدبرات المرئية</p>
+      <!-- عنوار قائمة التشغيل -->
+      <div class="playlist-header">
+        <button class="playlist-toggle" id="playlistToggle" aria-expanded="false">
+          <span class="playlist-icon-btn">&#127909;</span>
+          <div class="playlist-info">
+            <h2 class="playlist-name" id="playlistName">جارٍ تحميل قائمة التشغيل...</h2>
+            <p class="playlist-count" id="playlistCount"></p>
+          </div>
+          <span class="playlist-arrow" id="playlistArrow">▼</span>
+        </button>
+      </div>
+
+      <!-- قائمة المقاطع -->
+      <div class="playlist-videos" id="playlistVideos" style="display:none;">
+        <div class="videos-loading">
+          <div class="loading-spinner"></div>
+          <p>جارٍ تحميل المقاطع...</p>
+        </div>
       </div>
 
       <!-- مشغل يوتيوب -->
-      <div class="youtube-player-wrapper">
+      <div class="youtube-player-wrapper" id="playerWrapper" style="display:none;">
         <div class="youtube-player-container">
-          <div id="player-placeholder" class="player-placeholder">
-            <div class="placeholder-content">
-              <svg class="play-icon" width="80" height="80" viewBox="0 0 68 48" fill="none">
-                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
-                <path d="M 45,24 27,14 27,34" fill="#fff"/>
-              </svg>
-              <p class="placeholder-text">اضغط لتحميل قائمة التشغيل</p>
-            </div>
+          <div class="player-header">
+            <button class="player-close" id="playerClose">×</button>
+            <h3 class="player-title" id="playerTitle">مشغل الفيديو</h3>
           </div>
-          <iframe 
-            id="youtube-player"
-            data-src="https://www.youtube.com/embed?listType=playlist&list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e&rel=0&modestbranding=1" 
-            title="قائمة تشغيل نور القرآن"
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen
-            loading="lazy"
-            style="display:none;">
-          </iframe>
+          <div class="player-embed">
+            <iframe 
+              id="youtube-player"
+              src=""
+              title="مشغل YouTube"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
 
@@ -173,21 +181,7 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
-  
-  <script>
-    // Lazy Loading لمشغل يوتيوب
-    document.addEventListener('DOMContentLoaded', function() {
-      const placeholder = document.getElementById('player-placeholder');
-      const iframe = document.getElementById('youtube-player');
-      
-      placeholder.addEventListener('click', function() {
-        // تحميل iframe
-        iframe.src = iframe.getAttribute('data-src');
-        iframe.style.display = 'block';
-        placeholder.style.display = 'none';
-      });
-    });
-  </script>
+  <script src="js/playlist.js"></script>
 
 </body>
 </html>
