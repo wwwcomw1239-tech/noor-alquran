@@ -1,0 +1,18 @@
+/* ==============================================
+   إضافات تصميم خاصة بالمقاطع - بدون تشوهات
+   ============================================== */
+
+/* حالة الخطأ */
+.videos-error {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--clr-text-muted);
+}
+.videos-error .error-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+.videos-error p {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
