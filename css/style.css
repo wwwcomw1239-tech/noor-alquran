@@ -501,95 +501,218 @@ ul { list-style: none; }
    صفحة المقاطع - YouTube Playlist
    ========================================= */
 
-/* مقدمة قائمة التشغيل */
-.playlist-intro {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
+/* عنوان قائمة التشغيل القابل للتوسع */
+.playlist-header {
+  margin-bottom: var(--spacing-lg);
+}
+.playlist-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
-  background: linear-gradient(135deg, rgba(26,71,49,.04) 0%, rgba(201,168,76,.06) 100%);
+  background: linear-gradient(135deg, rgba(26,71,49,.06) 0%, rgba(201,168,76,.08) 100%);
+  border: 2px solid rgba(201,168,76,.25);
   border-radius: var(--radius-md);
-  border: 2px solid rgba(201,168,76,.2);
+  cursor: pointer;
+  transition: all .3s;
+  box-shadow: 0 4px 16px rgba(26,71,49,.08);
 }
-.playlist-icon {
-  font-size: 3.5rem;
-  margin-bottom: var(--spacing-sm);
-  opacity: .75;
-  animation: float 3s ease-in-out infinite;
+.playlist-toggle:hover {
+  background: linear-gradient(135deg, rgba(26,71,49,.08) 0%, rgba(201,168,76,.1) 100%);
+  border-color: var(--clr-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26,71,49,.12);
 }
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+.playlist-icon-btn {
+  flex-shrink: 0;
+  font-size: 2.5rem;
+  line-height: 1;
 }
-.playlist-title {
-  font-size: 1.8rem;
+.playlist-info {
+  flex: 1;
+  text-align: right;
+}
+.playlist-name {
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--clr-primary);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: 4px;
   letter-spacing: -.3px;
 }
-.playlist-desc {
-  font-size: 1.05rem;
+.playlist-count {
+  font-size: .95rem;
   color: var(--clr-text-muted);
-  line-height: 1.8;
-  max-width: 600px;
-  margin: 0 auto;
+  font-weight: 600;
+}
+.playlist-arrow {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  color: var(--clr-primary);
+  transition: transform .3s;
+}
+.playlist-toggle[aria-expanded="true"] .playlist-arrow {
+  transform: rotate(180deg);
 }
 
-/* حاوية مشغل YouTube */
-.youtube-player-wrapper {
-  max-width: 960px;
-  margin: 0 auto var(--spacing-lg);
+/* قائمة الفيديوهات */
+.playlist-videos {
+  margin-bottom: var(--spacing-xl);
+  animation: expandIn .3s ease;
 }
-.youtube-player-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  background: #000;
+@keyframes expandIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.videos-loading {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--clr-text-muted);
+}
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--spacing-sm);
+  border: 4px solid rgba(26,71,49,.1);
+  border-top-color: var(--clr-gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* عنصر الفيديو */
+.video-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--clr-white);
+  border: 2px solid var(--clr-border);
   border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,.2);
-  border: 3px solid var(--clr-border);
-  transition: border-color .3s;
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: all .3s;
+  box-shadow: var(--shadow-sm);
 }
-.youtube-player-container:hover {
+.video-item:hover {
+  transform: translateX(-5px);
   border-color: var(--clr-gold);
+  box-shadow: 0 6px 20px rgba(26,71,49,.12);
 }
-
-/* Placeholder قبل التحميل */
-.player-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
+.video-thumbnail {
+  position: relative;
+  flex-shrink: 0;
+  width: 160px;
+  height: 90px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+}
+.video-thumbnail img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+}
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  cursor: pointer;
-  transition: background .3s;
+  background: rgba(0,0,0,.3);
+  opacity: 0;
+  transition: opacity .3s;
 }
-.player-placeholder:hover {
-  background: linear-gradient(135deg, #252525 0%, #353535 100%);
+.video-item:hover .video-play-overlay {
+  opacity: 1;
 }
-.placeholder-content {
-  text-align: center;
+.video-play-overlay svg {
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.5));
 }
-.play-icon {
-  margin: 0 auto var(--spacing-sm);
-  transition: transform .3s;
+.video-details {
+  flex: 1;
+  min-width: 0;
 }
-.player-placeholder:hover .play-icon {
-  transform: scale(1.1);
+.video-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  line-height: 1.5;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.placeholder-text {
-  color: rgba(255,255,255,.8);
-  font-size: 1.1rem;
+.video-number {
+  font-size: .85rem;
+  color: var(--clr-text-muted);
   font-weight: 600;
 }
 
-/* iframe بعد التحميل */
-#youtube-player {
+/* مشغل الفيديو */
+.youtube-player-wrapper {
+  max-width: 960px;
+  margin: 0 auto var(--spacing-xl);
+  display: none;
+  animation: fadeInScale .3s ease;
+}
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.youtube-player-container {
+  position: relative;
+  background: var(--clr-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.15);
+  border: 3px solid var(--clr-gold);
+}
+.player-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--clr-primary);
+  color: var(--clr-white);
+}
+.player-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.player-close {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.1);
+  border: none;
+  border-radius: 50%;
+  color: var(--clr-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all .3s;
+}
+.player-close:hover {
+  background: rgba(255,255,255,.2);
+  transform: rotate(90deg);
+}
+.player-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #000;
+}
+.player-embed iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -729,11 +852,11 @@ ul { list-style: none; }
   .social-channels-title { font-size: 1.4rem; }
   .channels-grid { grid-template-columns: 1fr; }
   .channel-icon { width: 54px; height: 54px; }
-  .playlist-intro { padding: var(--spacing-md) var(--spacing-sm); }
-  .playlist-icon { font-size: 2.8rem; }
-  .playlist-title { font-size: 1.5rem; }
-  .playlist-desc { font-size: .95rem; }
-  .youtube-player-wrapper { margin-bottom: var(--spacing-md); }
+  .playlist-name { font-size: 1.2rem; }
+  .playlist-count { font-size: .85rem; }
+  .video-thumbnail { width: 120px; height: 68px; }
+  .video-title { font-size: .95rem; }
+  .video-number { font-size: .8rem; }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -753,11 +876,12 @@ ul { list-style: none; }
   .channel-icon { width: 48px; height: 48px; }
   .channel-name { font-size: 1.05rem; }
   .channel-desc { font-size: .85rem; }
-  .playlist-intro { padding: var(--spacing-sm); }
-  .playlist-icon { font-size: 2.5rem; }
-  .playlist-title { font-size: 1.3rem; }
-  .playlist-desc { font-size: .9rem; }
+  .playlist-toggle { padding: var(--spacing-md) var(--spacing-sm); }
+  .playlist-icon-btn { font-size: 2rem; }
+  .playlist-name { font-size: 1.05rem; }
+  .playlist-count { font-size: .8rem; }
+  .video-item { flex-direction: column; align-items: stretch; }
+  .video-thumbnail { width: 100%; height: auto; aspect-ratio: 16/9; }
+  .video-title { font-size: .9rem; }
   .btn-youtube { padding: 12px 24px; font-size: .9rem; }
-  .play-icon { width: 60px; height: 60px; }
-  .placeholder-text { font-size: .95rem; }
 }
