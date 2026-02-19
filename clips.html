@@ -22,9 +22,23 @@
 
   <nav class="navbar">
     <div class="nav-top">
-      <a href="index.html" class="nav-logo">
-        <span class="logo-text">نور القرآن</span>
-      </a>
+      <div class="social-links">
+        <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-text">نور القرآن</span>
+        </a>
+      </div>
+      <div class="social-links" style="visibility:hidden;">
+        <span class="social-link"></span>
+        <span class="social-link"></span>
+      </div>
     </div>
     <div class="nav-bottom">
       <div class="nav-container">
@@ -33,6 +47,7 @@
           <li><a href="books.html">الكتب</a></li>
           <li><a href="reflections.html">التدبرات</a></li>
           <li><a href="clips.html" class="active">المقاطع</a></li>
+          <li><a href="about.html">عن الموقع</a></li>
         </ul>
         <div class="nav-sep"></div>
         <div class="nav-actions">
@@ -47,15 +62,58 @@
 
   <div class="page-header">
     <h1>المقاطع القرآنية</h1>
+    <p>قائمة تشغيل يوتيوب متجددة تلقائياً بمقاطع قرآنية مختارة</p>
     <div class="page-line"></div>
   </div>
 
   <section class="section">
     <div class="container">
-      <div class="empty-state">
-        <div class="empty-icon">&#127897;</div>
-        <p>سيتم إضافة المقاطع قريباً</p>
+      
+      <!-- عنوان القسم -->
+      <div class="playlist-intro">
+        <div class="playlist-icon">&#127909;</div>
+        <h2 class="playlist-title">قائمة التشغيل الرئيسية</h2>
+        <p class="playlist-desc">مجموعة مختارة من المقاطع القرآنية والتدبرات المرئية</p>
       </div>
+
+      <!-- مشغل يوتيوب -->
+      <div class="youtube-player-wrapper">
+        <div class="youtube-player-container">
+          <div id="player-placeholder" class="player-placeholder">
+            <div class="placeholder-content">
+              <svg class="play-icon" width="80" height="80" viewBox="0 0 68 48" fill="none">
+                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+                <path d="M 45,24 27,14 27,34" fill="#fff"/>
+              </svg>
+              <p class="placeholder-text">اضغط لتحميل قائمة التشغيل</p>
+            </div>
+          </div>
+          <iframe 
+            id="youtube-player"
+            data-src="https://www.youtube.com/embed?listType=playlist&list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e&rel=0&modestbranding=1" 
+            title="قائمة تشغيل نور القرآن"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen
+            loading="lazy"
+            style="display:none;">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- زر فتح في يوتيوب -->
+      <div class="playlist-actions">
+        <a href="https://youtube.com/playlist?list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="btn-youtube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>فتح في يوتيوب</span>
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -65,15 +123,31 @@
         <div class="footer-logo"><span>نور القرآن</span></div>
         <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
         <nav class="footer-nav">
-          <a href="index.html">الرئيسية</a><a href="books.html">الكتب</a>
-          <a href="reflections.html">التدبرات</a><a href="clips.html">المقاطع</a>
+          <a href="index.html">الرئيسية</a>
+          <a href="books.html">الكتب</a>
+          <a href="reflections.html">التدبرات</a>
+          <a href="clips.html">المقاطع</a>
+          <a href="about.html">عن الموقع</a>
         </nav>
+        <div class="footer-social">
+          <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
       </div>
       <div class="footer-contact">
         <p class="footer-contact-label">للتواصل والاستفسار</p>
         <a href="mailto:almuhasab9@gmail.com" class="footer-email">
           <span class="email-icon">&#9993;</span><span>almuhasab9@gmail.com</span>
         </a>
+      </div>
+      <div class="footer-sadaqah">
+        <p class="sadaqah-text">
+          هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول
+        </p>
       </div>
       <div class="footer-bottom">
         <p>جميع الحقوق محفوظة &copy; 2026 &nbsp;|&nbsp; تطوير: <strong>داوود الاحمدي</strong></p>
@@ -99,5 +173,21 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+  
+  <script>
+    // Lazy Loading لمشغل يوتيوب
+    document.addEventListener('DOMContentLoaded', function() {
+      const placeholder = document.getElementById('player-placeholder');
+      const iframe = document.getElementById('youtube-player');
+      
+      placeholder.addEventListener('click', function() {
+        // تحميل iframe
+        iframe.src = iframe.getAttribute('data-src');
+        iframe.style.display = 'block';
+        placeholder.style.display = 'none';
+      });
+    });
+  </script>
+
 </body>
 </html>

@@ -497,6 +497,134 @@ ul { list-style: none; }
   transform: translateX(-6px);
 }
 
+/* =========================================
+   صفحة المقاطع - YouTube Playlist
+   ========================================= */
+
+/* مقدمة قائمة التشغيل */
+.playlist-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(135deg, rgba(26,71,49,.04) 0%, rgba(201,168,76,.06) 100%);
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(201,168,76,.2);
+}
+.playlist-icon {
+  font-size: 3.5rem;
+  margin-bottom: var(--spacing-sm);
+  opacity: .75;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.playlist-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--clr-primary);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: -.3px;
+}
+.playlist-desc {
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* حاوية مشغل YouTube */
+.youtube-player-wrapper {
+  max-width: 960px;
+  margin: 0 auto var(--spacing-lg);
+}
+.youtube-player-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  border: 3px solid var(--clr-border);
+  transition: border-color .3s;
+}
+.youtube-player-container:hover {
+  border-color: var(--clr-gold);
+}
+
+/* Placeholder قبل التحميل */
+.player-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  cursor: pointer;
+  transition: background .3s;
+}
+.player-placeholder:hover {
+  background: linear-gradient(135deg, #252525 0%, #353535 100%);
+}
+.placeholder-content {
+  text-align: center;
+}
+.play-icon {
+  margin: 0 auto var(--spacing-sm);
+  transition: transform .3s;
+}
+.player-placeholder:hover .play-icon {
+  transform: scale(1.1);
+}
+.placeholder-text {
+  color: rgba(255,255,255,.8);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* iframe بعد التحميل */
+#youtube-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* إجراءات قائمة التشغيل */
+.playlist-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+.btn-youtube {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(255,0,0,.3);
+  transition: transform .24s, box-shadow .24s;
+}
+.btn-youtube:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(255,0,0,.4);
+  color: white;
+}
+.btn-youtube svg {
+  flex-shrink: 0;
+}
+
 /* ===== Page Header ===== */
 .page-header { 
   background: linear-gradient(150deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%); 
@@ -601,6 +729,11 @@ ul { list-style: none; }
   .social-channels-title { font-size: 1.4rem; }
   .channels-grid { grid-template-columns: 1fr; }
   .channel-icon { width: 54px; height: 54px; }
+  .playlist-intro { padding: var(--spacing-md) var(--spacing-sm); }
+  .playlist-icon { font-size: 2.8rem; }
+  .playlist-title { font-size: 1.5rem; }
+  .playlist-desc { font-size: .95rem; }
+  .youtube-player-wrapper { margin-bottom: var(--spacing-md); }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -620,4 +753,11 @@ ul { list-style: none; }
   .channel-icon { width: 48px; height: 48px; }
   .channel-name { font-size: 1.05rem; }
   .channel-desc { font-size: .85rem; }
+  .playlist-intro { padding: var(--spacing-sm); }
+  .playlist-icon { font-size: 2.5rem; }
+  .playlist-title { font-size: 1.3rem; }
+  .playlist-desc { font-size: .9rem; }
+  .btn-youtube { padding: 12px 24px; font-size: .9rem; }
+  .play-icon { width: 60px; height: 60px; }
+  .placeholder-text { font-size: .95rem; }
 }
