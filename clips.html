@@ -6,6 +6,87 @@
   <title>المقاطع | نور القرآن</title>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .playlist-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    .playlist-intro {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background: linear-gradient(135deg, rgba(26,71,49,.04) 0%, rgba(201,168,76,.06) 100%);
+      border-radius: var(--radius-md);
+      border: 2px solid rgba(201,168,76,.2);
+    }
+    .playlist-icon {
+      font-size: 3.5rem;
+      margin-bottom: var(--spacing-sm);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .playlist-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--clr-primary);
+      margin-bottom: var(--spacing-xs);
+    }
+    .playlist-desc {
+      font-size: 1.05rem;
+      color: var(--clr-text-muted);
+      line-height: 1.8;
+    }
+    .youtube-embed-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+      border: 3px solid var(--clr-gold);
+      background: #000;
+    }
+    .youtube-embed-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .playlist-actions {
+      text-align: center;
+      margin-top: var(--spacing-lg);
+    }
+    .btn-youtube {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(255,0,0,.3);
+      transition: transform .24s, box-shadow .24s;
+    }
+    .btn-youtube:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(255,0,0,.4);
+      color: white;
+    }
+    @media (max-width: 480px) {
+      .playlist-intro { padding: var(--spacing-md); }
+      .playlist-icon { font-size: 2.5rem; }
+      .playlist-title { font-size: 1.3rem; }
+      .playlist-desc { font-size: .9rem; }
+      .btn-youtube { padding: 12px 24px; font-size: .9rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -67,49 +148,25 @@
   </div>
 
   <section class="section">
-    <div class="container">
+    <div class="playlist-section">
       
-      <!-- عنوار قائمة التشغيل -->
-      <div class="playlist-header">
-        <button class="playlist-toggle" id="playlistToggle" aria-expanded="false">
-          <span class="playlist-icon-btn">&#127909;</span>
-          <div class="playlist-info">
-            <h2 class="playlist-name" id="playlistName">جارٍ تحميل قائمة التشغيل...</h2>
-            <p class="playlist-count" id="playlistCount"></p>
-          </div>
-          <span class="playlist-arrow" id="playlistArrow">▼</span>
-        </button>
+      <div class="playlist-intro">
+        <div class="playlist-icon">🎬</div>
+        <h2 class="playlist-title">قائمة المقاطع القرآنية</h2>
+        <p class="playlist-desc">مجموعة من المقاطع القرآنية المختارة، تُحدَّث تلقائياً عند إضافة مقاطع جديدة</p>
       </div>
 
-      <!-- قائمة المقاطع -->
-      <div class="playlist-videos" id="playlistVideos" style="display:none;">
-        <div class="videos-loading">
-          <div class="loading-spinner"></div>
-          <p>جارٍ تحميل المقاطع...</p>
-        </div>
+      <div class="youtube-embed-container">
+        <iframe 
+          src="https://www.youtube.com/embed?listType=playlist&list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e&rel=0&modestbranding=1"
+          title="قائمة المقاطع القرآنية"
+          frameborder="0"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
       </div>
 
-      <!-- مشغل يوتيوب -->
-      <div class="youtube-player-wrapper" id="playerWrapper" style="display:none;">
-        <div class="youtube-player-container">
-          <div class="player-header">
-            <button class="player-close" id="playerClose">×</button>
-            <h3 class="player-title" id="playerTitle">مشغل الفيديو</h3>
-          </div>
-          <div class="player-embed">
-            <iframe 
-              id="youtube-player"
-              src=""
-              title="مشغل YouTube"
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- زر فتح في يوتيوب -->
       <div class="playlist-actions">
         <a href="https://youtube.com/playlist?list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e" 
            target="_blank" 
@@ -129,7 +186,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
+        <p class="footer-ayah">﴿ إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
@@ -181,7 +238,6 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/playlist.js"></script>
 
 </body>
 </html>
