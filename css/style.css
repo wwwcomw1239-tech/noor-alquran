@@ -25,6 +25,11 @@
   --font-ui:    'Cairo', sans-serif;
   --font-quran: 'Amiri', serif;
   --nav-h: 48px;
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -318,121 +323,134 @@ ul { list-style: none; }
 }
 
 /* =========================================
-   صفحة عن الموقع
+   صفحة عن الموقع - محسّنة
    ========================================= */
 .about-content {
-  max-width: 800px;
+  max-width: 840px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
+
+/* صندوق الرؤية */
 .vision-box {
-  background: linear-gradient(135deg, rgba(26,71,49,.06) 0%, rgba(201,168,76,.08) 100%);
-  border: 2px solid var(--clr-border);
+  background: linear-gradient(135deg, rgba(26,71,49,.05) 0%, rgba(201,168,76,.06) 100%);
+  border: 2px solid rgba(201,168,76,.25);
   border-radius: var(--radius-md);
-  padding: 32px 28px;
+  padding: var(--spacing-lg);
   text-align: center;
-  margin-bottom: 34px;
+  margin-bottom: var(--spacing-xl);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(26,71,49,.08);
 }
 .vision-box::before {
   content: '✦';
-  position: absolute; top: 10px; right: 15px;
-  font-size: 1.4rem; color: var(--clr-gold); opacity: .2;
+  position: absolute; top: 16px; right: 20px;
+  font-size: 1.5rem; color: var(--clr-gold); opacity: .15;
 }
 .vision-box::after {
   content: '✦';
-  position: absolute; bottom: 10px; left: 15px;
-  font-size: 1.4rem; color: var(--clr-gold); opacity: .2;
+  position: absolute; bottom: 16px; left: 20px;
+  font-size: 1.5rem; color: var(--clr-gold); opacity: .15;
 }
 .vision-label {
   display: inline-block;
-  font-size: .82rem; font-weight: 700;
+  font-size: .8rem; font-weight: 700;
   color: var(--clr-primary);
-  background: rgba(26,71,49,.1);
-  padding: 4px 16px; border-radius: 20px;
-  margin-bottom: 12px;
+  background: rgba(26,71,49,.12);
+  padding: 6px 18px; 
+  border-radius: 20px;
+  margin-bottom: var(--spacing-sm);
   text-transform: uppercase;
-  letter-spacing: .5px;
+  letter-spacing: .8px;
 }
 .vision-text {
-  font-size: 1.55rem; font-weight: 800;
+  font-size: 1.7rem; 
+  font-weight: 800;
   color: var(--clr-primary);
   line-height: 1.6;
-  margin-bottom: 18px;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -.3px;
 }
 .vision-dua {
   font-family: var(--font-quran);
-  font-size: 1.15rem; color: var(--clr-gold);
-  line-height: 2; font-weight: 400;
+  font-size: 1.2rem; 
+  color: var(--clr-gold);
+  line-height: 2; 
+  font-weight: 400;
 }
 
+/* فقرات النص */
 .about-text {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   color: var(--clr-text);
-  line-height: 2;
+  line-height: 2.1;
   text-align: justify;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-lg);
 }
 .about-text strong {
   color: var(--clr-primary);
   font-weight: 700;
 }
 
-/* ===== قنوات التواصل الاجتماعي ===== */
+/* قسم قنوات التواصل */
 .social-channels {
-  margin-top: 48px;
-  padding: 36px 28px;
-  background: linear-gradient(135deg, rgba(26,71,49,.04) 0%, rgba(201,168,76,.06) 100%);
-  border: 2px solid var(--clr-border);
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(26,71,49,.03) 0%, rgba(201,168,76,.05) 100%);
+  border: 2px solid rgba(201,168,76,.2);
   border-radius: var(--radius-md);
+  box-shadow: 0 2px 12px rgba(26,71,49,.06);
 }
 .social-channels-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.65rem;
+  font-weight: 800;
   color: var(--clr-primary);
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: -.3px;
 }
 .social-channels-desc {
   text-align: center;
   color: var(--clr-text-muted);
-  font-size: .95rem;
-  margin-bottom: 28px;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.7;
 }
 .channels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
 }
 .channel-card {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
   background: var(--clr-white);
   border: 2px solid var(--clr-border);
   border-radius: var(--radius-md);
-  transition: transform .22s, box-shadow .22s, border-color .22s;
+  transition: transform .24s, box-shadow .24s, border-color .24s;
   box-shadow: var(--shadow-sm);
 }
 .channel-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 24px rgba(26,71,49,.14);
   border-color: var(--clr-gold);
 }
 .channel-icon {
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: transform .22s;
+  transition: transform .24s;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 .channel-card:hover .channel-icon {
-  transform: scale(1.1);
+  transform: scale(1.08) rotate(5deg);
 }
 .telegram-icon {
   background: linear-gradient(135deg, #0088cc 0%, #229ed9 100%);
@@ -447,40 +465,63 @@ ul { list-style: none; }
   min-width: 0;
 }
 .channel-name {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: var(--clr-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  letter-spacing: -.2px;
 }
 .channel-desc {
-  font-size: .85rem;
+  font-size: .9rem;
   color: var(--clr-text-muted);
-  margin-bottom: 6px;
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.6;
 }
 .channel-link {
   display: block;
-  font-size: .78rem;
+  font-size: .8rem;
   color: var(--clr-gold);
   font-weight: 600;
   direction: ltr;
   text-align: left;
+  opacity: .9;
 }
 .channel-arrow {
   flex-shrink: 0;
-  font-size: 1.3rem;
-  color: var(--clr-text-muted);
-  transition: color .22s, transform .22s;
+  font-size: 1.4rem;
+  color: rgba(26,71,49,.25);
+  transition: color .24s, transform .24s;
 }
 .channel-card:hover .channel-arrow {
   color: var(--clr-gold);
-  transform: translateX(-4px);
+  transform: translateX(-6px);
 }
 
 /* ===== Page Header ===== */
-.page-header { background: linear-gradient(150deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%); padding: 52px 20px 46px; text-align: center; color: var(--clr-white); }
-.page-header h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; margin-bottom: 8px; }
-.page-header p { font-size: .97rem; color: rgba(255,255,255,.68); margin-bottom: 18px; }
-.page-line { width: 56px; height: 3px; background: var(--clr-gold); border-radius: 2px; margin: 0 auto; }
+.page-header { 
+  background: linear-gradient(150deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%); 
+  padding: 56px 20px 50px; 
+  text-align: center; 
+  color: var(--clr-white); 
+}
+.page-header h1 { 
+  font-size: clamp(2rem,4.5vw,3rem); 
+  font-weight: 800; 
+  margin-bottom: 12px;
+  letter-spacing: -.5px; 
+}
+.page-header p { 
+  font-size: 1rem; 
+  color: rgba(255,255,255,.7); 
+  margin-bottom: var(--spacing-md); 
+}
+.page-line { 
+  width: 64px; 
+  height: 4px; 
+  background: var(--clr-gold); 
+  border-radius: 2px; 
+  margin: 0 auto; 
+}
 
 /* ===== Footer ===== */
 .footer { background: var(--clr-footer-bg); color: rgba(255,255,255,.78); padding-top: 50px; }
@@ -553,9 +594,13 @@ ul { list-style: none; }
   .tab-btn { padding: 11px 16px; font-size: .88rem; }
   .footer-email { font-size: .88rem; }
   .search-overlay { padding: 40px 14px 20px; }
-  .vision-text { font-size: 1.3rem; }
-  .vision-dua { font-size: 1rem; }
+  .about-content { padding: var(--spacing-lg) var(--spacing-sm); }
+  .vision-text { font-size: 1.4rem; }
+  .vision-dua { font-size: 1.05rem; }
+  .social-channels { padding: var(--spacing-lg) var(--spacing-sm); }
+  .social-channels-title { font-size: 1.4rem; }
   .channels-grid { grid-template-columns: 1fr; }
+  .channel-icon { width: 54px; height: 54px; }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -564,7 +609,15 @@ ul { list-style: none; }
   .tab-btn { padding: 10px 13px; font-size: .84rem; }
   .tab-btn .tab-icon { display: none; }
   .social-links { display: none; }
-  .vision-text { font-size: 1.15rem; }
-  .social-channels { padding: 24px 18px; }
-  .social-channels-title { font-size: 1.25rem; }
+  .about-content { padding: var(--spacing-md) var(--spacing-sm); }
+  .vision-box { padding: var(--spacing-md); }
+  .vision-text { font-size: 1.25rem; }
+  .vision-dua { font-size: .95rem; }
+  .about-text { font-size: 1rem; line-height: 1.95; }
+  .social-channels { padding: var(--spacing-md) var(--spacing-sm); }
+  .social-channels-title { font-size: 1.3rem; }
+  .channel-card { padding: var(--spacing-sm); gap: 12px; }
+  .channel-icon { width: 48px; height: 48px; }
+  .channel-name { font-size: 1.05rem; }
+  .channel-desc { font-size: .85rem; }
 }
