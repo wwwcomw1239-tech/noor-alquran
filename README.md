@@ -9,7 +9,8 @@
 | `index.html` | الصفحة الرئيسية |
 | `books.html` | صفحة الكتب |
 | `reflections.html` | صفحة التدبرات |
-| `clips.html` | صفحة المقاطع القرآنية |
+| `clips.html` | صفحة المقاطع (آية وتفسير) |
+| `about.html` | عن الموقع |
 
 ## الهيكل
 
@@ -19,6 +20,7 @@ noor-alquran/
 ├── books.html
 ├── reflections.html
 ├── clips.html
+├── about.html
 ├── css/
 │   └── style.css
 ├── js/
