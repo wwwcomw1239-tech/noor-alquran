@@ -379,6 +379,103 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
+/* ===== قنوات التواصل الاجتماعي ===== */
+.social-channels {
+  margin-top: 48px;
+  padding: 36px 28px;
+  background: linear-gradient(135deg, rgba(26,71,49,.04) 0%, rgba(201,168,76,.06) 100%);
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-md);
+}
+.social-channels-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.social-channels-desc {
+  text-align: center;
+  color: var(--clr-text-muted);
+  font-size: .95rem;
+  margin-bottom: 28px;
+}
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.channel-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--clr-white);
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  transition: transform .22s, box-shadow .22s, border-color .22s;
+  box-shadow: var(--shadow-sm);
+}
+.channel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--clr-gold);
+}
+.channel-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform .22s;
+}
+.channel-card:hover .channel-icon {
+  transform: scale(1.1);
+}
+.telegram-icon {
+  background: linear-gradient(135deg, #0088cc 0%, #229ed9 100%);
+  color: white;
+}
+.youtube-icon {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: white;
+}
+.channel-info {
+  flex: 1;
+  min-width: 0;
+}
+.channel-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  margin-bottom: 4px;
+}
+.channel-desc {
+  font-size: .85rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 6px;
+}
+.channel-link {
+  display: block;
+  font-size: .78rem;
+  color: var(--clr-gold);
+  font-weight: 600;
+  direction: ltr;
+  text-align: left;
+}
+.channel-arrow {
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  color: var(--clr-text-muted);
+  transition: color .22s, transform .22s;
+}
+.channel-card:hover .channel-arrow {
+  color: var(--clr-gold);
+  transform: translateX(-4px);
+}
+
 /* ===== Page Header ===== */
 .page-header { background: linear-gradient(150deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%); padding: 52px 20px 46px; text-align: center; color: var(--clr-white); }
 .page-header h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; margin-bottom: 8px; }
@@ -458,6 +555,7 @@ ul { list-style: none; }
   .search-overlay { padding: 40px 14px 20px; }
   .vision-text { font-size: 1.3rem; }
   .vision-dua { font-size: 1rem; }
+  .channels-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -467,4 +565,6 @@ ul { list-style: none; }
   .tab-btn .tab-icon { display: none; }
   .social-links { display: none; }
   .vision-text { font-size: 1.15rem; }
+  .social-channels { padding: 24px 18px; }
+  .social-channels-title { font-size: 1.25rem; }
 }
