@@ -45,6 +45,7 @@
     </div>
   </nav>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -55,6 +56,84 @@
     </div>
   </section>
 
+  <!-- أحدث الإضافات -->
+  <section class="section section-alt" id="latest">
+    <div class="container">
+
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">أحدث الإضافات</h2>
+          <p class="section-desc">آخر ما أُضيف إلى الموقع</p>
+        </div>
+      </div>
+
+      <!-- التبويبات -->
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-tab="tab-books">
+            <span class="tab-icon">&#128218;</span> كتب
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-clips">
+            <span class="tab-icon">&#127909;</span> مقاطع
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-reflections">
+            <span class="tab-icon">&#127807;</span> تدبرات
+          </button>
+        </div>
+      </div>
+
+      <!-- لوحة: كتب -->
+      <div class="tab-panel active" id="tab-books" role="tabpanel">
+        <div class="cards-grid">
+          <div class="card book-card">
+            <div class="card-body">
+              <span class="card-tag">تدبر القرآن</span>
+              <h3 class="card-title">أول مرة أتدبر القرآن</h3>
+              <p class="card-author">الشيخ عادل محمد خليل</p>
+              <p class="card-text">دليلك العملي الأنسب للمبتدئين في رحلة تدبر كتاب الله، يستعرض سور القرآن بالترتيب موضحاً لكل سورة أسماؤها وفضلها ومحورها الرئيسي.</p>
+              <div class="book-meta">
+                <span class="meta-item">&#128196; 368 صفحة</span>
+                <span class="meta-item">&#127981; شركة اس بي — الكويت</span>
+                <span class="meta-item">&#128197; ط.ّ 13 | 1438هـ</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">368 صفحة &nbsp;|&nbsp; 1438هـ</span>
+              <a href="books.html" class="card-link">عرض التفاصيل &laquo;</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-footer">
+          <a href="books.html" class="btn-view-all">عرض كل الكتب &laquo;</a>
+        </div>
+      </div>
+
+      <!-- لوحة: مقاطع -->
+      <div class="tab-panel" id="tab-clips" role="tabpanel">
+        <div class="empty-state">
+          <div class="empty-icon">&#127909;</div>
+          <p>سيتم إضافة المقاطع قريباً</p>
+        </div>
+        <div class="tab-footer">
+          <a href="clips.html" class="btn-view-all">عرض كل المقاطع &laquo;</a>
+        </div>
+      </div>
+
+      <!-- لوحة: تدبرات -->
+      <div class="tab-panel" id="tab-reflections" role="tabpanel">
+        <div class="empty-state">
+          <div class="empty-icon">&#127807;</div>
+          <p>سيتم إضافة التدبرات قريباً</p>
+        </div>
+        <div class="tab-footer">
+          <a href="reflections.html" class="btn-view-all">عرض كل التدبرات &laquo;</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- الكتب -->
   <section class="section" id="books">
     <div class="container">
       <div class="section-header">
@@ -81,6 +160,7 @@
     </div>
   </section>
 
+  <!-- التدبرات -->
   <section class="section section-alt" id="reflections">
     <div class="container">
       <div class="section-header">
@@ -97,6 +177,7 @@
     </div>
   </section>
 
+  <!-- المقاطع -->
   <section class="section" id="clips">
     <div class="container">
       <div class="section-header">
@@ -155,5 +236,27 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+
+  <script>
+    /* ===== منطق التبويبات ===== */
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var target = btn.getAttribute('data-tab');
+        // إزالة التفعيل من الجميع
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach(function(p) {
+          p.classList.remove('active');
+        });
+        // تفعيل المحدد
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  </script>
+
 </body>
 </html>
