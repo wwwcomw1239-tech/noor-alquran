@@ -12,30 +12,7 @@
 | `clips.html` | صفحة المقاطع (آية وتفسير) |
 | `about.html` | عن الموقع |
 
-## الهيكل
-
-```
-noor-alquran/
-├── index.html
-├── books.html
-├── reflections.html
-├── clips.html
-├── about.html
-├── css/
-│   └── style.css
-├── js/
-│   └── main.js
-└── README.md
-```
-
-## التقنيات المستخدمة
-
-- HTML5 مع دعم RTL كامل
-- CSS3 (متغيرات CSS، Grid، Flexbox، Responsive)
-- JavaScript (Vanilla JS)
-- خطوط: Cairo + Amiri (Google Fonts)
-
 ---
 
-<!-- deploy: 2026-02-19T19:09 -->
+<!-- deploy: 2026-02-20T03:02 -->
 **تطوير: داوود الاحمدي** &copy; 2026
