@@ -3,11 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
   <title>عن الموقع | نور القرآن</title>
+  <meta name="description" content="تعرف على موقع نور القرآن، منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
+  <meta name="keywords" content="عن نور القرآن, منصة إسلامية, علوم القرآن, دعوة, صدقة جارية">
+  <meta name="author" content="داوود الاحمدي">
+  <link rel="canonical" href="https://noor-alquran.pages.dev/about.html">
+  
+  <!-- PWA Meta Tags & Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1A4731">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://noor-alquran.pages.dev/about.html">
+  <meta property="og:title" content="عن الموقع | نور القرآن">
+  <meta property="og:description" content="منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
+  <meta property="og:site_name" content="نور القرآن">
+  <meta property="og:locale" content="ar_AR">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://noor-alquran.pages.dev/about.html">
+  <meta property="twitter:title" content="عن الموقع | نور القرآن">
+  <meta property="twitter:description" content="منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
+
+  <!-- Preconnect for Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #C9A84C 0%, #E3C46A 100%); width: 0%; z-index: 99999; transition: width 0.1s ease;"></div>
 
   <div class="hijri-bar">
     <div class="container">
@@ -157,6 +190,9 @@
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <button id="backToTop" aria-label="العودة للأعلى" style="position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #C9A84C 0%, #E3C46A 100%); color: #1A4731; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.22s; z-index: 999;">↑</button>
+
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
       <div class="search-header">
@@ -175,6 +211,43 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+  
+  <script>
+    // Register Service Worker for PWA (Offline functionality)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
 
+    // Scroll Progress Bar
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var progress = (scrollTop / scrollHeight) * 100;
+      document.getElementById('scrollProgress').style.width = progress + '%';
+    });
+
+    // Back to Top Button
+    var backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.style.opacity = '1';
+        backToTopBtn.style.visibility = 'visible';
+      } else {
+        backToTopBtn.style.opacity = '0';
+        backToTopBtn.style.visibility = 'hidden';
+      }
+    });
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    backToTopBtn.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.1) translateY(-3px)';
+    });
+    backToTopBtn.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1) translateY(0)';
+    });
+  </script>
 </body>
 </html>
