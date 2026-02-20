@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الصفحة غير موجودة | نور القرآن</title>
+  <meta name="description" content="عذراً، الصفحة التي تبحث عنها غير موجودة. عُد إلى الصفحة الرئيسية لموقع نور القرآن.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --clr-primary: #1A4731;
+      --clr-gold: #C9A84C;
+      --clr-gold-lt: #E3C46A;
+      --clr-bg: #FAFAF7;
+      --clr-text: #1C1C1C;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(150deg, #0F2A1C 0%, #1A4731 100%);
+      color: #fff;
+      direction: rtl;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container-404 {
+      max-width: 600px;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 25%, var(--clr-gold-lt) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+    }
+    .error-code {
+      font-size: 8rem;
+      font-weight: 800;
+      color: var(--clr-gold);
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(201,168,76,0.4);
+    }
+    .error-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    .error-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 36px;
+      background: var(--clr-gold);
+      color: var(--clr-primary);
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.22s, box-shadow 0.22s;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+    }
+    .btn-home:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(201,168,76,0.5);
+    }
+    .ornament {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .ornament span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--clr-gold);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    .ornament span:nth-child(2) {
+      opacity: 0.85;
+      transform: scale(1.3);
+    }
+    @media (max-width: 480px) {
+      .error-code { font-size: 5rem; }
+      .error-title { font-size: 1.4rem; }
+      .error-desc { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-404">
+    <div class="logo">نور القرآن</div>
+    <div class="error-code">404</div>
+    <h1 class="error-title">الصفحة غير موجودة</h1>
+    <p class="error-desc">
+      عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.<br>
+      يمكنك العودة إلى الصفحة الرئيسية.
+    </p>
+    <a href="/" class="btn-home">
+      <span>العودة للرئيسية</span>
+      <span>←</span>
+    </a>
+    <div class="ornament">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</body>
+</html>
