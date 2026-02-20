@@ -11,6 +11,11 @@
   <meta name="author" content="داوود الاحمدي">
   <link rel="canonical" href="https://noor-alquran.pages.dev/">
   
+  <!-- PWA Meta Tags & Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1A4731">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noor-alquran.pages.dev/">
@@ -283,6 +288,19 @@
   <script src="js/main.js"></script>
 
   <script>
+    // Register Service Worker for PWA (Offline functionality)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('PWA ServiceWorker registered successfully!');
+          })
+          .catch(function(err) {
+            console.log('PWA ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+
     // Tab switching
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
