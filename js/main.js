@@ -6,6 +6,117 @@
 (function () {
   'use strict';
 
+  /* ===============================================
+     🌙 الوضع الليلي — Dark Mode
+     =============================================== */
+  (function initDarkMode() {
+    var STORAGE_KEY = 'noor-theme';
+
+    // CSS injection for Dark Mode
+    var css = [
+      '[data-theme="dark"] {',
+      '  --clr-primary: #0F1C15;',
+      '  --clr-primary-dk: #070D0A;',
+      '  --clr-primary-lt: #1A3025;',
+      '  --clr-gold: #D8B75E;',
+      '  --clr-gold-lt: #E8CC81;',
+      '  --clr-bg: #121212;',
+      '  --clr-bg-alt: #1E1E1E;',
+      '  --clr-text: #E0E0E0;',
+      '  --clr-text-muted: #A0A0A0;',
+      '  --clr-white: #1E1E1E;',
+      '  --clr-border: #2C2C2C;',
+      '  --clr-footer-bg: #070D0A;',
+      '  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);',
+      '  --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);',
+      '}',
+      '[data-theme="dark"] body { background: var(--clr-bg); color: var(--clr-text); }',
+      '[data-theme="dark"] .card { background: var(--clr-bg-alt); border-color: var(--clr-border); }',
+      '[data-theme="dark"] .navbar { background: var(--clr-primary-dk); }',
+      '[data-theme="dark"] .nav-top { background: #040806; }',
+      '[data-theme="dark"] .nav-bottom { background: var(--clr-primary-dk); }',
+      '[data-theme="dark"] .search-input-wrap input { background: #2A2A2A; color: #FFF; border-color: #444; }',
+      '[data-theme="dark"] .s-result { background: #222; border-color: #333; }',
+      '[data-theme="dark"] .search-overlay { background: rgba(0,0,0,0.92); }',
+      '[data-theme="dark"] .playlist-toggle { background: #1A1A1A; border-color: #333; }',
+      '[data-theme="dark"] .video-item { background: #1A1A1A; border-color: #333; }',
+      '[data-theme="dark"] .vision-box { background: #1A1A1A; border-color: #333; }',
+      '[data-theme="dark"] .social-channels { background: #1A1A1A; border-color: #333; }',
+      '[data-theme="dark"] .channel-card { background: #222; border-color: #333; }',
+      '[data-theme="dark"] .youtube-player-container { background: #111; border-color: var(--clr-gold); }',
+      '[data-theme="dark"] .player-header { background: #222; }',
+      '[data-theme="dark"] .hero-bg { background: linear-gradient(160deg, #070D0A 0%, #0F1C15 55%, #070D0A 100%); }',
+      '[data-theme="dark"] .page-header { background: linear-gradient(150deg, #070D0A 0%, #0F1C15 100%); }',
+      '[data-theme="dark"] .footer { background: #050A07; border-top: 1px solid #1A1A1A; }',
+      '[data-theme="dark"] .btn-outline { color: var(--clr-gold); border-color: var(--clr-gold); }',
+      '[data-theme="dark"] .btn-outline:hover { background: var(--clr-gold); color: #000; }',
+      '[data-theme="dark"] .tab-btn { color: var(--clr-text-muted); }',
+      '[data-theme="dark"] .tab-btn.active { color: var(--clr-gold); background: rgba(255,255,255,0.05); }',
+      '[data-theme="dark"] .logo-text { background: linear-gradient(135deg, #ffffff 25%, var(--clr-gold) 100%); -webkit-background-clip: text; }',
+      '[data-theme="dark"] .book-meta .meta-item { background: #2A2A2A; color: #CCC; }',
+      '[data-theme="dark"] .nav-links { background: var(--clr-primary-dk); }',
+      // Theme Toggle Button Styles
+      '.theme-toggle {',
+      '  display: flex; align-items: center; justify-content: center;',
+      '  width: 36px; height: 36px;',
+      '  background: rgba(255,255,255,0.1);',
+      '  border: none; border-radius: var(--radius-sm);',
+      '  color: var(--clr-white); font-size: 1.15rem;',
+      '  cursor: pointer; transition: background 0.22s, transform 0.22s;',
+      '}',
+      '.theme-toggle:hover { background: rgba(201,168,76,0.3); transform: scale(1.05); }',
+      '[data-theme="dark"] .theme-toggle { background: rgba(255,255,255,0.05); color: var(--clr-gold); }',
+      '[data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,0.15); }',
+      'html { transition: background-color 0.3s ease, color 0.3s ease; }'
+    ].join('\n');
+
+    var styleEl = document.createElement('style');
+    styleEl.textContent = css;
+    document.head.appendChild(styleEl);
+
+    // Check localStorage & system preference
+    var savedTheme = localStorage.getItem(STORAGE_KEY);
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // Insert button after DOM is loaded
+    window.addEventListener('DOMContentLoaded', function() {
+      var navActions = document.querySelector('.nav-actions');
+      if (navActions) {
+        var themeBtn = document.createElement('button');
+        themeBtn.className = 'theme-toggle';
+        themeBtn.id = 'themeToggle';
+        themeBtn.setAttribute('aria-label', 'تبديل الوضع الليلي');
+        themeBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        var searchBtn = document.getElementById('searchToggle');
+        if (searchBtn) {
+          navActions.insertBefore(themeBtn, searchBtn);
+        } else {
+          navActions.appendChild(themeBtn);
+        }
+
+        themeBtn.addEventListener('click', function() {
+          var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          var newTheme = isDark ? 'light' : 'dark';
+          
+          if (newTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+          }
+          
+          localStorage.setItem(STORAGE_KEY, newTheme);
+          themeBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+      }
+    });
+  })();
+
   /* ================================================
      شريط الإشعار المتحرك — الموقع تحت التجربة
      ================================================ */
