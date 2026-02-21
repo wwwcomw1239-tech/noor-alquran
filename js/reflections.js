@@ -6,47 +6,84 @@
   'use strict';
 
   // رابط Google Sheets (نستخدم الـ ID الخاص بملفك)
-  // الرابط الذي أرسلته: 1lI2aJYIDnvg3_r8RYDtIB7nPolj9Yi9CyTTMxX8TxRY
   var SHEET_ID = '1lI2aJYIDnvg3_r8RYDtIB7nPolj9Yi9CyTTMxX8TxRY';
   
   // نستخدم رابط التصدير المباشر كـ CSV
   var SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&id=' + SHEET_ID;
 
-  // دالة لتحويل نص الـ CSV إلى مصفوفة كائنات (Array of Objects)
-  function parseCSV(csvText) {
-    var lines = csvText.split('\n');
+  // دالة متقدمة لتحليل نص الـ CSV (تدعم النصوص التي تحتوي على فواصل وأسطر جديدة)
+  function parseCSV(csv) {
     var result = [];
     var headers = [];
+    var rows = [];
+    var curVal = '';
+    var inQuotes = false;
+    var row = [];
 
-    // تنظيف كل سطر من المسافات والفواصل الزائدة
-    for (var i = 0; i < lines.length; i++) {
-      // تجاهل الأسطر الفارغة تماماً
-      if (!lines[i].trim()) continue;
+    // قراءة حرف حرف لتجنب أخطاء الفواصل داخل النصوص
+    for (var i = 0; i < csv.length; i++) {
+      var char = csv[i];
+      var nextChar = csv[i + 1];
 
-      // قراءة الخلايا بشكل مبسط (مع دعم الفواصل داخل النص إذا كان محاطاً بعلامات اقتباس)
-      var currentline = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+      if (inQuotes) {
+        if (char === '"') {
+          if (nextChar === '"') {
+            curVal += '"';
+            i++; // تخطي علامة الاقتباس المزدوجة
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          curVal += char;
+        }
+      } else {
+        if (char === '"') {
+          inQuotes = true;
+        } else if (char === ',') {
+          row.push(curVal);
+          curVal = '';
+        } else if (char === '\n' || char === '\r') {
+          row.push(curVal);
+          rows.push(row);
+          row = [];
+          curVal = '';
+          if (char === '\r' && nextChar === '\n') {
+            i++; // تخطي \n
+          }
+        } else {
+          curVal += char;
+        }
+      }
+    }
+    
+    // الدفع بالسطر الأخير إن وجد
+    if (curVal !== '' || row.length > 0) {
+      row.push(curVal);
+      rows.push(row);
+    }
+
+    if (rows.length === 0) return result;
+
+    headers = rows[0].map(function(h) { return h.toLowerCase().trim(); });
+
+    for (var r = 1; r < rows.length; r++) {
+      var currentRow = rows[r];
+      // تجاهل الأسطر الفارغة
+      if (currentRow.join('').trim() === '') continue;
+
+      var obj = {};
+      var hasContent = false;
       
-      // تنظيف علامات الاقتباس حول النصوص
-      for (var j = 0; j < currentline.length; j++) {
-        currentline[j] = currentline[j].replace(/^"|"$/g, '').replace(/""/g, '"').trim();
+      for (var c = 0; c < headers.length; c++) {
+        var key = headers[c];
+        if (key) {
+          obj[key] = currentRow[c] ? currentRow[c].trim() : '';
+          if (obj[key]) hasContent = true;
+        }
       }
 
-      // الصف الأول هو العناوين
-      if (i === 0) {
-        headers = currentline;
-      } else {
-        var obj = {};
-        var hasContent = false;
-        for (var j = 0; j < headers.length; j++) {
-          if (headers[j]) { // فقط إذا كان للعمود عنوان
-            var key = headers[j].toLowerCase().trim();
-            obj[key] = currentline[j] || '';
-            if (obj[key]) hasContent = true;
-          }
-        }
-        if (hasContent) {
-          result.push(obj);
-        }
+      if (hasContent) {
+        result.push(obj);
       }
     }
     return result;
@@ -63,10 +100,10 @@
     }
 
     grid.innerHTML = items.map(function(item) {
-      // البحث عن القيم بمرونة (أياً كانت طريقة كتابة العناوين)
-      var ayah  = item.ayah || item['الآية'] || item['السورة'] || item['سورة'] || 'تدبر قرآني';
-      var title = item.title || item['العنوان'] || item['الموضوع'] || 'بدون عنوان';
-      var text  = item.text || item['النص'] || item['التدبر'] || item['المحتوى'] || '';
+      // البحث عن القيم بمرونة تامة، أياً كان ما كتبته في رأس العمود (العربي أو الإنجليزي)
+      var ayah  = item.ayah || item['الآية'] || item['السورة'] || item['سورة'] || item['العنوان الفرعي'] || 'تأملات قرآنية';
+      var title = item.title || item['العنوان'] || item['الموضوع'] || item['الفكرة'] || 'بدون عنوان';
+      var text  = item.text || item['النص'] || item['التدبر'] || item['المحتوى'] || item['الشرح'] || '';
       var link  = item.link || item['الرابط'] || item['المصدر'] || '';
 
       // إذا لم يكن هناك نص، لا ترسم البطاقة
@@ -85,7 +122,7 @@
             '<p class="card-text" style="direction: rtl; text-align: justify; font-size: 0.95rem; line-height: 1.8; color: var(--clr-text-muted); margin-bottom:0;">' + text + '</p>' +
           '</div>' +
           '<div class="card-footer">' +
-            '<span class="card-date" style="font-size:0.8rem;">تأملات</span>' +
+            '<span class="card-date" style="font-size:0.8rem;">تدبر</span>' +
             linkHtml +
           '</div>' +
         '</article>'
@@ -102,7 +139,7 @@
     grid.innerHTML = 
       '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--clr-text-muted);">' +
         '<div style="display:inline-block; width:44px; height:44px; border:4px solid rgba(26,71,49,.1); border-top-color:var(--clr-gold); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:18px;"></div>' +
-        '<p style="font-size:1.1rem; font-weight:600;">جارٍ جلب التدبرات...</p>' +
+        '<p style="font-size:1.1rem; font-weight:600;">جارٍ جلب التدبرات من القاعدة...</p>' +
       '</div>';
 
     fetch(SHEET_URL)
@@ -112,12 +149,12 @@
       })
       .then(function(csvText) {
         var items = parseCSV(csvText);
-        // عكس المصفوفة لتظهر الأحدث (الأسفل في الجدول) أولاً
+        // عكس المصفوفة لتظهر التدبرات الأحدث (المضافة أسفل الجدول) أولاً في الموقع
         renderReflections(items.reverse());
       })
       .catch(function(err) {
         console.error("Failed to fetch Google Sheet:", err);
-        grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-icon">&#127807;</div><p>عذراً، لم نتمكن من الاتصال بقاعدة البيانات. (تأكد من تغيير صلاحية رابط جوجل شيت إلى "أي شخص لديه الرابط يمكنه العرض")</p></div>';
+        grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-icon">&#127807;</div><p>عذراً، لم نتمكن من الاتصال بقاعدة البيانات. (تأكد أن ملف جوجل شيتس متاح للعرض للجميع)</p></div>';
       });
   }
 
