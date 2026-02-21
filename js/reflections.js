@@ -5,23 +5,42 @@
 (function () {
   'use strict';
 
-  // نستخدم RSS to JSON API مع موقع إسلام ويب كخيار قوي جداً ومدعوم
-  // أو أي خلاصة أخرى موثوقة
-  var PRIMARY_RSS = 'https://islamweb.net/ar/rss/articles/2/155'; // قسم القرآن وعلومه - إسلام ويب
-  var FALLBACK_RSS = 'http://www.saaid.net/rss/quran.xml'; // صيد الفوائد - قسم القرآن
+  // رابط RSS لإسلام ويب - قسم القرآن وعلومه
+  var ISLAMWEB_RSS = 'https://islamweb.net/ar/rss/articles/2/155';
   
-  // دالة لجلب الرابط عبر خدمة rss2json 
-  function getApiUrl(rssUrl) {
-    return 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&count=12';
-  }
+  // نستخدم AllOrigins Proxy كبديل قوي لتخطي حظر CORS و rss2json
+  var PROXY_URL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(ISLAMWEB_RSS);
 
-  // أداة لإزالة أكواد HTML من النصوص (لتجنب تشوه التصميم)
+  // أداة لإزالة أكواد HTML من النصوص
   function stripHtml(html) {
     var tmp = document.createElement('DIV');
     tmp.innerHTML = html;
     var text = tmp.textContent || tmp.innerText || '';
-    // إزالة المسافات الفارغة الزائدة
     return text.replace(/\s+/g, ' ').trim();
+  }
+
+  // أداة لتحليل نصوص XML يدوياً
+  function parseXml(xmlStr) {
+    var items = [];
+    var rx = /<item>([\s\S]*?)<\/item>/g;
+    var m;
+    while ((m = rx.exec(xmlStr)) !== null) {
+      var e = m[1];
+      var title = (/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/.exec(e) || /<title>([\s\S]*?)<\/title>/.exec(e) || [])[1] || '';
+      var link  = (/<link>([\s\S]*?)<\/link>/.exec(e) || [])[1] || '';
+      var desc  = (/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/.exec(e) || /<description>([\s\S]*?)<\/description>/.exec(e) || [])[1] || '';
+      var pub   = (/<pubDate>([\s\S]*?)<\/pubDate>/.exec(e) || [])[1] || '';
+      
+      if (title && link) {
+        items.push({
+          title: title.trim(),
+          link: link.trim(),
+          description: desc,
+          pubDate: pub.trim()
+        });
+      }
+    }
+    return items;
   }
 
   // دالة لرسم بطاقات التدبرات
@@ -34,33 +53,36 @@
       return;
     }
 
-    grid.innerHTML = items.map(function(item) {
+    // عرض أول 12 مقال فقط
+    var slicedItems = items.slice(0, 12);
+
+    grid.innerHTML = slicedItems.map(function(item) {
       // تهيئة وتنسيق التاريخ
       var dateStr = '';
       if (item.pubDate) {
-        var d = new Date(item.pubDate.replace(/-/g, '/')); // Fix for safari date parsing
-        if (!isNaN(d.getTime())) {
-          var mo = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-          dateStr = d.getDate() + ' ' + mo[d.getMonth()] + ' ' + d.getFullYear();
-        } else {
-           // Fallback date format if parsing fails
-           dateStr = item.pubDate.split(' ')[0] || '';
+        try {
+          var d = new Date(item.pubDate);
+          if (!isNaN(d.getTime())) {
+            var mo = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+            dateStr = d.getDate() + ' ' + mo[d.getMonth()] + ' ' + d.getFullYear();
+          } else {
+            dateStr = item.pubDate.split(' ')[0] || '';
+          }
+        } catch(e) {
+          dateStr = item.pubDate.split(' ')[0] || '';
         }
       }
 
       // تنظيف الوصف واقتطاعه ليكون متناسقاً داخل البطاقة
-      var rawDesc = stripHtml(item.description || item.content || '');
-      var desc = rawDesc.substring(0, 160).trim();
-      if (rawDesc.length > 160) desc += '...';
-      
-      // التأكد من وجود صورة أو وضع صورة افتراضية
-      var thumbnail = item.thumbnail || '';
+      var rawDesc = stripHtml(item.description);
+      var desc = rawDesc.substring(0, 150).trim();
+      if (rawDesc.length > 150) desc += '...';
 
       return (
         '<article class="card">' +
           '<div class="card-body">' +
-            '<span class="card-tag">تدبر آية</span>' +
-            '<h3 class="card-title" style="font-size: 1.1rem; margin-bottom: 12px; line-height: 1.6;">' + (item.title || 'بدون عنوان') + '</h3>' +
+            '<span class="card-tag">تدبر ومقال</span>' +
+            '<h3 class="card-title" style="font-size: 1.05rem; margin-bottom: 12px; line-height: 1.6;">' + item.title + '</h3>' +
             '<p class="card-text" style="direction: rtl; text-align: justify; margin-bottom:0;">' + desc + '</p>' +
           '</div>' +
           '<div class="card-footer">' +
@@ -77,45 +99,33 @@
     var grid = document.getElementById('reflectionsGrid');
     if (!grid) return;
 
-    // عرض مؤشر التحميل الدائري الجميل
+    // عرض مؤشر التحميل
     grid.innerHTML = 
       '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--clr-text-muted);">' +
         '<div style="display:inline-block; width:44px; height:44px; border:4px solid rgba(26,71,49,.1); border-top-color:var(--clr-gold); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:18px;"></div>' +
-        '<p style="font-size:1.1rem; font-weight:600;">جارٍ جلب أحدث التدبرات من المصادر الإسلامية...</p>' +
+        '<p style="font-size:1.1rem; font-weight:600;">جارٍ جلب أحدث المقالات والتدبرات...</p>' +
       '</div>';
 
-    // محاولة الجلب من المصدر الأول (إسلام ويب - أكثر استقراراً)
-    fetch(getApiUrl(PRIMARY_RSS))
+    fetch(PROXY_URL)
       .then(function(res) { 
-        if(!res.ok) throw new Error('Network response was not ok');
+        if(!res.ok) throw new Error('Proxy network error');
         return res.json(); 
       })
       .then(function(data) {
-        if (data.status === 'ok' && data.items && data.items.length > 0) {
-          renderReflections(data.items);
+        if (data && data.contents) {
+          var items = parseXml(data.contents);
+          if (items.length > 0) {
+            renderReflections(items);
+          } else {
+            throw new Error('No items found in XML');
+          }
         } else {
-          throw new Error('Empty data from primary RSS');
+          throw new Error('Empty response from proxy');
         }
       })
       .catch(function(err) {
-        console.warn("Primary RSS failed, trying fallback...", err);
-        // إذا فشل المصدر الأول، نحاول الجلب من المصدر الاحتياطي (صيد الفوائد)
-        fetch(getApiUrl(FALLBACK_RSS))
-          .then(function(res) { 
-            if(!res.ok) throw new Error('Network response was not ok');
-            return res.json(); 
-          })
-          .then(function(data) {
-             if (data.status === 'ok' && data.items && data.items.length > 0) {
-               renderReflections(data.items);
-             } else {
-               renderReflections([]); // إظهار رسالة الخطأ
-             }
-          })
-          .catch(function(fallbackErr) {
-            console.error("All RSS sources failed", fallbackErr);
-            renderReflections([]); // إظهار رسالة الخطأ
-          });
+        console.error("Failed to fetch RSS feed:", err);
+        renderReflections([]); // إظهار رسالة الخطأ للمستخدم
       });
   }
 
