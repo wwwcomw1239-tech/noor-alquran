@@ -5,8 +5,9 @@
 (function () {
   'use strict';
 
-  // الرابط الذي نشره المستخدم محولاً لـ CSV
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR09nKZKLeCPF2kO5-4eT-k9nxV6nxyKmeu6aUfz3bOq8XzfT1ObKKC9_KZoroCsmqi55cjlnnAnsRA/pub?output=csv';
+  // الرابط الجديد الخاص بملف الإكسل الجديد (باستخدام ID الملف الصحيح المستخرج من الصورة)
+  var SHEET_ID = '1Nw0Fo-ehbO2zLTK_3-NdTkFRldhUpZOGrP6dx3qQSS0';
+  var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv';
   
   // نستخدم AllOrigins Proxy لضمان تخطي أي حظر من المتصفح (CORS)
   var PROXY_URL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(CSV_URL);
