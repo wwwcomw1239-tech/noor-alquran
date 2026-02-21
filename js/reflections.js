@@ -5,10 +5,13 @@
 (function () {
   'use strict';
 
-  // الرابط الذي نشره المستخدم (نحوله من pubhtml إلى pub?output=csv لضمان عمله كبيانات خام)
+  // الرابط الذي نشره المستخدم محولاً لـ CSV
   var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR09nKZKLeCPF2kO5-4eT-k9nxV6nxyKmeu6aUfz3bOq8XzfT1ObKKC9_KZoroCsmqi55cjlnnAnsRA/pub?output=csv';
+  
+  // نستخدم AllOrigins Proxy لضمان تخطي أي حظر من المتصفح (CORS)
+  var PROXY_URL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(CSV_URL);
 
-  // أداة قراءة CSV دقيقة (تدعم الفواصل والأسطر المتعددة داخل الخلية الواحدة)
+  // أداة قراءة CSV دقيقة
   function parseCSV(text) {
     var result = [];
     var row = [];
@@ -60,28 +63,25 @@
     if (!grid) return;
 
     if (!rows || rows.length < 2) { 
-      grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-icon">&#127807;</div><p>لا توجد تدبرات حالياً. بانتظار إضافتها في ملف الإكسل.</p></div>';
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-icon">&#127807;</div><p>لا توجد تدبرات حالياً. بانتظار إضافتها في الإكسل.</p></div>';
       return;
     }
 
-    var headers = rows[0].map(function(h) { return h.toLowerCase().trim(); });
+    var headers = rows[0].map(function(h) { return h ? h.toLowerCase().trim() : ''; });
     var items = [];
 
-    // تحويل المصفوفات إلى كائنات (Objects)
     for (var i = 1; i < rows.length; i++) {
       var row = rows[i];
       if (row.join('').trim() === '') continue; // تجاهل الأسطر الفارغة
       
       var obj = {};
-      var hasText = false;
-      for (var j = 0; j < headers.length; j++) {
-        var key = headers[j];
-        if (key) {
-          obj[key] = row[j] ? row[j].trim() : '';
-          if (obj[key]) hasText = true;
-        }
+      // حفظ البيانات بالعناوين إن وجدت، وبالأرقام كاحتياطي
+      for (var j = 0; j < Math.max(headers.length, row.length); j++) {
+        var val = row[j] ? row[j].trim() : '';
+        if (headers[j]) obj[headers[j]] = val;
+        obj['col_' + j] = val; // احتياطي
       }
-      if (hasText) items.push(obj);
+      items.push(obj);
     }
 
     if (items.length === 0) {
@@ -89,16 +89,16 @@
       return;
     }
 
-    grid.innerHTML = items.map(function(item) {
-      // البحث بمرونة عن الأعمدة في الجدول
-      var ayah  = item['ayah'] || item['الآية'] || item['السورة'] || item['سورة'] || item['العنوان الفرعي'] || 'تأملات قرآنية';
-      var title = item['title'] || item['العنوان'] || item['الموضوع'] || 'بدون عنوان';
-      var text  = item['text'] || item['التدبر'] || item['النص'] || item['المحتوى'] || '';
-      var link  = item['link'] || item['الرابط'] || item['المصدر'] || '';
+    var cardsHtml = items.map(function(item) {
+      // البحث بمرونة عن الأعمدة في الجدول، أو الاعتماد على أرقام الأعمدة إذا كانت العناوين خاطئة
+      // نفترض: عمود 0 = السورة/الآية، عمود 1 = العنوان، عمود 2 = النص، عمود 3 = الرابط
+      var ayah  = item['ayah'] || item['الآية'] || item['السورة'] || item['سورة'] || item['col_0'] || 'تأملات قرآنية';
+      var title = item['title'] || item['العنوان'] || item['الموضوع'] || item['col_1'] || 'بدون عنوان';
+      var text  = item['text'] || item['التدبر'] || item['النص'] || item['المحتوى'] || item['الشرح'] || item['col_2'] || '';
+      var link  = item['link'] || item['الرابط'] || item['المصدر'] || item['col_3'] || '';
 
-      if (!text) return '';
+      if (!text) return ''; // إذا لم يوجد نص التدبر لا يتم عرض البطاقة
 
-      // تنظيف النص للعرض (تحويل الأسطر الجديدة في الإكسل إلى <br>)
       var formattedText = text.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
 
       var linkHtml = link 
@@ -118,7 +118,14 @@
           '</div>' +
         '</article>'
       );
-    }).reverse().join(''); // نعكس الترتيب ليكون الأحدث (أسفل الجدول) في الأعلى
+    }).reverse().join('');
+
+    if (!cardsHtml) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-icon">&#127807;</div><p>لم يتم العثور على محتوى للتدبرات. تأكد من الكتابة في العمود الثالث.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = cardsHtml;
   }
 
   function loadReflections() {
@@ -131,14 +138,20 @@
         '<p style="font-size:1.1rem; font-weight:600;">جارٍ تحميل التدبرات...</p>' +
       '</div>';
 
-    fetch(CSV_URL)
+    // استخدام البروكسي لجلب محتوى الإكسل دون مشاكل CORS
+    fetch(PROXY_URL)
       .then(function(res) { 
-        if(!res.ok) throw new Error('Network Error: ' + res.status);
-        return res.text(); 
+        if(!res.ok) throw new Error('Proxy Error: ' + res.status);
+        return res.json(); 
       })
-      .then(function(csvText) {
-        var rows = parseCSV(csvText);
-        renderReflections(rows);
+      .then(function(data) {
+        if (data && data.contents) {
+          // محتوى الإكسل موجود في data.contents
+          var rows = parseCSV(data.contents);
+          renderReflections(rows);
+        } else {
+          throw new Error('Empty contents from Proxy');
+        }
       })
       .catch(function(err) {
         console.error("Fetch Error:", err);
