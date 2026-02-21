@@ -1,11 +1,10 @@
-const CACHE_NAME = 'noor-alquran-v1';
+const CACHE_NAME = 'noor-alquran-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/about.html',
   '/books.html',
   '/clips.html',
-  '/reflections.html',
   '/404.html',
   '/css/style.css',
   '/js/main.js',
