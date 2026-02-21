@@ -1,4 +1,4 @@
-const CACHE_NAME = 'noor-alquran-v5';
+const CACHE_NAME = 'noor-alquran-v6';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
