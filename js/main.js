@@ -131,37 +131,38 @@
       '  background: linear-gradient(90deg, #1a4731 0%, #2d6a4f 40%, #c9a84c 70%, #1a4731 100%);',
       '  color: #fff;',
       '  overflow: hidden;',
-      '  padding: 5px 0;', /* Reduced padding to make it thinner */
-      '  border-bottom: 2px solid #c9a84c;',
-      '  box-shadow: 0 2px 8px rgba(0,0,0,0.2);',
+      '  padding: 3px 0;', /* Further reduced padding */
+      '  border-bottom: 1.5px solid #c9a84c;', /* Thinner border */
+      '  box-shadow: 0 1px 5px rgba(0,0,0,0.2);',
       '  direction: ltr;',
       '}',
       '#beta-ticker .ticker-track {',
       '  display: flex;',
       '  width: max-content;',
-      '  animation: beta-scroll 60s linear infinite;', /* Increased duration from 35s to 60s to reduce speed */
+      '  animation: beta-scroll 90s linear infinite;', /* Greatly increased duration (slower speed) */
       '}',
       '#beta-ticker .ticker-text {',
       '  font-family: "Cairo", sans-serif;',
-      '  font-size: 0.82rem;', /* Slightly reduced font size */
+      '  font-size: 0.76rem;', /* Smaller font size */
       '  font-weight: 700;',
-      '  letter-spacing: 0.3px;',
+      '  letter-spacing: 0.2px;',
       '  padding: 0 20px;',
       '  direction: rtl;',
+      '  line-height: 1.2;',
       '}',
       '#beta-ticker .ticker-close {',
       '  position: absolute;',
-      '  left: 8px;',
+      '  left: 6px;',
       '  top: 50%;',
       '  transform: translateY(-50%);',
       '  background: rgba(255,255,255,0.18);',
       '  border: none;',
       '  color: #fff;',
-      '  width: 18px;', /* Slightly smaller close button */
-      '  height: 18px;',
+      '  width: 16px;', /* Smaller button */
+      '  height: 16px;',
       '  border-radius: 50%;',
       '  cursor: pointer;',
-      '  font-size: 11px;',
+      '  font-size: 10px;', /* Smaller icon */
       '  line-height: 1;',
       '  display: flex;',
       '  align-items: center;',
