@@ -117,12 +117,11 @@
   })();
 
   /* ================================================
-     شريط الإشعار المتحرك — الموقع تحت التجربة
+     شريط الإشعار المتحرك — الموقع تحت التجربة (Marquee سلس)
      ================================================ */
   (function injectBetaBanner() {
-    var msg = '🚧  الموقع لا يزال تحت التجربة ولم ينطلق رسمياً بعد — سينطلق قريباً بإذن الله  ✨  '
-            + '🚧  الموقع لا يزال تحت التجربة ولم ينطلق رسمياً بعد — سينطلق قريباً بإذن الله  ✨  '
-            + '🚧  الموقع لا يزال تحت التجربة ولم ينطلق رسمياً بعد — سينطلق قريباً بإذن الله  ✨  ';
+    var singleMsg = '🚧 الموقع لا يزال تحت التجربة ولم ينطلق رسمياً بعد — سينطلق قريباً بإذن الله ✨';
+    var repeatedMsg = Array(12).fill(singleMsg).join(' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ');
 
     var css = [
       '#beta-ticker {',
@@ -132,21 +131,23 @@
       '  background: linear-gradient(90deg, #1a4731 0%, #2d6a4f 40%, #c9a84c 70%, #1a4731 100%);',
       '  color: #fff;',
       '  overflow: hidden;',
-      '  white-space: nowrap;',
       '  padding: 9px 0;',
       '  border-bottom: 2px solid #c9a84c;',
       '  box-shadow: 0 2px 10px rgba(0,0,0,0.25);',
+      '  direction: ltr;',
       '}',
       '#beta-ticker .ticker-track {',
-      '  display: inline-block;',
-      '  animation: beta-scroll 30s linear infinite;',
+      '  display: flex;',
+      '  width: max-content;',
+      '  animation: beta-scroll 35s linear infinite;',
       '}',
       '#beta-ticker .ticker-text {',
       '  font-family: "Cairo", sans-serif;',
       '  font-size: 0.88rem;',
       '  font-weight: 700;',
       '  letter-spacing: 0.3px;',
-      '  padding: 0 8px;',
+      '  padding: 0 20px;',
+      '  direction: rtl;',
       '}',
       '#beta-ticker .ticker-close {',
       '  position: absolute;',
@@ -166,11 +167,12 @@
       '  align-items: center;',
       '  justify-content: center;',
       '  transition: background 0.2s;',
+      '  z-index: 2;',
       '}',
       '#beta-ticker .ticker-close:hover { background: rgba(255,255,255,0.35); }',
       '@keyframes beta-scroll {',
-      '  0%   { transform: translateX(100vw); }',
-      '  100% { transform: translateX(-100%); }',
+      '  0%   { transform: translateX(-50%); }',
+      '  100% { transform: translateX(0); }',
       '}',
       '@media (prefers-reduced-motion: reduce) {',
       '  #beta-ticker .ticker-track { animation: none; }',
@@ -186,14 +188,19 @@
     bar.setAttribute('role', 'marquee');
     bar.setAttribute('aria-label', 'إشعار: الموقع تحت التجربة');
 
-    var track = document.createElement('span');
+    var track = document.createElement('div');
     track.className = 'ticker-track';
 
-    var textEl = document.createElement('span');
-    textEl.className = 'ticker-text';
-    textEl.textContent = msg;
+    var textEl1 = document.createElement('span');
+    textEl1.className = 'ticker-text';
+    textEl1.innerHTML = repeatedMsg;
 
-    track.appendChild(textEl);
+    var textEl2 = document.createElement('span');
+    textEl2.className = 'ticker-text';
+    textEl2.innerHTML = repeatedMsg;
+
+    track.appendChild(textEl1);
+    track.appendChild(textEl2);
     bar.appendChild(track);
 
     var closeBtn = document.createElement('button');

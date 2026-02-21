@@ -37,51 +37,24 @@ a { text-decoration: none; color: inherit; transition: color .2s; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }
 
-/* ===== Hijri Bar (News Ticker) ===== */
+/* ===== Hijri Bar ===== */
 .hijri-bar {
   background: #071610;
   padding: 8px 0;
   border-bottom: 1px solid rgba(201,168,76,.22);
   font-size: .85rem;
-  overflow: hidden; /* Hide overflow for ticker */
-  position: relative;
-  white-space: nowrap;
 }
 
 .hijri-bar .container {
-  display: inline-block;
-  min-width: 100%;
-  white-space: nowrap;
-  /* Animation: Enter from Left (-100%) -> Exit to Right (100%) */
-  /* Using specific keyframes below */
-  animation: tickerMove 25s linear infinite;
-  /* Ensure direction is consistent for the transform */
-  direction: ltr; 
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Force content back to RTL for correct text display if needed, 
-   but since it's a single line, flex/inline-block handles it. 
-   We just need the container to move L -> R */
 .hijri-right {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
-  direction: rtl; /* Text inside remains RTL */
-  margin: 0 20px;
-}
-
-@keyframes tickerMove {
-  0% {
-    transform: translateX(-100%); /* Start from far left */
-  }
-  100% {
-    transform: translateX(100vw); /* Move to far right */
-  }
-}
-
-.hijri-bar:hover .container {
-  animation-play-state: paused; /* Pause on hover */
 }
 
 .hijri-dot { display: inline-block; width: 7px; height: 7px; background: var(--clr-gold); border-radius: 50%; }
