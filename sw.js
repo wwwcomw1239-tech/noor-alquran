@@ -1,4 +1,4 @@
-const CACHE_NAME = 'noor-alquran-v3';
+const CACHE_NAME = 'noor-alquran-v4';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -49,11 +49,9 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Cache hit - return response
         if (response) {
           return response;
         }
-
         return fetch(event.request);
       })
   );
