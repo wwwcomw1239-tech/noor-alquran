@@ -8,7 +8,7 @@
   <title>نور القرآن | موقع متخصص في نشر الكتب والتدبرات والمقاطع القرآنية</title>
   <meta name="description" content="موقع نور القرآن منصة إسلامية متخصصة في نشر الكتب والتدبرات والمقاطع القرآنية، لنشر العلم وتيسير فهم كتاب الله للجميع.">
   <meta name="keywords" content="نور القرآن, كتب إسلامية, تدبر القرآن, مقاطع قرآنية, عادل محمد خليل, أول مرة أتدبر القرآن">
-  <meta name="author" content="داوود الاحمدي">
+  <meta name="author" content="نور القرآن">
   <link rel="canonical" href="https://noor-alquran.pages.dev/">
   
   <!-- PWA Meta Tags & Manifest -->
@@ -260,7 +260,7 @@
         </p>
       </div>
       <div class="footer-bottom">
-        <p>جميع الحقوق محفوظة &copy; 2026 &nbsp;|&nbsp; تطوير: <strong>داوود الاحمدي</strong></p>
+        <p>جميع الحقوق محفوظة &copy; 2026</p>
       </div>
     </div>
   </footer>
@@ -286,18 +286,12 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
-
+  
   <script>
     // Register Service Worker for PWA (Offline functionality)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(registration) {
-            console.log('PWA ServiceWorker registered successfully!');
-          })
-          .catch(function(err) {
-            console.log('PWA ServiceWorker registration failed: ', err);
-          });
+        navigator.serviceWorker.register('/sw.js');
       });
     }
 
@@ -347,6 +341,5 @@
       this.style.transform = 'scale(1) translateY(0)';
     });
   </script>
-
 </body>
 </html>
