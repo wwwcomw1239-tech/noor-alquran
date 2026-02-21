@@ -1,11 +1,10 @@
-const CACHE_NAME = 'noor-alquran-v2';
+const CACHE_NAME = 'noor-alquran-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/about.html',
   '/books.html',
   '/clips.html',
-  '/404.html',
   '/css/style.css',
   '/js/main.js',
   '/js/data.js',
@@ -39,6 +38,14 @@ self.addEventListener('activate', event => {
 
 // Fetch Event
 self.addEventListener('fetch', event => {
+  // Always fetch dynamic data files like data.js from the network first
+  if (event.request.url.includes('data.js')) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -47,12 +54,7 @@ self.addEventListener('fetch', event => {
           return response;
         }
 
-        return fetch(event.request).catch(() => {
-          // If network fails and request is for HTML, show 404 page
-          if (event.request.headers.get('accept').includes('text/html')) {
-            return caches.match('/404.html');
-          }
-        });
+        return fetch(event.request);
       })
   );
 });
