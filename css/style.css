@@ -33,22 +33,62 @@
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: var(--font-ui); background: var(--clr-bg); color: var(--clr-text); direction: rtl; text-align: right; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-ui); background: var(--clr-bg); color: var(--clr-text); direction: rtl; text-align: right; line-height: 1.8; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; transition: color .2s; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }
 
-/* ===== Hijri Bar ===== */
-.hijri-bar { background: #071610; padding: 7px 0; border-bottom: 1px solid rgba(201,168,76,.22); font-size: .82rem; }
-.hijri-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.hijri-right { display: flex; align-items: center; gap: 10px; overflow: hidden; }
-.hijri-dot { display: inline-block; width: 7px; height: 7px; background: var(--clr-gold); border-radius: 50%; flex-shrink: 0; animation: hijriPulse 2.4s ease-in-out infinite; }
-@keyframes hijriPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
-.hijri-label { color: var(--clr-gold); font-weight: 700; font-size: .78rem; white-space: nowrap; flex-shrink: 0; }
-.hijri-date { color: rgba(255,255,255,.88); font-family: var(--font-quran); font-size: .93rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hijri-date.loaded { animation: fadeIn .5s ease; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
-.hijri-source { color: rgba(255,255,255,.35); font-size: .74rem; white-space: nowrap; flex-shrink: 0; transition: color .22s; }
+/* ===== Hijri Bar (News Ticker) ===== */
+.hijri-bar {
+  background: #071610;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(201,168,76,.22);
+  font-size: .85rem;
+  overflow: hidden; /* Hide overflow for ticker */
+  position: relative;
+  white-space: nowrap;
+}
+
+.hijri-bar .container {
+  display: inline-block;
+  min-width: 100%;
+  white-space: nowrap;
+  /* Animation: Enter from Left (-100%) -> Exit to Right (100%) */
+  /* Using specific keyframes below */
+  animation: tickerMove 25s linear infinite;
+  /* Ensure direction is consistent for the transform */
+  direction: ltr; 
+  text-align: left;
+}
+
+/* Force content back to RTL for correct text display if needed, 
+   but since it's a single line, flex/inline-block handles it. 
+   We just need the container to move L -> R */
+.hijri-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  direction: rtl; /* Text inside remains RTL */
+  margin: 0 20px;
+}
+
+@keyframes tickerMove {
+  0% {
+    transform: translateX(-100%); /* Start from far left */
+  }
+  100% {
+    transform: translateX(100vw); /* Move to far right */
+  }
+}
+
+.hijri-bar:hover .container {
+  animation-play-state: paused; /* Pause on hover */
+}
+
+.hijri-dot { display: inline-block; width: 7px; height: 7px; background: var(--clr-gold); border-radius: 50%; }
+.hijri-label { color: var(--clr-gold); font-weight: 700; font-size: .8rem; margin-left: 5px; }
+.hijri-date { color: rgba(255,255,255,.95); font-family: var(--font-quran); font-size: .95rem; }
+.hijri-source { color: rgba(255,255,255,.5); font-size: .75rem; margin-right: 15px; }
 .hijri-source:hover { color: var(--clr-gold); }
 
 /* =========================================
@@ -92,8 +132,7 @@ ul { list-style: none; }
   width: 32px; height: 32px;
   background: rgba(255,255,255,.08);
   border-radius: 50%;
-  color: rgba(255,255,255,.75);
-  font-size: .95rem;
+  color: rgba(255,255,255,.75);\n  font-size: .95rem;
   transition: background .22s, color .22s, transform .22s;
 }
 .social-link:hover {
@@ -404,8 +443,7 @@ ul { list-style: none; }
 }
 .social-channels-title {
   font-size: 1.65rem;
-  font-weight: 800;
-  color: var(--clr-primary);
+  font-weight: 800;\n  color: var(--clr-primary);
   text-align: center;
   margin-bottom: var(--spacing-xs);
   letter-spacing: -.3px;
@@ -457,8 +495,7 @@ ul { list-style: none; }
   color: white;
 }
 .youtube-icon {
-  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-  color: white;
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);\n  color: white;
 }
 .channel-info {
   flex: 1;
@@ -512,8 +549,7 @@ ul { list-style: none; }
   gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
   background: linear-gradient(135deg, rgba(26,71,49,.06) 0%, rgba(201,168,76,.08) 100%);
-  border: 2px solid rgba(201,168,76,.25);
-  border-radius: var(--radius-md);
+  border: 2px solid rgba(201,168,76,.25);\n  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all .3s;
   box-shadow: 0 4px 16px rgba(26,71,49,.08);
@@ -709,8 +745,7 @@ ul { list-style: none; }
 .player-embed {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
-  background: #000;
+  padding-bottom: 56.25%;\n  background: #000;
 }
 .player-embed iframe {
   position: absolute;
@@ -823,8 +858,7 @@ ul { list-style: none; }
 
 /* ===== Responsive ===== */
 @media (max-width: 780px) {
-  .nav-toggle { display: flex; }
-  .nav-links {
+  .nav-toggle { display: flex; }\n  .nav-links {
     display: none;
     position: absolute; top: var(--nav-h); right: 0; left: 0;
     height: auto; background: var(--clr-primary);
