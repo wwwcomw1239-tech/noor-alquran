@@ -3,51 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary Meta Tags -->
   <title>المقاطع | نور القرآن</title>
   <meta name="description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لفهم وتدبر آيات الله.">
-  <meta name="keywords" content="مقاطع قرآنية, آية وتفسير, يوتيوب نور القرآن, تدبرات مرئية, تلاوات وتفسير">
+  <meta name="keywords" content="مقاطع قرآنية, آية وتفسير, يوتيوب نور القرآن, تدبرات مرئية, تلاوات وتفسير, القرآن كاملاً, وقفات تدبرية">
   <meta name="author" content="نور القرآن">
   <link rel="canonical" href="https://noor-alquran.pages.dev/clips.html">
-  
-  <!-- PWA Meta Tags & Manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
-  
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noor-alquran.pages.dev/clips.html">
   <meta property="og:title" content="المقاطع | نور القرآن">
   <meta property="og:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
   <meta property="og:site_name" content="نور القرآن">
   <meta property="og:locale" content="ar_AR">
-  
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://noor-alquran.pages.dev/clips.html">
   <meta property="twitter:title" content="المقاطع | نور القرآن">
   <meta property="twitter:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
-
-  <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Scroll Progress Bar -->
-  <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #C9A84C 0%, #E3C46A 100%); width: 0%; z-index: 99999; transition: width 0.1s ease;"></div>
+  <div id="scrollProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#C9A84C,#E3C46A);width:0%;z-index:99999;transition:width .1s ease;"></div>
 
   <div class="hijri-bar">
     <div class="container">
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -64,13 +52,10 @@
         </a>
       </div>
       <div class="nav-logo-wrap">
-        <a href="index.html" class="nav-logo">
-          <span class="logo-text">نور القرآن</span>
-        </a>
+        <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       </div>
       <div class="social-links" style="visibility:hidden;">
-        <span class="social-link"></span>
-        <span class="social-link"></span>
+        <span class="social-link"></span><span class="social-link"></span>
       </div>
     </div>
     <div class="nav-bottom">
@@ -99,9 +84,9 @@
 
   <section class="section">
     <div class="container">
-      <div class="playlist-section">
 
-        <!-- زر القائمة القابل للطي -->
+      <!-- ══ قائمة 1: آية وتفسير ══ -->
+      <div class="playlist-section">
         <div class="playlist-header">
           <button class="playlist-toggle" id="togglePlaylist1" aria-expanded="true">
             <span class="playlist-icon-btn">🎬</span>
@@ -112,28 +97,144 @@
             <span class="playlist-arrow">▼</span>
           </button>
         </div>
-
-        <!-- محتوى القائمة -->
         <div class="playlist-videos" id="playlistContent1">
-          <!-- شبكة البطاقات — تُملأ بواسطة youtube.js -->
           <div id="ytVideosGrid">
-            <div class="yt-loading"><span class="yt-spinner"></span> جارٍّ تحميل المقاطع...</div>
+            <div class="yt-loading"><span class="yt-spinner"></span> جارٍّ تحميل المقاطع...</div>
           </div>
-          
           <div class="playlist-actions">
-            <a href="https://youtube.com/playlist?list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn-youtube">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
+            <a href="https://youtube.com/playlist?list=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               <span>فتح القائمة في يوتيوب</span>
             </a>
           </div>
         </div>
-        
       </div>
+
+      <!-- ══ قائمة 2: القرآن كاملاً ══ -->
+      <div class="playlist-section">
+        <div class="playlist-header">
+          <button class="playlist-toggle" id="togglePlaylist2" aria-expanded="false">
+            <span class="playlist-icon-btn">📖</span>
+            <div class="playlist-info">
+              <h2 class="playlist-name">القرآن كاملاً</h2>
+              <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
+            </div>
+            <span class="playlist-arrow">▼</span>
+          </button>
+        </div>
+        <div class="playlist-videos" id="playlistContent2" style="display:none;">
+          <div id="ytVideosGrid2" data-loaded="false">
+            <div class="yt-loading"><span class="yt-spinner"></span> سيُحمَّل عند الفتح...</div>
+          </div>
+          <div class="playlist-actions">
+            <a href="https://www.youtube.com/playlist?list=PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>فتح القائمة في يوتيوب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ قائمة 3: القرآن وتزكية النفس ══ -->
+      <div class="playlist-section">
+        <div class="playlist-header">
+          <button class="playlist-toggle" id="togglePlaylist3" aria-expanded="false">
+            <span class="playlist-icon-btn">🌿</span>
+            <div class="playlist-info">
+              <h2 class="playlist-name">القرآن وتزكية النفس</h2>
+              <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
+            </div>
+            <span class="playlist-arrow">▼</span>
+          </button>
+        </div>
+        <div class="playlist-videos" id="playlistContent3" style="display:none;">
+          <div id="ytVideosGrid3" data-loaded="false">
+            <div class="yt-loading"><span class="yt-spinner"></span> سيُحمَّل عند الفتح...</div>
+          </div>
+          <div class="playlist-actions">
+            <a href="https://www.youtube.com/playlist?list=PLVbjqy4Qzz1MdV23AlsPSND7d5I_pZD6w" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>فتح القائمة في يوتيوب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ قائمة 4: مواعظ القرآن ══ -->
+      <div class="playlist-section">
+        <div class="playlist-header">
+          <button class="playlist-toggle" id="togglePlaylist4" aria-expanded="false">
+            <span class="playlist-icon-btn">🕌</span>
+            <div class="playlist-info">
+              <h2 class="playlist-name">مواعظ القرآن</h2>
+              <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
+            </div>
+            <span class="playlist-arrow">▼</span>
+          </button>
+        </div>
+        <div class="playlist-videos" id="playlistContent4" style="display:none;">
+          <div id="ytVideosGrid4" data-loaded="false">
+            <div class="yt-loading"><span class="yt-spinner"></span> سيُحمَّل عند الفتح...</div>
+          </div>
+          <div class="playlist-actions">
+            <a href="https://www.youtube.com/playlist?list=PLVbjqy4Qzz1P8e523UtvCxLDaefbfMTLF" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>فتح القائمة في يوتيوب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ قائمة 5: آداب حملة القرآن ══ -->
+      <div class="playlist-section">
+        <div class="playlist-header">
+          <button class="playlist-toggle" id="togglePlaylist5" aria-expanded="false">
+            <span class="playlist-icon-btn">📿</span>
+            <div class="playlist-info">
+              <h2 class="playlist-name">آداب حملة القرآن</h2>
+              <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
+            </div>
+            <span class="playlist-arrow">▼</span>
+          </button>
+        </div>
+        <div class="playlist-videos" id="playlistContent5" style="display:none;">
+          <div id="ytVideosGrid5" data-loaded="false">
+            <div class="yt-loading"><span class="yt-spinner"></span> سيُحمَّل عند الفتح...</div>
+          </div>
+          <div class="playlist-actions">
+            <a href="https://www.youtube.com/playlist?list=PLVbjqy4Qzz1N3nupwtHO-2IoUikenFOjN" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>فتح القائمة في يوتيوب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ قائمة 6: وقفات تدبرية ══ -->
+      <div class="playlist-section">
+        <div class="playlist-header">
+          <button class="playlist-toggle" id="togglePlaylist6" aria-expanded="false">
+            <span class="playlist-icon-btn">🌙</span>
+            <div class="playlist-info">
+              <h2 class="playlist-name">وقفات تدبرية</h2>
+              <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
+            </div>
+            <span class="playlist-arrow">▼</span>
+          </button>
+        </div>
+        <div class="playlist-videos" id="playlistContent6" style="display:none;">
+          <div id="ytVideosGrid6" data-loaded="false">
+            <div class="yt-loading"><span class="yt-spinner"></span> سيُحمَّل عند الفتح...</div>
+          </div>
+          <div class="playlist-actions">
+            <a href="https://www.youtube.com/playlist?list=PLVbjqy4Qzz1N4YEdMDY5NvSDLYgOtTxKw" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>فتح القائمة في يوتيوب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -141,7 +242,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
+        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
@@ -164,9 +265,7 @@
         </a>
       </div>
       <div class="footer-sadaqah">
-        <p class="sadaqah-text">
-          هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول
-        </p>
+        <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
         <p>جميع الحقوق محفوظة &copy; 2026</p>
@@ -174,8 +273,7 @@
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop" aria-label="العودة للأعلى" style="position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #C9A84C 0%, #E3C46A 100%); color: #1A4731; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.22s; z-index: 999;">↑</button>
+  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999;">↑</button>
 
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
@@ -198,48 +296,61 @@
   <script src="js/youtube.js"></script>
 
   <script>
-    // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
 
-    // Toggle Playlist visibility
-    document.getElementById('togglePlaylist1').addEventListener('click', function() {
-      var content = document.getElementById('playlistContent1');
-      var isExpanded = this.getAttribute('aria-expanded') === 'true';
-      if (isExpanded) {
-        content.style.display = 'none';
-        this.setAttribute('aria-expanded', 'false');
-      } else {
-        content.style.display = 'block';
-        this.setAttribute('aria-expanded', 'true');
-      }
+    /* ══ أزرار تبديل جميع القوائم مع التحميل الكسول ══ */
+    var PLAYLIST_META = [
+      { toggleId: 'togglePlaylist1', contentId: 'playlistContent1', gridId: null,            plId: null },
+      { toggleId: 'togglePlaylist2', contentId: 'playlistContent2', gridId: 'ytVideosGrid2', plId: 'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM' },
+      { toggleId: 'togglePlaylist3', contentId: 'playlistContent3', gridId: 'ytVideosGrid3', plId: 'PLVbjqy4Qzz1MdV23AlsPSND7d5I_pZD6w'  },
+      { toggleId: 'togglePlaylist4', contentId: 'playlistContent4', gridId: 'ytVideosGrid4', plId: 'PLVbjqy4Qzz1P8e523UtvCxLDaefbfMTLF'  },
+      { toggleId: 'togglePlaylist5', contentId: 'playlistContent5', gridId: 'ytVideosGrid5', plId: 'PLVbjqy4Qzz1N3nupwtHO-2IoUikenFOjN'  },
+      { toggleId: 'togglePlaylist6', contentId: 'playlistContent6', gridId: 'ytVideosGrid6', plId: 'PLVbjqy4Qzz1N4YEdMDY5NvSDLYgOtTxKw'  }
+    ];
+
+    PLAYLIST_META.forEach(function (meta) {
+      var btn = document.getElementById(meta.toggleId);
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var content = document.getElementById(meta.contentId);
+        if (!content) return;
+        var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          content.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          content.style.display = 'block';
+          btn.setAttribute('aria-expanded', 'true');
+          /* تحميل كسول: نُحمِّل القائمة أول مرة فقط */
+          if (meta.gridId && meta.plId) {
+            var grid = document.getElementById(meta.gridId);
+            if (grid && grid.dataset.loaded !== 'true') {
+              grid.dataset.loaded = 'true';
+              if (window.YTLoadPlaylist) window.YTLoadPlaylist(meta.gridId, meta.plId);
+            }
+          }
+        }
+      });
     });
 
-    // Scroll Progress Bar
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var progress = (scrollTop / scrollHeight) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
+    /* ══ شريط التقدم ══ */
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
     });
 
-    // Back to Top Button
-    var backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-      }
+    /* ══ زر العودة للأعلى ══ */
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
+      else { btt.style.opacity = '0'; btt.style.visibility = 'hidden'; }
     });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   </script>
 
 </body>
