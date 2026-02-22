@@ -20,7 +20,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noor-alquran.pages.dev/clips.html">
   <meta property="og:title" content="المقاطع | نور القرآن">
-  <meta property="og:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لفهم وتدبر آيات الله.">
+  <meta property="og:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
   <meta property="og:site_name" content="نور القرآن">
   <meta property="og:locale" content="ar_AR">
   
@@ -28,7 +28,7 @@
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://noor-alquran.pages.dev/clips.html">
   <meta property="twitter:title" content="المقاطع | نور القرآن">
-  <meta property="twitter:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لفهم وتدبر آيات الله.">
+  <meta property="twitter:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
 
   <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -117,7 +117,7 @@
         <div class="playlist-videos" id="playlistContent1">
           <!-- شبكة البطاقات — تُملأ بواسطة youtube.js -->
           <div id="ytVideosGrid">
-            <div class="yt-loading"><span class="yt-spinner"></span> جارٍ تحميل المقاطع...</div>
+            <div class="yt-loading"><span class="yt-spinner"></span> جارٍّ تحميل المقاطع...</div>
           </div>
           
           <div class="playlist-actions">
@@ -137,27 +137,11 @@
     </div>
   </section>
 
-  <!-- ══ مودال تشغيل الفيديو ══ -->
-  <div id="ytModal" role="dialog" aria-modal="true" aria-label="مشغّل المقطع">
-    <div class="yt-modal-inner">
-      <button id="ytModalClose" aria-label="إغلاق المشغّل">&#10005;</button>
-      <div class="yt-modal-embed">
-        <iframe id="ytModalIframe"
-          src=""
-          frameborder="0"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  </div>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">﴿ إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
+        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
@@ -214,16 +198,10 @@
   <script src="js/youtube.js"></script>
 
   <script>
-    // Register Service Worker for PWA (Offline functionality)
+    // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(registration) {
-            console.log('PWA ServiceWorker registered successfully!');
-          })
-          .catch(function(err) {
-            console.log('PWA ServiceWorker registration failed: ', err);
-          });
+        navigator.serviceWorker.register('/sw.js');
       });
     }
 
@@ -231,7 +209,6 @@
     document.getElementById('togglePlaylist1').addEventListener('click', function() {
       var content = document.getElementById('playlistContent1');
       var isExpanded = this.getAttribute('aria-expanded') === 'true';
-      
       if (isExpanded) {
         content.style.display = 'none';
         this.setAttribute('aria-expanded', 'false');
@@ -239,23 +216,6 @@
         content.style.display = 'block';
         this.setAttribute('aria-expanded', 'true');
       }
-    });
-
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var target = btn.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(function(b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        document.querySelectorAll('.tab-panel').forEach(function(p) {
-          p.classList.remove('active');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-        document.getElementById(target).classList.add('active');
-      });
     });
 
     // Scroll Progress Bar
@@ -279,12 +239,6 @@
     });
     backToTopBtn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    backToTopBtn.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.1) translateY(-3px)';
-    });
-    backToTopBtn.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1) translateY(0)';
     });
   </script>
 
