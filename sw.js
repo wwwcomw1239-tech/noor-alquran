@@ -1,4 +1,4 @@
-const CACHE_NAME = 'noor-alquran-v7';
+const CACHE_NAME = 'noor-alquran-v8';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -15,13 +15,11 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
-      console.log('Opened cache');
-      // استخدام fetch مع تتبع التحويلات (redirects) لتجنب فشل الكاش
-      // لأن Cloudflare Pages يقوم بتحويل index.html إلى /
+      console.log('Opened cache v8');
+      // استخدام fetch مع تتبع التحويلات لتخزين الملفات حتى لو كان هناك Redirect
       for (let asset of ASSETS_TO_CACHE) {
         try {
-          const request = new Request(asset, { cache: 'reload' });
-          const response = await fetch(request, { redirect: 'follow' });
+          const response = await fetch(asset, { redirect: 'follow' });
           if (response && response.ok) {
             await cache.put(asset, response);
           }
@@ -48,7 +46,7 @@ self.addEventListener('activate', event => {
 
 // Fetch Event
 self.addEventListener('fetch', event => {
-  // Always fetch dynamic data files like data.js from the network first
+  // 1. ملفات البيانات المتغيرة تجلب من السيرفر دائماً
   if (event.request.url.includes('data.js')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
@@ -56,18 +54,24 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // بالنسبة لطلبات التنقل (Navigate) لتجنب خطأ ERR_FAILED مع Cloudflare Pages Redirects
+  // 2. طلبات التنقل (Navigate) - الحل النهائي لمشكلة ERR_FAILED 
+  // المشكلة تحدث لأن Cloudflare Pages يقوم بتحويل books.html إلى books (Redirect 308)
+  // والـ Service Worker يرفض الـ OpaqueRedirect لطلبات التنقل.
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.match(event.request).then(response => {
-          return response || caches.match('/index.html');
-        });
-      })
+      // نقوم بجلب الرابط مع تتبع التحويلات للحصول على استجابة 200 صريحة
+      fetch(event.request.url, { redirect: 'follow' })
+        .catch(() => {
+          // في حال انقطاع الإنترنت، جلب من الكاش
+          return caches.match(event.request).then(response => {
+            return response || caches.match('/index.html');
+          });
+        })
     );
     return;
   }
 
+  // 3. باقي الملفات (صور، CSS، JS غير بيانات) من الكاش أولاً
   event.respondWith(
     caches.match(event.request)
       .then(response => {
