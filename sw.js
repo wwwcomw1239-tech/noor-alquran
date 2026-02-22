@@ -1,13 +1,9 @@
-const CACHE_NAME = 'noor-alquran-v8';
+const CACHE_NAME = 'noor-alquran-v9';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/about.html',
-  '/books.html',
-  '/clips.html',
   '/css/style.css',
   '/js/main.js',
-  '/js/data.js',
   '/js/search.js'
 ];
 
@@ -15,17 +11,13 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
-      console.log('Opened cache v8');
-      // استخدام fetch مع تتبع التحويلات لتخزين الملفات حتى لو كان هناك Redirect
-      for (let asset of ASSETS_TO_CACHE) {
-        try {
-          const response = await fetch(asset, { redirect: 'follow' });
-          if (response && response.ok) {
-            await cache.put(asset, response);
-          }
-        } catch (e) {
-          console.error('Failed to cache:', asset, e);
-        }
+      console.log('Opened cache v9');
+      // وضعنا الملفات الأساسية فقط بدلاً من الصفحات الفرعية
+      // لتجنب مشاكل التحويلات في Cloudflare
+      try {
+        await cache.addAll(ASSETS_TO_CACHE);
+      } catch (e) {
+        console.error('Cache addAll failed:', e);
       }
     }).then(() => self.skipWaiting())
   );
@@ -46,39 +38,17 @@ self.addEventListener('activate', event => {
 
 // Fetch Event
 self.addEventListener('fetch', event => {
-  // 1. ملفات البيانات المتغيرة تجلب من السيرفر دائماً
-  if (event.request.url.includes('data.js')) {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
-    );
-    return;
+  // تخطي تام لطلبات الصفحات والـ API والـ data.js
+  // جعل المتصفح يتولى تحميل الصفحات الفرعية مثل books.html بالكامل
+  if (event.request.mode === 'navigate' || event.request.url.includes('data.js')) {
+    return; // لا تتدخل إطلاقاً، دع المتصفح يعالجها (هذا يحل ERR_FAILED من جذوره)
   }
 
-  // 2. طلبات التنقل (Navigate) - الحل النهائي لمشكلة ERR_FAILED 
-  // المشكلة تحدث لأن Cloudflare Pages يقوم بتحويل books.html إلى books (Redirect 308)
-  // والـ Service Worker يرفض الـ OpaqueRedirect لطلبات التنقل.
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      // نقوم بجلب الرابط مع تتبع التحويلات للحصول على استجابة 200 صريحة
-      fetch(event.request.url, { redirect: 'follow' })
-        .catch(() => {
-          // في حال انقطاع الإنترنت، جلب من الكاش
-          return caches.match(event.request).then(response => {
-            return response || caches.match('/index.html');
-          });
-        })
-    );
-    return;
-  }
-
-  // 3. باقي الملفات (صور، CSS، JS غير بيانات) من الكاش أولاً
+  // بالنسبة للملفات الأخرى (CSS, JS, صور)، حاول جلبها من الشبكة أولاً
+  // وإذا فشل (في حال عدم وجود إنترنت)، اجلبها من الكاش
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      })
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
+    })
   );
 });
