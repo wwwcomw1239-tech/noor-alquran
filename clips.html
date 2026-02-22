@@ -11,6 +11,16 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://noor-alquran.pages.dev/clips.html">
+  <meta property="og:title" content="المقاطع | نور القرآن">
+  <meta property="og:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
+  <meta property="og:site_name" content="نور القرآن">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://noor-alquran.pages.dev/clips.html">
+  <meta property="twitter:title" content="المقاطع | نور القرآن">
+  <meta property="twitter:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -44,7 +54,9 @@
       <div class="nav-logo-wrap">
         <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       </div>
-      <div class="social-links" style="visibility:hidden;"></div>
+      <div class="social-links" style="visibility:hidden;">
+        <span class="social-link"></span><span class="social-link"></span>
+      </div>
     </div>
     <div class="nav-bottom">
       <div class="nav-container">
@@ -52,12 +64,10 @@
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="books.html">الكتب</a></li>
           <li><a href="clips.html" class="active">المقاطع</a></li>
-          <li><a href="shorts.html" style="color:#E3C46A; font-weight:700;">لحظات قرآنية ⚡</a></li>
           <li><a href="about.html">عن الموقع</a></li>
         </ul>
         <div class="nav-sep"></div>
         <div class="nav-actions">
-          <button id="contentRefreshBtn" class="content-refresh-btn" type="button" title="تحديث محتوى الموقع">↻</button>
           <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -70,12 +80,6 @@
   <div class="page-header">
     <h1>المقاطع القرآنية</h1>
     <div class="page-line"></div>
-    <div style="text-align:center; margin-top:20px;">
-      <a href="shorts.html" class="btn" style="background:#C9A84C; color:#1A4731; border:none; border-radius:30px; padding:10px 25px; font-weight:bold; display:inline-flex; align-items:center; gap:8px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        اكتشف قسم لحظات قرآنية (Shorts)
-      </a>
-    </div>
   </div>
 
   <section class="section">
@@ -185,7 +189,7 @@
       <div class="playlist-section">
         <div class="playlist-header">
           <button class="playlist-toggle" id="togglePlaylist5" aria-expanded="false">
-            <span class="playlist-icon-btn">📿</span>
+            <span class="playlist-icon-btn">💿</span>
             <div class="playlist-info">
               <h2 class="playlist-name">آداب حملة القرآن</h2>
               <span class="playlist-count">انقر لعرض أو إخفاء المقاطع</span>
@@ -238,12 +242,11 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
+        <p class="footer-ayah">ـ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ـ</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
           <a href="clips.html">المقاطع</a>
-          <a href="shorts.html">لحظات قرآنية</a>
           <a href="about.html">عن الموقع</a>
         </nav>
         <div class="footer-social">
@@ -299,6 +302,7 @@
       });
     }
 
+    /* ══ أزرار تبديل جميع القوائم مع التحميل الكسول ══ */
     var PLAYLIST_META = [
       { toggleId: 'togglePlaylist1', contentId: 'playlistContent1', gridId: null,            plId: null },
       { toggleId: 'togglePlaylist2', contentId: 'playlistContent2', gridId: 'ytVideosGrid2', plId: 'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM' },
@@ -321,6 +325,7 @@
         } else {
           content.style.display = 'block';
           btn.setAttribute('aria-expanded', 'true');
+          /* تحميل كسول: نُحمِّل القائمة أول مرة فقط */
           if (meta.gridId && meta.plId) {
             var grid = document.getElementById(meta.gridId);
             if (grid && grid.dataset.loaded !== 'true') {
@@ -332,12 +337,14 @@
       });
     });
 
+    /* ══ شريط التقدم ══ */
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
     });
 
+    /* ══ زر العودة للأعلى ══ */
     var btt = document.getElementById('backToTop');
     window.addEventListener('scroll', function () {
       if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
