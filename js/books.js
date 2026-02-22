@@ -109,7 +109,7 @@
     var noMsg = document.getElementById('noBooksMsg');
     if (!grid) return;
 
-    var books    = (window.SITE_DATA && window.SITE_DATA.books) ? window.SITE_DATA.books : [];
+    var books    = (typeof SITE_DATA !== 'undefined' && SITE_DATA.books) ? SITE_DATA.books : [];
     var filtered = currentCat === 'all' ? books : books.filter(function (b) { return b.category === currentCat; });
 
     if (!filtered.length) {
@@ -143,7 +143,7 @@
     grid.querySelectorAll('.btn-view').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var idx   = parseInt(btn.dataset.gidx, 10);
-        var books = (window.SITE_DATA && window.SITE_DATA.books) ? window.SITE_DATA.books : [];
+        var books = (typeof SITE_DATA !== 'undefined' && SITE_DATA.books) ? SITE_DATA.books : [];
         if (!isNaN(idx) && books[idx]) openModal(books[idx]);
       });
     });
