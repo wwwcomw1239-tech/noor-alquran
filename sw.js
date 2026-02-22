@@ -1,4 +1,4 @@
-const CACHE_NAME = 'noor-alquran-v6';
+const CACHE_NAME = 'noor-alquran-v7';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -14,12 +14,22 @@ const ASSETS_TO_CACHE = [
 // Install Event
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(async cache => {
+      console.log('Opened cache');
+      // استخدام fetch مع تتبع التحويلات (redirects) لتجنب فشل الكاش
+      // لأن Cloudflare Pages يقوم بتحويل index.html إلى /
+      for (let asset of ASSETS_TO_CACHE) {
+        try {
+          const request = new Request(asset, { cache: 'reload' });
+          const response = await fetch(request, { redirect: 'follow' });
+          if (response && response.ok) {
+            await cache.put(asset, response);
+          }
+        } catch (e) {
+          console.error('Failed to cache:', asset, e);
+        }
+      }
+    }).then(() => self.skipWaiting())
   );
 });
 
@@ -42,6 +52,18 @@ self.addEventListener('fetch', event => {
   if (event.request.url.includes('data.js')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // بالنسبة لطلبات التنقل (Navigate) لتجنب خطأ ERR_FAILED مع Cloudflare Pages Redirects
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match(event.request).then(response => {
+          return response || caches.match('/index.html');
+        });
+      })
     );
     return;
   }
