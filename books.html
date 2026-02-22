@@ -3,230 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>المكتبة القرآنية | نور القرآن</title>
-  <meta name="description" content="مكتبة نور القرآن — كتب مقسّمة في التفاسير والتدبر والتجويد وعلوم القرآن وغريبه وفضائله.">
-  <meta name="keywords" content="مكتبة قرآنية، تفاسير، تدبر القرآن، تجويد، علوم القرآن، كتب إسلامية">
-  <meta name="author" content="نور القرآن">
+  
+  <title>الكتب | نور القرآن</title>
+  <meta name="description" content="مكتبة شاملة للكتب القرآنية وتفاسير القرآن الكريم.">
   <link rel="canonical" href="https://noor-alquran.pages.dev/books.html">
+  
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://noor-alquran.pages.dev/books.html">
-  <meta property="og:title" content="المكتبة القرآنية | نور القرآن">
-  <meta property="og:description" content="مكتبة نور القرآن — كتب مقسّمة في التفاسير والتدبر والتجويد وعلوم القرآن.">
-  <meta property="og:site_name" content="نور القرآن">
-  <meta property="og:locale" content="ar_AR">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://noor-alquran.pages.dev/books.html">
-  <meta property="twitter:title" content="المكتبة القرآنية | نور القرآن">
-  <meta property="twitter:description" content="مكتبة نور القرآن — كتب مقسّمة في التفاسير والتدبر والتجويد وعلوم القرآن.">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/style.css">
-
-  <style>
-    /* ══ المكتبة القرآنية — أنماط خاصة ══ */
-
-    .lib-hero {
-      background: linear-gradient(135deg, rgba(26,71,49,0.06) 0%, rgba(201,168,76,0.08) 100%);
-      border: 1px solid rgba(201,168,76,0.22);
-      border-radius: 18px;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .lib-hero-text h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #1A4731;
-      margin: 0 0 .3rem;
-    }
-    .lib-hero-text p {
-      font-size: .9rem;
-      color: #666;
-      margin: 0;
-    }
-    .lib-badge {
-      background: #1A4731;
-      color: #C9A84C;
-      border-radius: 50px;
-      padding: .45rem 1.2rem;
-      font-size: .85rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .lib-badge span {
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-
-    /* ── الفلاتر ── */
-    .lib-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .55rem;
-      margin-bottom: 2.2rem;
-      justify-content: flex-start;
-    }
-    .lib-filter {
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      padding: .48rem 1.1rem;
-      border: 2px solid #ddd;
-      border-radius: 50px;
-      background: #fff;
-      color: #555;
-      font-family: 'Cairo', sans-serif;
-      font-size: .82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .22s ease;
-      white-space: nowrap;
-    }
-    .lib-filter:hover {
-      border-color: #C9A84C;
-      color: #1A4731;
-      background: rgba(201,168,76,.09);
-    }
-    .lib-filter.active {
-      border-color: #1A4731;
-      background: #1A4731;
-      color: #fff;
-    }
-    .lib-filter .fi {
-      font-size: 1rem;
-    }
-    .lib-filter .lib-count-badge {
-      background: rgba(255,255,255,.22);
-      border-radius: 50px;
-      padding: .05rem .45rem;
-      font-size: .72rem;
-      font-weight: 700;
-    }
-    .lib-filter:not(.active) .lib-count-badge {
-      background: #f0f0f0;
-      color: #888;
-    }
-
-    /* ── تاغ القسم على البطاقة ── */
-    .lib-cat-tag {
-      display: inline-block;
-      padding: .22rem .85rem;
-      border-radius: 20px;
-      font-size: .75rem;
-      font-weight: 700;
-      margin-bottom: .75rem;
-      letter-spacing: .01em;
-    }
-
-    /* ── حالة فارغة ── */
-    .lib-empty {
-      text-align: center;
-      padding: 4rem 2rem;
-      display: none;
-    }
-    .lib-empty .le-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-    .lib-empty .le-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #444;
-      margin-bottom: .5rem;
-    }
-    .lib-empty .le-sub {
-      font-size: .85rem;
-      color: #aaa;
-    }
-
-    /* ── شريط الأقسام الجانبي (سطح مكتب) ── */
-    .lib-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    .lib-sidebar {
-      position: sticky;
-      top: 90px;
-    }
-    .lib-sidebar-title {
-      font-size: .78rem;
-      font-weight: 800;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-bottom: .9rem;
-      padding-right: .5rem;
-    }
-    .lib-side-btn {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      width: 100%;
-      padding: .6rem .9rem;
-      border: none;
-      border-radius: 10px;
-      background: transparent;
-      color: #555;
-      font-family: 'Cairo', sans-serif;
-      font-size: .88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .2s;
-      text-align: right;
-      margin-bottom: .25rem;
-    }
-    .lib-side-btn:hover {
-      background: rgba(26,71,49,.07);
-      color: #1A4731;
-    }
-    .lib-side-btn.active {
-      background: #1A4731;
-      color: #fff;
-      font-weight: 700;
-    }
-    .lib-side-btn .sb-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .lib-side-btn .sb-count {
-      margin-right: auto;
-      background: rgba(255,255,255,.18);
-      border-radius: 50px;
-      padding: .05rem .5rem;
-      font-size: .72rem;
-    }
-    .lib-side-btn:not(.active) .sb-count {
-      background: #f0f0f0;
-      color: #999;
-    }
-
-    /* ── responsive: اخفِ الشريط الجانبي وأظهر الفلاتر العلوية ── */
-    .lib-filters-mobile { display: none; }
-    @media (max-width: 820px) {
-      .lib-layout { grid-template-columns: 1fr; }
-      .lib-sidebar { display: none; }
-      .lib-filters-mobile { display: flex; }
-    }
-    @media (max-width: 500px) {
-      .lib-hero { flex-direction: column; text-align: center; }
-      .lib-hero-text h2 { font-size: 1.05rem; }
-    }
-  </style>
 </head>
 <body>
 
-  <div id="scrollProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#C9A84C,#E3C46A);width:0%;z-index:99999;transition:width .1s ease"></div>
+  <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #C9A84C 0%, #E3C46A 100%); width: 0%; z-index: 99999; transition: width 0.1s ease;"></div>
 
   <div class="hijri-bar">
     <div class="container">
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -245,9 +46,7 @@
       <div class="nav-logo-wrap">
         <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       </div>
-      <div class="social-links" style="visibility:hidden">
-        <span class="social-link"></span><span class="social-link"></span>
-      </div>
+      <div class="social-links" style="visibility:hidden;"></div>
     </div>
     <div class="nav-bottom">
       <div class="nav-container">
@@ -255,10 +54,12 @@
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="books.html" class="active">الكتب</a></li>
           <li><a href="clips.html">المقاطع</a></li>
+          <li><a href="shorts.html" style="color:#E3C46A; font-weight:700;">لحظات قرآنية ⚡</a></li>
           <li><a href="about.html">عن الموقع</a></li>
         </ul>
         <div class="nav-sep"></div>
         <div class="nav-actions">
+          <button id="contentRefreshBtn" class="content-refresh-btn" type="button" title="تحديث محتوى الموقع">↻</button>
           <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -271,57 +72,51 @@
   <div class="page-header">
     <h1>المكتبة القرآنية</h1>
     <div class="page-line"></div>
+    <!-- أزرار تصنيف الكتب (Category Filters) -->
+    <div class="category-filters" id="categoryFilters">
+      <!-- يتم توليد الأزرار من الجافاسكريبت -->
+    </div>
   </div>
 
   <section class="section">
     <div class="container">
-
-      <!-- بطاقة إحصاء المكتبة -->
-      <div class="lib-hero">
-        <div class="lib-hero-text">
-          <h2>&#128218; مكتبة نور القرآن</h2>
-          <p>كتب مصنّفة في أقسام علوم القرآن الكريم — اختر القسم الذي يناسبك</p>
-        </div>
-        <div class="lib-badge">
-          <span id="totalCount">0</span> كتاب في المكتبة
-        </div>
+      <div class="books-grid" id="booksGrid">
+        <!-- ستُضاف الكتب هنا عبر الجافاسكريبت -->
       </div>
-
-      <!-- فلاتر الموبايل -->
-      <div class="lib-filters lib-filters-mobile" id="mobileFilters"></div>
-
-      <!-- تخطيط شريط جانبي + شبكة -->
-      <div class="lib-layout">
-
-        <!-- الشريط الجانبي (سطح المكتب) -->
-        <aside class="lib-sidebar" id="desktopSidebar">
-          <p class="lib-sidebar-title">الأقسام</p>
-          <!-- تُولَّد بجافاسكربت -->
-        </aside>
-
-        <!-- منطقة الكتب -->
-        <div>
-          <div class="cards-grid" id="booksGrid"></div>
-          <div class="lib-empty" id="libEmpty">
-            <div class="le-icon">&#128214;</div>
-            <p class="le-title">لا توجد كتب في هذا القسم بعد</p>
-            <span class="le-sub">سيتم إضافتها قريباً بإذن الله</span>
-          </div>
-        </div>
-
-      </div>
+      <div class="no-books-msg" id="noBooksMsg">لا توجد كتب في هذا القسم حالياً.</div>
     </div>
   </section>
+
+  <!-- Modal لقراءة وصف الكتاب -->
+  <div id="bookModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="إغلاق">&times;</button>
+      <div class="modal-body">
+        <div class="modal-img-wrap">
+          <img id="modalImg" src="" alt="">
+        </div>
+        <div class="modal-info">
+          <h2 id="modalTitle"></h2>
+          <span class="modal-author" id="modalAuthor"></span>
+          <div class="modal-desc" id="modalDesc"></div>
+          <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:20px; display:inline-block; width:auto; padding:10px 30px;">
+            تصفح الكتاب
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
+        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
           <a href="clips.html">المقاطع</a>
+          <a href="shorts.html">لحظات قرآنية</a>
           <a href="about.html">عن الموقع</a>
         </nav>
         <div class="footer-social">
@@ -348,7 +143,7 @@
     </div>
   </footer>
 
-  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999">↑</button>
+  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999;">↑</button>
 
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
@@ -368,145 +163,27 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/books.js"></script>
 
   <script>
-  /* ══════════════════════════════════════
-     المكتبة القرآنية — منطق التصفح والعرض
-  ══════════════════════════════════════ */
-  (function () {
-
-    /* ─── تعريف الأقسام ─── */
-    var CATS = [
-      { id: 'all',      icon: '📚', label: 'الكل' },
-      { id: 'tadabbur', icon: '📖', label: 'التدبر ومقاصد السور',   bg: '#E8F5E9', color: '#1A4731' },
-      { id: 'tafsir',   icon: '🔍', label: 'التفاسير',              bg: '#E3F2FD', color: '#1565C0' },
-      { id: 'tajweed',  icon: '🎙️', label: 'التجويد والقراءات',     bg: '#F3E5F5', color: '#6A1B9A' },
-      { id: 'ulum',     icon: '🔬', label: 'علوم القرآن',           bg: '#E0F2F1', color: '#00695C' },
-      { id: 'lugha',    icon: '🔤', label: 'غريب القرآن ولغته',    bg: '#FFF3E0', color: '#E65100' },
-      { id: 'fadail',   icon: '✨', label: 'فضائل القرآن',          bg: '#FCE4EC', color: '#880E4F' }
-    ];
-
-    var books       = (typeof SITE_DATA !== 'undefined' && SITE_DATA.books) ? SITE_DATA.books : [];
-    var grid        = document.getElementById('booksGrid');
-    var empty       = document.getElementById('libEmpty');
-    var totalCount  = document.getElementById('totalCount');
-    var sidebar     = document.getElementById('desktopSidebar');
-    var mobileBar   = document.getElementById('mobileFilters');
-    var activeCat   = 'all';
-
-    /* ─── عدد كتب كل قسم ─── */
-    function countCat(id) {
-      if (id === 'all') return books.length;
-      return books.filter(function(b){ return b.category === id; }).length;
-    }
-
-    /* ─── تحديث حالة نشاط الأزرار ─── */
-    function syncActive(id) {
-      activeCat = id;
-      document.querySelectorAll('[data-libcat]').forEach(function(btn){
-        btn.classList.toggle('active', btn.getAttribute('data-libcat') === id);
-        if (btn.classList.contains('lib-side-btn')) btn.classList.toggle('active', btn.getAttribute('data-libcat') === id);
-      });
-    }
-
-    /* ─── بناء بطاقة كتاب ─── */
-    function buildCard(b) {
-      var cat = CATS.find(function(c){ return c.id === b.category; }) || CATS[0];
-      var tagStyle = cat.bg ? 'style="background:' + cat.bg + ';color:' + cat.color + '"' : '';
-      var metaParts = b.meta ? b.meta.split('|').map(function(p){
-        return '<span class="meta-item">' + p.trim() + '</span>';
-      }).join('') : '';
-      return '<div class="card book-card" data-cat="' + (b.category||'') + '">'
-        + '<div class="card-body">'
-        + '<span class="lib-cat-tag" ' + tagStyle + '>' + cat.icon + ' ' + cat.label + '</span>'
-        + '<h3 class="card-title">' + (b.title||'') + '</h3>'
-        + (b.subtitle ? '<p class="card-subtitle">' + b.subtitle + '</p>' : '')
-        + (b.author   ? '<p class="card-author">&#9997;&#65039; ' + b.author + '</p>' : '')
-        + (b.desc     ? '<p class="card-text">' + b.desc + '</p>' : '')
-        + (metaParts  ? '<div class="book-meta">' + metaParts + '</div>' : '')
-        + '</div>'
-        + (b.download
-          ? '<div class="card-footer"><a href="' + b.download + '" target="_blank" rel="noopener noreferrer" class="btn-download">&#11015;&#65039; تحميل الكتاب</a></div>'
-          : '')
-        + '</div>';
-    }
-
-    /* ─── عرض الكتب حسب القسم ─── */
-    function render(cat) {
-      syncActive(cat);
-      var list = cat === 'all' ? books : books.filter(function(b){ return b.category === cat; });
-      if (!list.length) {
-        grid.innerHTML = '';
-        empty.style.display = 'block';
-      } else {
-        empty.style.display = 'none';
-        grid.innerHTML = list.map(buildCard).join('');
-      }
-    }
-
-    /* ─── بناء الشريط الجانبي ─── */
-    function buildSidebar() {
-      sidebar.innerHTML = '<p class="lib-sidebar-title">&#128218; الأقسام</p>';
-      CATS.forEach(function(cat) {
-        var n = countCat(cat.id);
-        var btn = document.createElement('button');
-        btn.className = 'lib-side-btn' + (cat.id === 'all' ? ' active' : '');
-        btn.setAttribute('data-libcat', cat.id);
-        btn.innerHTML = '<span class="sb-icon">' + cat.icon + '</span>'
-          + '<span>' + cat.label + '</span>'
-          + '<span class="sb-count">' + n + '</span>';
-        btn.addEventListener('click', function(){ render(cat.id); });
-        sidebar.appendChild(btn);
-      });
-    }
-
-    /* ─── بناء شريط الموبايل ─── */
-    function buildMobile() {
-      CATS.forEach(function(cat) {
-        var n = countCat(cat.id);
-        var btn = document.createElement('button');
-        btn.className = 'lib-filter' + (cat.id === 'all' ? ' active' : '');
-        btn.setAttribute('data-libcat', cat.id);
-        btn.innerHTML = '<span class="fi">' + cat.icon + '</span>'
-          + cat.label
-          + ' <span class="lib-count-badge">' + n + '</span>';
-        btn.addEventListener('click', function(){ render(cat.id); });
-        mobileBar.appendChild(btn);
-      });
-    }
-
-    /* ─── تهيئة ─── */
-    totalCount.textContent = books.length;
-    buildSidebar();
-    buildMobile();
-    render('all');
-
-    /* ─── Service Worker ─── */
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function(){
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
 
-    /* ─── شريط التقدم ─── */
-    window.addEventListener('scroll', function(){
-      var s = window.pageYOffset || document.documentElement.scrollTop;
-      var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('scrollProgress').style.width = (s/h*100) + '%';
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
     });
 
-    /* ─── زر الأعلى ─── */
-    var btn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function(){
-      var show = window.pageYOffset > 300;
-      btn.style.opacity      = show ? '1' : '0';
-      btn.style.visibility   = show ? 'visible' : 'hidden';
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
+      else { btt.style.opacity = '0'; btt.style.visibility = 'hidden'; }
     });
-    btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
-    btn.addEventListener('mouseenter', function(){ this.style.transform='scale(1.1) translateY(-3px)'; });
-    btn.addEventListener('mouseleave', function(){ this.style.transform='scale(1) translateY(0)'; });
-
-  })();
+    btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   </script>
 
 </body>

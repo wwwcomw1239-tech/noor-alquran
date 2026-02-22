@@ -4,33 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Primary Meta Tags -->
   <title>عن الموقع | نور القرآن</title>
-  <meta name="description" content="تعرف على موقع نور القرآن، منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
-  <meta name="keywords" content="عن نور القرآن, منصة إسلامية, علوم القرآن, دعوة, صدقة جارية">
-  <meta name="author" content="نور القرآن">
+  <meta name="description" content="تعرف على موقع نور القرآن، أهدافه، ورسالته في خدمة كتاب الله.">
   <link rel="canonical" href="https://noor-alquran.pages.dev/about.html">
   
-  <!-- PWA Meta Tags & Manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
   
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://noor-alquran.pages.dev/about.html">
-  <meta property="og:title" content="عن الموقع | نور القرآن">
-  <meta property="og:description" content="منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
-  <meta property="og:site_name" content="نور القرآن">
-  <meta property="og:locale" content="ar_AR">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://noor-alquran.pages.dev/about.html">
-  <meta property="twitter:title" content="عن الموقع | نور القرآن">
-  <meta property="twitter:description" content="منصة رقمية متخصصة في نشر علوم القرآن الكريم وتقريب معاني الكتاب العزيز للقلوب.">
-
-  <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -39,7 +20,6 @@
 </head>
 <body>
 
-  <!-- Scroll Progress Bar -->
   <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #C9A84C 0%, #E3C46A 100%); width: 0%; z-index: 99999; transition: width 0.1s ease;"></div>
 
   <div class="hijri-bar">
@@ -47,7 +27,7 @@
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -64,14 +44,9 @@
         </a>
       </div>
       <div class="nav-logo-wrap">
-        <a href="index.html" class="nav-logo">
-          <span class="logo-text">نور القرآن</span>
-        </a>
+        <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       </div>
-      <div class="social-links" style="visibility:hidden;">
-        <span class="social-link"></span>
-        <span class="social-link"></span>
-      </div>
+      <div class="social-links" style="visibility:hidden;"></div>
     </div>
     <div class="nav-bottom">
       <div class="nav-container">
@@ -79,10 +54,12 @@
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="books.html">الكتب</a></li>
           <li><a href="clips.html">المقاطع</a></li>
+          <li><a href="shorts.html" style="color:#E3C46A; font-weight:700;">لحظات قرآنية ⚡</a></li>
           <li><a href="about.html" class="active">عن الموقع</a></li>
         </ul>
         <div class="nav-sep"></div>
         <div class="nav-actions">
+          <button id="contentRefreshBtn" class="content-refresh-btn" type="button" title="تحديث محتوى الموقع">↻</button>
           <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -93,55 +70,43 @@
   </nav>
 
   <div class="page-header">
-    <h1>عن الموقع</h1>
+    <h1>عن موقع نور القرآن</h1>
     <div class="page-line"></div>
   </div>
 
   <section class="section">
-    <div class="about-content">
-
-      <div class="vision-box">
-        <span class="vision-label">رؤيتنا</span>
-        <p class="vision-text">نشر علوم القرآن بيسر</p>
-        <p class="vision-dua">اللَّهُمَّ اجْعَلْهُ حُجَّةً لَنَا لَا عَلَيْنَا</p>
+    <div class="container" style="max-width: 800px;">
+      
+      <div class="about-card">
+        <h2 class="about-title">رسالتنا</h2>
+        <p class="about-text">
+          نسعى في "نور القرآن" إلى تقريب كتاب الله عز وجل للمسلمين في كل مكان، من خلال توفير مكتبة شاملة تضم أهم كتب التفسير والتدبر وعلوم القرآن، بالإضافة إلى مواد مرئية مختارة تعين على الفهم والعمل بما جاء في الكتاب المبين.
+        </p>
       </div>
 
-      <p class="about-text">
-        <strong>نور القرآن</strong> منصة رقمية متخصصة في نشر علوم القرآن الكريم، تهدف إلى تقريب معاني الكتاب العزيز للقلوب من خلال مكتبة منتقاة من الكتب والمقاطع المرئية والصوتية.
-      </p>
+      <div class="about-card">
+        <h2 class="about-title">رؤيتنا</h2>
+        <p class="about-text">
+          أن نكون المرجع الرقمي الأسهل والأسرع لكل باحث عن فهم كلام الله، وأن نساهم في نشر ثقافة التدبر لتكون جزءاً من حياة المسلم اليومية.
+        </p>
+      </div>
 
-      <p class="about-text">
-        نسعى لتوفير محتوى عالي الجودة، يُعين المسلم على فهم كلام الله تعالى، ويُثري حياته الروحية بأسلوب عصري ميسّر.
-      </p>
+      <div class="about-card">
+        <h2 class="about-title">ماذا نقدم؟</h2>
+        <ul class="about-list">
+          <li><strong>مكتبة رقمية:</strong> كتب ومراجع في التفسير والتدبر والتجويد.</li>
+          <li><strong>مقاطع قرآنية:</strong> تلاوات وتدبرات مرئية مختارة.</li>
+          <li><strong>لحظات قرآنية:</strong> مقاطع قصيرة سريعة لتغذية الروح (Shorts).</li>
+          <li><strong>تصميم عصري:</strong> واجهة مريحة للعين، متوافقة مع جميع الأجهزة.</li>
+          <li><strong>سرعة وسهولة:</strong> بحث سريع، وإمكانية تثبيت الموقع كتطبيق (PWA).</li>
+        </ul>
+      </div>
 
-      <div class="social-channels">
-        <h3 class="social-channels-title">تابعونا على قنواتنا</h3>
-        <p class="social-channels-desc">للحصول على آخر التحديثات والمحتوى الحصري</p>
-        <div class="channels-grid">
-          <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="channel-card">
-            <div class="channel-icon telegram-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-            </div>
-            <div class="channel-info">
-              <h4 class="channel-name">قناة التلجرام</h4>
-              <p class="channel-desc">انضم لقناتنا على تلجرام</p>
-              <span class="channel-link">t.me/NoorAlquran_net</span>
-            </div>
-            <span class="channel-arrow">←</span>
-          </a>
-
-          <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="channel-card">
-            <div class="channel-icon youtube-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </div>
-            <div class="channel-info">
-              <h4 class="channel-name">قناة اليوتيوب</h4>
-              <p class="channel-desc">تابعنا على يوتيوب</p>
-              <span class="channel-link">youtube.com/@NoorAlquran_net</span>
-            </div>
-            <span class="channel-arrow">←</span>
-          </a>
-        </div>
+      <div class="about-card" style="text-align: center; border-color: #C9A84C; background: rgba(201, 168, 76, 0.05);">
+        <h2 class="about-title" style="color: #C9A84C;">صدقة جارية</h2>
+        <p class="about-text" style="font-size: 1.1rem; font-weight: 600;">
+          هذا العمل خالص لوجه الله تعالى، وهو صدقة جارية عن مصمم ومطور الموقع وعن والديه، وكل من ساهم في إعداده ونشره. نسأل الله أن يتقبل منا ومنكم صالح الأعمال.
+        </p>
       </div>
 
     </div>
@@ -151,11 +116,12 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
+        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
           <a href="clips.html">المقاطع</a>
+          <a href="shorts.html">لحظات قرآنية</a>
           <a href="about.html">عن الموقع</a>
         </nav>
         <div class="footer-social">
@@ -174,9 +140,7 @@
         </a>
       </div>
       <div class="footer-sadaqah">
-        <p class="sadaqah-text">
-          هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول
-        </p>
+        <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
         <p>جميع الحقوق محفوظة &copy; 2026</p>
@@ -184,8 +148,7 @@
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop" aria-label="العودة للأعلى" style="position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #C9A84C 0%, #E3C46A 100%); color: #1A4731; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.22s; z-index: 999;">↑</button>
+  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999;">↑</button>
 
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
@@ -205,43 +168,27 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
-  
+
   <script>
-    // Register Service Worker for PWA (Offline functionality)
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
 
-    // Scroll Progress Bar
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var progress = (scrollTop / scrollHeight) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
     });
 
-    // Back to Top Button
-    var backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-      }
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
+      else { btt.style.opacity = '0'; btt.style.visibility = 'hidden'; }
     });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    backToTopBtn.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.1) translateY(-3px)';
-    });
-    backToTopBtn.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1) translateY(0)';
-    });
+    btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   </script>
+
 </body>
 </html>

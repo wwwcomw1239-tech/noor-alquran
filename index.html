@@ -4,33 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Primary Meta Tags -->
-  <title>نور القرآن | موقع متخصص في نشر الكتب والمقاطع القرآنية</title>
-  <meta name="description" content="موقع نور القرآن منصة إسلامية متخصصة في نشر الكتب والمقاطع القرآنية، لنشر العلم وتيسير فهم كتاب الله للجميع.">
-  <meta name="keywords" content="نور القرآن, كتب إسلامية, مقاطع قرآنية, عادل محمد خليل, أول مرة أتدبر القرآن">
+  <title>نور القرآن | الرئيسية</title>
+  <meta name="description" content="موقع نور القرآن، مكتبة شاملة للكتب القرآنية والمقاطع المرئية لتيسير فهم كتاب الله.">
+  <meta name="keywords" content="قرآن, تفسير, تجويد, كتب إسلامية, مقاطع قرآنية, نور القرآن">
   <meta name="author" content="نور القرآن">
   <link rel="canonical" href="https://noor-alquran.pages.dev/">
   
-  <!-- PWA Meta Tags & Manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
   
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noor-alquran.pages.dev/">
-  <meta property="og:title" content="نور القرآن | موقع متخصص في نشر الكتب والمقاطع القرآنية">
-  <meta property="og:description" content="منصة إسلامية متخصصة في نشر الكتب والمقاطع القرآنية لتيسير فهم كتاب الله">
+  <meta property="og:title" content="نور القرآن | الرئيسية">
+  <meta property="og:description" content="مكتبة شاملة للكتب القرآنية والمقاطع المرئية لتيسير فهم كتاب الله.">
   <meta property="og:site_name" content="نور القرآن">
   <meta property="og:locale" content="ar_AR">
   
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://noor-alquran.pages.dev/">
-  <meta property="twitter:title" content="نور القرآن | موقع متخصص في نشر الكتب والمقاطع القرآنية">
-  <meta property="twitter:description" content="منصة إسلامية متخصصة في نشر الكتب والمقاطع القرآنية لتيسير فهم كتاب الله">
+  <meta property="twitter:title" content="نور القرآن | الرئيسية">
+  <meta property="twitter:description" content="مكتبة شاملة للكتب القرآنية والمقاطع المرئية لتيسير فهم كتاب الله.">
 
-  <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -39,7 +34,6 @@
 </head>
 <body>
 
-  <!-- Scroll Progress Bar -->
   <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #C9A84C 0%, #E3C46A 100%); width: 0%; z-index: 99999; transition: width 0.1s ease;"></div>
 
   <div class="hijri-bar">
@@ -47,7 +41,7 @@
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -68,10 +62,7 @@
           <span class="logo-text">نور القرآن</span>
         </a>
       </div>
-      <div class="social-links" style="visibility:hidden;">
-        <span class="social-link"></span>
-        <span class="social-link"></span>
-      </div>
+      <div class="social-links" style="visibility:hidden;"></div>
     </div>
     <div class="nav-bottom">
       <div class="nav-container">
@@ -79,10 +70,12 @@
           <li><a href="index.html" class="active">الرئيسية</a></li>
           <li><a href="books.html">الكتب</a></li>
           <li><a href="clips.html">المقاطع</a></li>
+          <li><a href="shorts.html" style="color:#E3C46A; font-weight:700;">لحظات قرآنية ⚡</a></li>
           <li><a href="about.html">عن الموقع</a></li>
         </ul>
         <div class="nav-sep"></div>
         <div class="nav-actions">
+          <button id="contentRefreshBtn" class="content-refresh-btn" type="button" title="تحديث محتوى الموقع">↻</button>
           <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -92,108 +85,45 @@
     </div>
   </nav>
 
-  <section class="hero">
+  <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <p class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-      <h1 class="hero-title">نور القرآن</h1>
-      <p class="hero-subtitle">موقع متخصص في نشر الكتب والمقاطع القرآنية</p>
-      <div class="hero-ornament"><span></span><span></span><span></span></div>
+      <div class="hero-badge">مرحباً بك في موقع نور القرآن</div>
+      <h1 class="hero-title">﴿ إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</h1>
+      <p class="hero-subtitle">مكتبة شاملة للكتب القرآنية والمقاطع المرئية لتيسير فهم كتاب الله عز وجل، وتدبر آياته، والعمل به.</p>
+      <div class="hero-buttons">
+        <a href="books.html" class="btn btn-primary">تصفح الكتب</a>
+        <a href="clips.html" class="btn btn-secondary">شاهد المقاطع</a>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <section class="section section-alt" id="latest">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 class="section-title">أحدث الإضافات</h2>
-          <p class="section-desc">آخر ما أُضيف إلى الموقع</p>
-        </div>
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3 class="feature-title">مكتبة شاملة</h3>
+        <p class="feature-desc">كتب في التفسير، التدبر، التجويد، وعلوم القرآن، مصنفة بعناية وسهلة التصفح.</p>
       </div>
-      <div class="tabs-wrap">
-        <div class="tabs" role="tablist">
-          <button class="tab-btn active" role="tab" aria-selected="true" data-tab="tab-books">
-            <span class="tab-icon">&#128218;</span> كتب
-          </button>
-          <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-clips">
-            <span class="tab-icon">&#127909;</span> مقاطع
-          </button>
-        </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎬</div>
+        <h3 class="feature-title">مقاطع مرئية</h3>
+        <p class="feature-desc">تلاوات، وتدبرات مرئية مختارة تقرب لك المعنى بأسلوب شيق وجذاب.</p>
       </div>
-      <div class="tab-panel active" id="tab-books" role="tabpanel">
-        <div class="cards-grid">
-          <div class="card book-card">
-            <div class="card-body">
-              <span class="card-tag">تدبر القرآن</span>
-              <h3 class="card-title">أول مرة أتدبر القرآن</h3>
-              <p class="card-author">الشيخ عادل محمد خليل</p>
-              <p class="card-text">دليلك العملي الأنسب للمبتدئين في رحلة تدبر كتاب الله، يستعرض سور القرآن بالترتيب موضحاً لكل سورة أسماءها وفضلها ومحورها الرئيسي.</p>
-              <div class="book-meta">
-                <span class="meta-item">&#128196; 368 صفحة</span>
-                <span class="meta-item">&#127981; شركة اس بي — الكويت</span>
-                <span class="meta-item">&#128197; ط.ّ 13 | 1438هـ</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span class="card-date">368 صفحة &nbsp;|&nbsp; 1438هـ</span>
-              <a href="books.html" class="card-link">عرض التفاصيل &laquo;</a>
-            </div>
-          </div>
-        </div>
-        <div class="tab-footer">
-          <a href="books.html" class="btn-view-all">عرض كل الكتب &laquo;</a>
-        </div>
-      </div>
-      <div class="tab-panel" id="tab-clips" role="tabpanel">
-        <div class="empty-state">
-          <div class="empty-icon">&#127909;</div>
-          <p>سيتم إضافة المقاطع قريباً</p>
-        </div>
-        <div class="tab-footer">
-          <a href="clips.html" class="btn-view-all">عرض كل المقاطع &laquo;</a>
-        </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">لحظات قرآنية</h3>
+        <p class="feature-desc">مقاطع قصيرة وتأملات سريعة لتغذي روحك في دقائق معدودة.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="books">
+  <section class="cta-section">
     <div class="container">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 class="section-title">الكتب</h2>
-          <p class="section-desc">مكتبة من الكتب الإسلامية والقرآنية المختارة</p>
-        </div>
-        <a href="books.html" class="btn-outline">عرض الكل &laquo;</a>
-      </div>
-      <div class="cards-grid">
-        <div class="card book-card">
-          <div class="card-body">
-            <span class="card-tag">تدبر القرآن</span>
-            <h3 class="card-title">أول مرة أتدبر القرآن</h3>
-            <p class="card-author">الشيخ عادل محمد خليل</p>
-            <p class="card-text">دليلك العملي الأنسب للمبتدئين في رحلة تدبر كتاب الله، يستعرض سور القرآن بالترتيب موضحاً لكل سورة: أسماءها وفضلها ومحورها الرئيسي.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-date">368 صفحة &nbsp;|&nbsp; 1438هـ</span>
-            <a href="books.html" class="card-link">عرض التفاصيل &laquo;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="clips">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 class="section-title">المقاطع القرآنية</h2>
-          <p class="section-desc">مقاطع صوتية ومرئية مختارة</p>
-        </div>
-        <a href="clips.html" class="btn-outline">عرض الكل &laquo;</a>
-      </div>
-      <div class="empty-state">
-        <div class="empty-icon">&#127897;</div>
-        <p>سيتم إضافة المقاطع قريباً</p>
+      <div class="cta-box">
+        <h2 class="cta-title">هل تبحث عن كتاب أو مقطع محدد؟</h2>
+        <p class="cta-desc">استخدم محرك البحث المتقدم للوصول السريع لما تريد في لمح البصر.</p>
+        <button class="btn btn-primary" onclick="document.getElementById('searchToggle').click()">ابدأ البحث الآن</button>
       </div>
     </div>
   </section>
@@ -202,11 +132,12 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">&#xFD3F; إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ &#xFD3E;</p>
+        <p class="footer-ayah">﴿ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
           <a href="clips.html">المقاطع</a>
+          <a href="shorts.html">لحظات قرآنية</a>
           <a href="about.html">عن الموقع</a>
         </nav>
         <div class="footer-social">
@@ -225,9 +156,7 @@
         </a>
       </div>
       <div class="footer-sadaqah">
-        <p class="sadaqah-text">
-          هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول
-        </p>
+        <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
         <p>جميع الحقوق محفوظة &copy; 2026</p>
@@ -235,8 +164,7 @@
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop" aria-label="العودة للأعلى" style="position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #C9A84C 0%, #E3C46A 100%); color: #1A4731; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.22s; z-index: 999;">↑</button>
+  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999;">↑</button>
 
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
@@ -256,60 +184,27 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
-  
+
   <script>
-    // Register Service Worker for PWA (Offline functionality)
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
 
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var target = btn.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(function(b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        document.querySelectorAll('.tab-panel').forEach(function(p) {
-          p.classList.remove('active');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-        document.getElementById(target).classList.add('active');
-      });
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
     });
 
-    // Scroll Progress Bar
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var progress = (scrollTop / scrollHeight) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
+      else { btt.style.opacity = '0'; btt.style.visibility = 'hidden'; }
     });
-
-    // Back to Top Button
-    var backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-      }
-    });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    backToTopBtn.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.1) translateY(-3px)';
-    });
-    backToTopBtn.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1) translateY(0)';
-    });
+    btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   </script>
+
 </body>
 </html>

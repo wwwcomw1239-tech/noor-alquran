@@ -1,0 +1,234 @@
+/* =========================================
+   تنسيقات صفحة "لحظات قرآنية" (Shorts)
+   ========================================= */
+
+body.shorts-page {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: 'Cairo', sans-serif;
+}
+
+/* شريط التنقل العلوي */
+.shorts-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 100;
+  pointer-events: none; /* للسماح بالنقر على الفيديو خلفه */
+}
+
+.shorts-nav .back-btn {
+  color: #fff;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(5px);
+  transition: 0.2s;
+}
+
+.shorts-nav .back-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.shorts-nav .shorts-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* حاوية التمرير السلس (Scroll Snap) */
+.shorts-container {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.shorts-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* حالة التحميل */
+.shorts-loading {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #c9a84c;
+}
+
+.shorts-loading p {
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+/* كل شريحة (فيديو) */
+.short-item {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* غلاف الفيديو لتأمين نسبة 9:16 للشاشات العريضة */
+.short-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 56vh; /* نسبة 9:16 تقريباً */
+  margin: 0 auto;
+  background: #000;
+}
+
+.short-video-wrapper iframe,
+.short-video-wrapper .yt-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* الغطاء التفاعلي فوق الـ iframe */
+.short-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 40%);
+}
+
+.short-info {
+  margin-bottom: 20px;
+  padding-left: 60px; /* لترك مساحة للأزرار الجانبية */
+}
+
+.short-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.short-date {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+/* الأزرار الجانبية */
+.short-actions {
+  position: absolute;
+  bottom: 40px;
+  left: 15px; /* يسار الشاشة لأن الموقع RTL */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 20;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.action-btn svg {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.action-label {
+  font-size: 0.75rem;
+  font-family: 'Cairo', sans-serif;
+}
+
+/* زر التشغيل الكبير في المنتصف (يظهر عند التوقف) */
+.play-pause-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.play-pause-indicator.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* مؤشر تشغيل وهمي كصورة خلفية قبل تحميل الفيديو */
+.yt-placeholder {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yt-placeholder::after {
+  content: '▶';
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
