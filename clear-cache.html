@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أداة تنظيف الكاش</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #f9f9f9; }
+    .box { background: #fff; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h1 { color: #d32f2f; }
+    p { color: #555; line-height: 1.6; }
+    .btn { background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; display: inline-block; }
+    #status { margin-top: 20px; font-weight: bold; color: green; display: none; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>تنظيف وتحديث الموقع 🚀</h1>
+    <p>بسبب التحديثات الكبيرة، قد يحتفظ المتصفح (خاصة كروم) بملف Service Worker تالف يسبب لك شاشة "لا يمكن الوصول (ERR_FAILED)".</p>
+    <p>اضغط على الزر أدناه لمسح جميع ملفات الكاش القديمة والخدمات المعلقة وإجبار المتصفح على جلب النسخة الجديدة.</p>
+    
+    <button onclick="clearEverything()" class="btn">🧹 مسح الكاش الآن</button>
+
+    <div id="status">✅ تمت عملية المسح بنجاح! سيتم توجيهك للرئيسية...</div>
+  </div>
+
+  <script>
+    async function clearEverything() {
+      // 1. Unregister all service workers
+      if ('serviceWorker' in navigator) {
+        try {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (let registration of registrations) {
+            await registration.unregister();
+            console.log('Unregistered SW:', registration);
+          }
+        } catch(e) { console.error('SW Error:', e); }
+      }
+
+      // 2. Clear all Caches
+      if ('caches' in window) {
+        try {
+          const keys = await caches.keys();
+          for (let key of keys) {
+            await caches.delete(key);
+            console.log('Deleted Cache:', key);
+          }
+        } catch(e) { console.error('Cache Error:', e); }
+      }
+
+      // 3. Clear Local Storage & Session Storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Show success and redirect
+      document.getElementById('status').style.display = 'block';
+      setTimeout(() => {
+        window.location.href = '/index.html';
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
