@@ -6,7 +6,6 @@
 
   var allItems = [
     ...(SITE_DATA.books        || []),
-    ...(SITE_DATA.reflections  || []),
     ...(SITE_DATA.clips        || [])
   ];
 
@@ -38,7 +37,7 @@
   }
 
   function hint() {
-    return '<p class="search-hint">ابدأ الكتابة للبحث في الكتب والتدبرات والمقاطع...</p>';
+    return '<p class="search-hint">ابدأ الكتابة للبحث في الكتب والمقاطع...</p>';
   }
 
   function doSearch(q, results) {
