@@ -21,8 +21,14 @@
   <meta property="twitter:url" content="https://noor-alquran.pages.dev/clips.html">
   <meta property="twitter:title" content="المقاطع | نور القرآن">
   <meta property="twitter:description" content="مقاطع قرآنية وتدبرات مرئية مختارة من موقع نور القرآن لتيسير فهم كتاب الله">
+  
+  <!-- تسريع الاتصال بخوادم جلب المقاطع (Preconnect) لتسريع الاستجابة -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.rss2json.com">
+  <link rel="preconnect" href="https://api.allorigins.win">
+  <link rel="preconnect" href="https://www.youtube.com">
+
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -268,7 +274,7 @@
         <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
-        <p>جميع الحقوق محفوظة &copy; 2026</p>
+        <p>جميع الحقوق محفوظة &copy; <span id="currentYear"></span></p>
       </div>
     </div>
   </footer>
@@ -302,7 +308,10 @@
       });
     }
 
-    /* ══ أزرار تبديل جميع القوائم مع التحميل الكسول ══ */
+    // تحديث سنة حقوق النشر تلقائياً
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+    /* ══ أزرار تبديل جميع القوائم مع التحميل الكسول والآمن ══ */
     var PLAYLIST_META = [
       { toggleId: 'togglePlaylist1', contentId: 'playlistContent1', gridId: null,            plId: null },
       { toggleId: 'togglePlaylist2', contentId: 'playlistContent2', gridId: 'ytVideosGrid2', plId: 'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM' },
@@ -325,23 +334,33 @@
         } else {
           content.style.display = 'block';
           btn.setAttribute('aria-expanded', 'true');
-          /* تحميل كسول: نُحمِّل القائمة أول مرة فقط */
+          
+          /* تحميل كسول: نُحمِّل القائمة أول مرة فقط بشكل آمن */
           if (meta.gridId && meta.plId) {
             var grid = document.getElementById(meta.gridId);
             if (grid && grid.dataset.loaded !== 'true') {
               grid.dataset.loaded = 'true';
-              if (window.YTLoadPlaylist) window.YTLoadPlaylist(meta.gridId, meta.plId);
+              if (window.YTLoadPlaylist) {
+                window.YTLoadPlaylist(meta.gridId, meta.plId);
+              } else {
+                // حالة الفشل (Fallback) إذا لم يتم تحميل ملف youtube.js
+                grid.innerHTML = '<div style="padding:20px;text-align:center;color:#e74c3c;">عذراً، تعذر الاتصال بمزود المقاطع. يرجى تحديث الصفحة أو المحاولة لاحقاً.</div>';
+              }
             }
           }
         }
       });
     });
 
-    /* ══ شريط التقدم ══ */
+    /* ══ شريط التقدم بتصحيح القسمة على صفر ══ */
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
+      if (sh > 0) {
+        document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
+      } else {
+        document.getElementById('scrollProgress').style.width = '0%';
+      }
     });
 
     /* ══ زر العودة للأعلى ══ */
