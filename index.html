@@ -97,44 +97,6 @@
     </div>
   </header>
 
-  <section class="latest-additions section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">آخر الإضافات</h2>
-        <p class="section-desc">أحدث ما تم إضافته للموقع من كتب ومقاطع مرئية</p>
-      </div>
-
-      <div class="tabs-wrap">
-        <div class="tabs">
-          <button class="tab-btn active" data-target="latest-books-panel">
-            <span class="tab-icon">📚</span> أحدث الكتب
-          </button>
-          <button class="tab-btn" data-target="latest-clips-panel">
-            <span class="tab-icon">🎬</span> أحدث المقاطع
-          </button>
-        </div>
-      </div>
-
-      <div class="tab-panel active" id="latest-books-panel">
-        <div class="cards-grid" id="latestBooksGrid">
-          <div style="text-align:center; padding: 20px; color: #888; grid-column: 1/-1;">جارٍّ تحميل الكتب...</div>
-        </div>
-        <div class="tab-footer">
-          <a href="books.html" class="btn-view-all">تصفح كل الكتب</a>
-        </div>
-      </div>
-
-      <div class="tab-panel" id="latest-clips-panel">
-        <div class="cards-grid" id="latestClipsGrid">
-          <div style="text-align:center; padding: 20px; color: #888; grid-column: 1/-1;">جارٍّ تحميل المقاطع...</div>
-        </div>
-        <div class="tab-footer">
-          <a href="clips.html" class="btn-view-all">تصفح كل المقاطع</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="features">
     <div class="container features-grid">
       <div class="feature-card">
@@ -195,7 +157,7 @@
         <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
-        <p>جميع الحقوق محفوظة &copy; <span id="currentYear">2026</span></p>
+        <p>جميع الحقوق محفوظة &copy; <span id="currentYear"></span></p>
       </div>
     </div>
   </footer>
@@ -228,132 +190,24 @@
       });
     }
 
-    // شريط التقدم
+    // تحديث سنة حقوق النشر
+    var yearEl = document.getElementById('currentYear');
+    if (yearEl) yearEl.innerText = new Date().getFullYear();
+
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       if (sh > 0) {
         document.getElementById('scrollProgress').style.width = (st / sh * 100) + '%';
-      } else {
-        document.getElementById('scrollProgress').style.width = '0%';
       }
     });
 
-    // زر العودة للأعلى
     var btt = document.getElementById('backToTop');
     window.addEventListener('scroll', function () {
       if (window.pageYOffset > 300) { btt.style.opacity = '1'; btt.style.visibility = 'visible'; }
       else { btt.style.opacity = '0'; btt.style.visibility = 'hidden'; }
     });
     btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-    // تحديث سنة الحقوق
-    var yearEl = document.getElementById('currentYear');
-    if(yearEl) yearEl.innerText = new Date().getFullYear();
-
-    // ══ منطق آخر الإضافات ══
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. تبديل التبويبات
-      var tabBtns = document.querySelectorAll('.tab-btn');
-      tabBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          tabBtns.forEach(function(b) { b.classList.remove('active'); });
-          document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
-          
-          this.classList.add('active');
-          var targetId = this.getAttribute('data-target');
-          var targetPanel = document.getElementById(targetId);
-          if(targetPanel) targetPanel.classList.add('active');
-        });
-      });
-
-      // 2. تحميل أحدث الكتب
-      if (typeof SITE_DATA !== 'undefined' && SITE_DATA.books && SITE_DATA.books.length > 0) {
-        var latestBooks = SITE_DATA.books.slice(-4).reverse();
-        var booksGrid = document.getElementById('latestBooksGrid');
-        
-        var getCatName = function(cat) {
-          var names = {
-            'tadabbur': 'التدبر', 'tafsir': 'التفاسير', 'tajweed': 'التجويد', 
-            'ulum': 'علوم القرآن', 'lugha': 'اللغة والإعراب', 'fadail': 'فضائل القرآن'
-          };
-          return names[cat] || cat;
-        };
-
-        var booksHtml = latestBooks.map(function(book) {
-          return '<article class="card">' +
-            '<div class="card-body">' +
-              '<span class="card-tag">' + getCatName(book.category) + '</span>' +
-              '<h3 class="card-title">' + book.title + '</h3>' +
-              '<p class="card-subtitle">' + book.subtitle + '</p>' +
-              '<p class="card-author">' + book.author + '</p>' +
-              '<p class="card-text">' + book.desc + '</p>' +
-              '<div class="book-meta"><span class="meta-item">' + book.meta + '</span></div>' +
-            '</div>' +
-            '<div class="card-footer">' +
-              '<a href="' + book.download + '" target="_blank" rel="noopener" class="btn-download">' +
-                '<span>⬇ تحميل</span>' +
-              '</a>' +
-            '</div>' +
-          '</article>';
-        }).join('');
-        
-        booksGrid.innerHTML = booksHtml;
-      }
-
-      // 3. تحميل أحدث المقاطع من يوتيوب
-      var clipsGrid = document.getElementById('latestClipsGrid');
-      
-      function renderClips(items) {
-        if (!items || !items.length) {
-          clipsGrid.innerHTML = '<div style="text-align:center; padding:20px; color:#888; grid-column:1/-1;">لا توجد مقاطع لعرضها.</div>';
-          return;
-        }
-        var clipsHtml = items.slice(0, 4).map(function(item) {
-          var idMatch = item.link.match(/[?&]v=([^&]+)/);
-          var id = idMatch ? idMatch[1] : '';
-          var thumb = id ? 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg' : '';
-          var date = new Date(item.pubDate).toLocaleDateString('ar-EG', { year: 'numeric', month: 'short', day: 'numeric' });
-          return '<article class="card">' +
-            '<a href="' + item.link + '" target="_blank" rel="noopener" style="display:block;">' +
-              '<div style="position:relative; width:100%; padding-bottom:56.25%; background:#000; overflow:hidden;">' +
-                (thumb ? '<img src="' + thumb + '" alt="' + item.title.replace(/"/g, '&quot;') + '" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">' : '') +
-                '<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25);">' +
-                  '<svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M8 5v14l11-7z"/></svg>' +
-                '</div>' +
-              '</div>' +
-              '<div class="card-body">' +
-                '<span class="card-tag">يوتيوب</span>' +
-                '<h3 class="card-title" style="font-size:1rem; margin-top:8px;">' + item.title + '</h3>' +
-                (date && date !== 'Invalid Date' ? '<p class="card-date" style="font-size:0.8rem; color:#aaa; margin-top:8px;">' + date + '</p>' : '') +
-              '</div>' +
-            '</a>' +
-          '</article>';
-        }).join('');
-        clipsGrid.innerHTML = clipsHtml;
-      }
-
-      function fetchVideos(url) {
-        return fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url) + '&count=4')
-          .then(function(res) { return res.json(); });
-      }
-
-      var channelRss = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCh06b7VS41Gfdvz0yoZewrg';
-      var playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e';
-
-      fetchVideos(channelRss).then(function(data) {
-        if (data.status === 'ok' && data.items && data.items.length) {
-          renderClips(data.items);
-        } else {
-          // Fallback to playlist if channel RSS fails
-          return fetchVideos(playlistRss).then(function(d) { renderClips(d.items || []); });
-        }
-      }).catch(function(err) {
-        fetchVideos(playlistRss).then(function(d) { renderClips(d.items || []); }).catch(function(e) {
-          clipsGrid.innerHTML = '<div style="text-align:center; padding:20px; color:#e74c3c; grid-column:1/-1;">تعذر تحميل المقاطع من يوتيوب.</div>';
-        });
-      });
-    });
   </script>
 
 </body>
