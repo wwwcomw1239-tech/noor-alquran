@@ -10,25 +10,26 @@
   <link rel="canonical" href="https://noor-alquran.pages.dev/books.html">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1A4731">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noor-alquran.pages.dev/books.html">
   <meta property="og:title" content="المكتبة القرآنية | نور القرآن">
   <meta property="og:description" content="مكتبة نور القرآن — كتب مقسّمة في التفاسير والتدبر والتجويد وعلوم القرآن.">
+  <meta property="og:image" content="https://noor-alquran.pages.dev/og-image.png">
   <meta property="og:site_name" content="نور القرآن">
   <meta property="og:locale" content="ar_AR">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://noor-alquran.pages.dev/books.html">
   <meta property="twitter:title" content="المكتبة القرآنية | نور القرآن">
   <meta property="twitter:description" content="مكتبة نور القرآن — كتب مقسّمة في التفاسير والتدبر والتجويد وعلوم القرآن.">
+  <meta property="twitter:image" content="https://noor-alquran.pages.dev/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
   <style>
-    /* ══ المكتبة القرآنية — أنماط خاصة ══ */
-
     .lib-hero {
       background: linear-gradient(135deg, rgba(26,71,49,0.06) 0%, rgba(201,168,76,0.08) 100%);
       border: 1px solid rgba(201,168,76,0.22);
@@ -41,180 +42,34 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    .lib-hero-text h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #1A4731;
-      margin: 0 0 .3rem;
-    }
-    .lib-hero-text p {
-      font-size: .9rem;
-      color: #666;
-      margin: 0;
-    }
-    .lib-badge {
-      background: #1A4731;
-      color: #C9A84C;
-      border-radius: 50px;
-      padding: .45rem 1.2rem;
-      font-size: .85rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .lib-badge span {
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-
-    /* ── الفلاتر ── */
-    .lib-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .55rem;
-      margin-bottom: 2.2rem;
-      justify-content: flex-start;
-    }
-    .lib-filter {
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      padding: .48rem 1.1rem;
-      border: 2px solid #ddd;
-      border-radius: 50px;
-      background: #fff;
-      color: #555;
-      font-family: 'Cairo', sans-serif;
-      font-size: .82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .22s ease;
-      white-space: nowrap;
-    }
-    .lib-filter:hover {
-      border-color: #C9A84C;
-      color: #1A4731;
-      background: rgba(201,168,76,.09);
-    }
-    .lib-filter.active {
-      border-color: #1A4731;
-      background: #1A4731;
-      color: #fff;
-    }
-    .lib-filter .fi {
-      font-size: 1rem;
-    }
-    .lib-filter .lib-count-badge {
-      background: rgba(255,255,255,.22);
-      border-radius: 50px;
-      padding: .05rem .45rem;
-      font-size: .72rem;
-      font-weight: 700;
-    }
-    .lib-filter:not(.active) .lib-count-badge {
-      background: #f0f0f0;
-      color: #888;
-    }
-
-    /* ── تاغ القسم على البطاقة ── */
-    .lib-cat-tag {
-      display: inline-block;
-      padding: .22rem .85rem;
-      border-radius: 20px;
-      font-size: .75rem;
-      font-weight: 700;
-      margin-bottom: .75rem;
-      letter-spacing: .01em;
-    }
-
-    /* ── حالة فارغة ── */
-    .lib-empty {
-      text-align: center;
-      padding: 4rem 2rem;
-      display: none;
-    }
+    .lib-hero-text h2 { font-size: 1.25rem; font-weight: 800; color: #1A4731; margin: 0 0 .3rem; }
+    .lib-hero-text p { font-size: .9rem; color: #666; margin: 0; }
+    .lib-badge { background: #1A4731; color: #C9A84C; border-radius: 50px; padding: .45rem 1.2rem; font-size: .85rem; font-weight: 700; white-space: nowrap; }
+    .lib-badge span { font-size: 1.1rem; font-weight: 800; }
+    .lib-filters { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 2.2rem; justify-content: flex-start; }
+    .lib-filter { display: flex; align-items: center; gap: .35rem; padding: .48rem 1.1rem; border: 2px solid #ddd; border-radius: 50px; background: #fff; color: #555; font-family: 'Cairo', sans-serif; font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .22s ease; white-space: nowrap; }
+    .lib-filter:hover { border-color: #C9A84C; color: #1A4731; background: rgba(201,168,76,.09); }
+    .lib-filter.active { border-color: #1A4731; background: #1A4731; color: #fff; }
+    .lib-filter .fi { font-size: 1rem; }
+    .lib-filter .lib-count-badge { background: rgba(255,255,255,.22); border-radius: 50px; padding: .05rem .45rem; font-size: .72rem; font-weight: 700; }
+    .lib-filter:not(.active) .lib-count-badge { background: #f0f0f0; color: #888; }
+    .lib-cat-tag { display: inline-block; padding: .22rem .85rem; border-radius: 20px; font-size: .75rem; font-weight: 700; margin-bottom: .75rem; letter-spacing: .01em; }
+    .lib-empty { text-align: center; padding: 4rem 2rem; display: none; }
     .lib-empty .le-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-    .lib-empty .le-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #444;
-      margin-bottom: .5rem;
-    }
-    .lib-empty .le-sub {
-      font-size: .85rem;
-      color: #aaa;
-    }
-
-    /* ── شريط الأقسام الجانبي (سطح مكتب) ── */
-    .lib-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    .lib-sidebar {
-      position: sticky;
-      top: 90px;
-    }
-    .lib-sidebar-title {
-      font-size: .78rem;
-      font-weight: 800;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-bottom: .9rem;
-      padding-right: .5rem;
-    }
-    .lib-side-btn {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      width: 100%;
-      padding: .6rem .9rem;
-      border: none;
-      border-radius: 10px;
-      background: transparent;
-      color: #555;
-      font-family: 'Cairo', sans-serif;
-      font-size: .88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .2s;
-      text-align: right;
-      margin-bottom: .25rem;
-    }
-    .lib-side-btn:hover {
-      background: rgba(26,71,49,.07);
-      color: #1A4731;
-    }
-    .lib-side-btn.active {
-      background: #1A4731;
-      color: #fff;
-      font-weight: 700;
-    }
+    .lib-empty .le-title { font-size: 1.1rem; font-weight: 700; color: #444; margin-bottom: .5rem; }
+    .lib-empty .le-sub { font-size: .85rem; color: #aaa; }
+    .lib-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; align-items: start; }
+    .lib-sidebar { position: sticky; top: 90px; }
+    .lib-sidebar-title { font-size: .78rem; font-weight: 800; color: #aaa; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .9rem; padding-right: .5rem; }
+    .lib-side-btn { display: flex; align-items: center; gap: .6rem; width: 100%; padding: .6rem .9rem; border: none; border-radius: 10px; background: transparent; color: #555; font-family: 'Cairo', sans-serif; font-size: .88rem; font-weight: 600; cursor: pointer; transition: all .2s; text-align: right; margin-bottom: .25rem; }
+    .lib-side-btn:hover { background: rgba(26,71,49,.07); color: #1A4731; }
+    .lib-side-btn.active { background: #1A4731; color: #fff; font-weight: 700; }
     .lib-side-btn .sb-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .lib-side-btn .sb-count {
-      margin-right: auto;
-      background: rgba(255,255,255,.18);
-      border-radius: 50px;
-      padding: .05rem .5rem;
-      font-size: .72rem;
-    }
-    .lib-side-btn:not(.active) .sb-count {
-      background: #f0f0f0;
-      color: #999;
-    }
-
-    /* ── responsive: اخفِ الشريط الجانبي وأظهر الفلاتر العلوية ── */
+    .lib-side-btn .sb-count { margin-right: auto; background: rgba(255,255,255,.18); border-radius: 50px; padding: .05rem .5rem; font-size: .72rem; }
+    .lib-side-btn:not(.active) .sb-count { background: #f0f0f0; color: #999; }
     .lib-filters-mobile { display: none; }
-    @media (max-width: 820px) {
-      .lib-layout { grid-template-columns: 1fr; }
-      .lib-sidebar { display: none; }
-      .lib-filters-mobile { display: flex; }
-    }
-    @media (max-width: 500px) {
-      .lib-hero { flex-direction: column; text-align: center; }
-      .lib-hero-text h2 { font-size: 1.05rem; }
-    }
+    @media (max-width: 820px) { .lib-layout { grid-template-columns: 1fr; } .lib-sidebar { display: none; } .lib-filters-mobile { display: flex; } }
+    @media (max-width: 500px) { .lib-hero { flex-direction: column; text-align: center; } .lib-hero-text h2 { font-size: 1.05rem; } }
   </style>
 </head>
 <body>
@@ -236,16 +91,16 @@
     <div class="nav-top">
       <div class="social-links">
         <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          <svg width="16px" height="16px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
         </a>
         <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <svg width="16px" height="16px" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
       </div>
       <div class="nav-logo-wrap">
         <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
       </div>
-      <div class="social-links" style="visibility:hidden">
+      <div class="social-links" style="visibility:hidden" aria-hidden="true">
         <span class="social-link"></span><span class="social-link"></span>
       </div>
     </div>
@@ -275,8 +130,6 @@
 
   <section class="section">
     <div class="container">
-
-      <!-- بطاقة إحصاء المكتبة -->
       <div class="lib-hero">
         <div class="lib-hero-text">
           <h2>&#128218; مكتبة نور القرآن</h2>
@@ -287,19 +140,12 @@
         </div>
       </div>
 
-      <!-- فلاتر الموبايل -->
       <div class="lib-filters lib-filters-mobile" id="mobileFilters"></div>
 
-      <!-- تخطيط شريط جانبي + شبكة -->
       <div class="lib-layout">
-
-        <!-- الشريط الجانبي (سطح المكتب) -->
         <aside class="lib-sidebar" id="desktopSidebar">
           <p class="lib-sidebar-title">الأقسام</p>
-          <!-- تُولَّد بجافاسكربت -->
         </aside>
-
-        <!-- منطقة الكتب -->
         <div>
           <div class="cards-grid" id="booksGrid"></div>
           <div class="lib-empty" id="libEmpty">
@@ -308,7 +154,6 @@
             <span class="le-sub">سيتم إضافتها قريباً بإذن الله</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -326,10 +171,10 @@
         </nav>
         <div class="footer-social">
           <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            <svg width="18px" height="18px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
           </a>
           <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <svg width="18px" height="18px" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           </a>
         </div>
       </div>
@@ -343,7 +188,7 @@
         <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
       </div>
       <div class="footer-bottom">
-        <p>جميع الحقوق محفوظة &copy; 2026</p>
+        <p>جميع الحقوق محفوظة &copy; <span id="currentYear"></span></p>
       </div>
     </div>
   </footer>
@@ -370,12 +215,7 @@
   <script src="js/main.js"></script>
 
   <script>
-  /* ══════════════════════════════════════
-     المكتبة القرآنية — منطق التصفح والعرض
-  ══════════════════════════════════════ */
   (function () {
-
-    /* ─── تعريف الأقسام ─── */
     var CATS = [
       { id: 'all',      icon: '📚', label: 'الكل' },
       { id: 'tadabbur', icon: '📖', label: 'التدبر ومقاصد السور',   bg: '#E8F5E9', color: '#1A4731' },
@@ -386,30 +226,26 @@
       { id: 'fadail',   icon: '✨', label: 'فضائل القرآن',          bg: '#FCE4EC', color: '#880E4F' }
     ];
 
-    var books       = (typeof SITE_DATA !== 'undefined' && SITE_DATA.books) ? SITE_DATA.books : [];
-    var grid        = document.getElementById('booksGrid');
-    var empty       = document.getElementById('libEmpty');
-    var totalCount  = document.getElementById('totalCount');
-    var sidebar     = document.getElementById('desktopSidebar');
-    var mobileBar   = document.getElementById('mobileFilters');
-    var activeCat   = 'all';
+    var books      = (typeof SITE_DATA !== 'undefined' && SITE_DATA.books) ? SITE_DATA.books : [];
+    var grid       = document.getElementById('booksGrid');
+    var empty      = document.getElementById('libEmpty');
+    var totalCount = document.getElementById('totalCount');
+    var sidebar    = document.getElementById('desktopSidebar');
+    var mobileBar  = document.getElementById('mobileFilters');
+    var activeCat  = 'all';
 
-    /* ─── عدد كتب كل قسم ─── */
     function countCat(id) {
       if (id === 'all') return books.length;
       return books.filter(function(b){ return b.category === id; }).length;
     }
 
-    /* ─── تحديث حالة نشاط الأزرار ─── */
     function syncActive(id) {
       activeCat = id;
       document.querySelectorAll('[data-libcat]').forEach(function(btn){
         btn.classList.toggle('active', btn.getAttribute('data-libcat') === id);
-        if (btn.classList.contains('lib-side-btn')) btn.classList.toggle('active', btn.getAttribute('data-libcat') === id);
       });
     }
 
-    /* ─── بناء بطاقة كتاب ─── */
     function buildCard(b) {
       var cat = CATS.find(function(c){ return c.id === b.category; }) || CATS[0];
       var tagStyle = cat.bg ? 'style="background:' + cat.bg + ';color:' + cat.color + '"' : '';
@@ -431,7 +267,6 @@
         + '</div>';
     }
 
-    /* ─── عرض الكتب حسب القسم ─── */
     function render(cat) {
       syncActive(cat);
       var list = cat === 'all' ? books : books.filter(function(b){ return b.category === cat; });
@@ -444,7 +279,6 @@
       }
     }
 
-    /* ─── بناء الشريط الجانبي ─── */
     function buildSidebar() {
       sidebar.innerHTML = '<p class="lib-sidebar-title">&#128218; الأقسام</p>';
       CATS.forEach(function(cat) {
@@ -460,7 +294,6 @@
       });
     }
 
-    /* ─── بناء شريط الموبايل ─── */
     function buildMobile() {
       CATS.forEach(function(cat) {
         var n = countCat(cat.id);
@@ -475,32 +308,31 @@
       });
     }
 
-    /* ─── تهيئة ─── */
+    var yearEl = document.getElementById('currentYear');
+    if (yearEl) yearEl.innerText = new Date().getFullYear();
+
     totalCount.textContent = books.length;
     buildSidebar();
     buildMobile();
     render('all');
 
-    /* ─── Service Worker ─── */
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function(){
         navigator.serviceWorker.register('/sw.js');
       });
     }
 
-    /* ─── شريط التقدم ─── */
     window.addEventListener('scroll', function(){
       var s = window.pageYOffset || document.documentElement.scrollTop;
       var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('scrollProgress').style.width = (s/h*100) + '%';
+      if (h > 0) document.getElementById('scrollProgress').style.width = (s/h*100) + '%';
     });
 
-    /* ─── زر الأعلى ─── */
     var btn = document.getElementById('backToTop');
     window.addEventListener('scroll', function(){
       var show = window.pageYOffset > 300;
-      btn.style.opacity      = show ? '1' : '0';
-      btn.style.visibility   = show ? 'visible' : 'hidden';
+      btn.style.opacity    = show ? '1' : '0';
+      btn.style.visibility = show ? 'visible' : 'hidden';
     });
     btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
     btn.addEventListener('mouseenter', function(){ this.style.transform='scale(1.1) translateY(-3px)'; });

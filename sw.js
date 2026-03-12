@@ -1,19 +1,21 @@
-const CACHE_NAME = 'noor-alquran-v9';
+const CACHE_NAME = 'noor-alquran-v10';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/books.html',
+  '/clips.html',
+  '/about.html',
   '/css/style.css',
   '/js/main.js',
-  '/js/search.js'
+  '/js/search.js',
+  '/js/data.js'
 ];
 
 // Install Event
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
-      console.log('Opened cache v9');
-      // وضعنا الملفات الأساسية فقط بدلاً من الصفحات الفرعية
-      // لتجنب مشاكل التحويلات في Cloudflare
+      console.log('Opened cache v10');
       try {
         await cache.addAll(ASSETS_TO_CACHE);
       } catch (e) {
@@ -26,29 +28,34 @@ self.addEventListener('install', event => {
 // Activate Event
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.filter(name => name !== CACHE_NAME)
-          .map(name => caches.delete(name))
-      );
-    })
+    Promise.all([
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.filter(name => name !== CACHE_NAME)
+            .map(name => caches.delete(name))
+        );
+      }),
+      self.clients.claim()
+    ])
   );
-  return self.clients.claim();
 });
 
-// Fetch Event
+// Fetch Event — Network First, fallback to Cache
 self.addEventListener('fetch', event => {
-  // تخطي تام لطلبات الصفحات والـ API والـ data.js
-  // جعل المتصفح يتولى تحميل الصفحات الفرعية مثل books.html بالكامل
-  if (event.request.mode === 'navigate' || event.request.url.includes('data.js')) {
-    return; // لا تتدخل إطلاقاً، دع المتصفح يعالجها (هذا يحل ERR_FAILED من جذوره)
-  }
-
-  // بالنسبة للملفات الأخرى (CSS, JS, صور)، حاول جلبها من الشبكة أولاً
-  // وإذا فشل (في حال عدم وجود إنترنت)، اجلبها من الكاش
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
-    })
+    fetch(event.request)
+      .then(response => {
+        // تخزين نسخة في الكاش عند كل تحميل ناجح
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return response;
+      })
+      .catch(() => {
+        return caches.match(event.request);
+      })
   );
 });
