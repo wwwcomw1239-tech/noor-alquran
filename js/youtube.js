@@ -1,12 +1,35 @@
 /* =========================================
    يوتيوب — قوائم تشغيل متعددة + مشغّل مضمّن + مختار الجودة
    نظام احتياطي ثلاثي + تحميل كسول
+   + بيانات ثابتة محلية (Static Fallback) + كاش دائم
    ========================================= */
 
 (function () {
   'use strict';
 
-  var CACHE_TTL = 5 * 60 * 1000; // 5 دقائق
+  /* ════ بيانات ثابتة محلية للقوائم (تُعرض فوراً بلا انتظار) ════
+     عند إضافة مقاطع جديدة في يوتيوب، يتم تحديث القائمة من الشبكة
+     وحفظها في الكاش المحلي تلقائياً لكل الزيارات اللاحقة.
+  */
+  var STATIC_DATA = {
+    'PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e': [
+      { title: 'آية وتفسير — سورة الفاتحة', link: 'https://www.youtube.com/watch?v=placeholder1', pubDate: '' },
+    ],
+    'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM': [],
+    'PLVbjqy4Qzz1MdV23AlsPSND7d5I_pZD6w': [],
+    'PLVbjqy4Qzz1P8e523UtvCxLDaefbfMTLF': [],
+    'PLVbjqy4Qzz1N3nupwtHO-2IoUikenFOjN': [],
+    'PLVbjqy4Qzz1N4YEdMDY5NvSDLYgOtTxKw': []
+  };
+
+  /*
+   * CACHE_TTL = 0  →  الكاش دائم: بمجرد أن يُحمَّل الزائر القائمة مرة واحدة
+   *                   تُخزَّن في localStorage ولا تُجلب مجدداً من الإنترنت
+   *                   إلا إذا تم مسح الكاش يدوياً أو تحديث المتصفح بـ Ctrl+Shift+R.
+   * اضبط CACHE_TTL على رقم موجب (بالميلي ثانية) إذا أردت انتهاء صلاحية:
+   *   مثال: 7 * 24 * 60 * 60 * 1000  →  أسبوع كامل
+   */
+  var CACHE_TTL = 0; // 0 = لا ينتهي أبداً
 
   var currentPlayer = null;
   var currentCard   = null;
@@ -59,13 +82,14 @@
     });
   });
 
-  /* ════ كاش لكل قائمة ════ */
+  /* ════ كاش دائم في localStorage ════ */
   function loadCache(playlistId) {
     try {
       var raw = localStorage.getItem('yt_pl_' + playlistId);
       if (!raw) return null;
       var obj = JSON.parse(raw);
-      if (Date.now() - obj.ts > CACHE_TTL) return null;
+      /* إذا CACHE_TTL = 0 فالكاش لا ينتهي أبداً */
+      if (CACHE_TTL > 0 && Date.now() - obj.ts > CACHE_TTL) return null;
       return obj.items;
     } catch (e) { return null; }
   }
@@ -120,7 +144,7 @@
     return items;
   }
 
-  /* ════ جلب بيانات قائمة بعينها ════ */
+  /* ════ جلب بيانات قائمة بعينها (شبكة) ════ */
   function fetchPlaylist(playlistId) {
     var RSS_URL  = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + playlistId;
     var API_RSS2 = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL) + '&count=50';
@@ -360,7 +384,7 @@
       });
     });
 
-    /* تحديث SITE_DATA للبحث — نضيف فوق ما هو موجود ولا نستبدله */
+    /* تحديث SITE_DATA للبحث */
     try {
       if (window.SITE_DATA) {
         var newClips = items.map(function (item) {
@@ -371,26 +395,63 @@
     } catch (e) {}
   }
 
-  /* ════ تحميل قائمة بعينها (API عامة) ════ */
+  /* ════ تحميل قائمة بعينها (API عامة) ════
+   *
+   * الخوارزمية الجديدة:
+   *  1. تحقق من localStorage → إذا وُجد بيانات، اعرضها فوراً بلا تأخير
+   *  2. في الخلفية، حاول جلب أحدث نسخة من الشبكة
+   *  3. إذا نجح الجلب وكانت البيانات مختلفة → حدّث العرض واحفظ النسخة الجديدة
+   *  4. إذا فشل الجلب ولا توجد بيانات محفوظة → استخدم البيانات الثابتة أو iframe
+   */
   function loadPlaylist(gridId, playlistId, forceRefresh) {
     var grid = document.getElementById(gridId);
     if (!grid) return;
 
-    grid.innerHTML = '<div class="yt-loading"><span class="yt-spinner"></span> \u062c\u0627\u0631\u0651\u064d \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0645\u0642\u0627\u0637\u0639...</div>';
-
     var cached = forceRefresh ? null : loadCache(playlistId);
-    if (cached) { renderCards(cached, grid, playlistId); return; }
+
+    if (cached && cached.length) {
+      /* عرض فوري من الكاش بلا spinner ولا انتظار */
+      renderCards(cached, grid, playlistId);
+
+      /* تحديث في الخلفية بصمت */
+      fetchPlaylist(playlistId)
+        .then(function (freshItems) {
+          if (freshItems && freshItems.length) {
+            saveCache(playlistId, freshItems);
+            /* تحديث العرض فقط إذا تغير عدد المقاطع */
+            if (freshItems.length !== cached.length) {
+              renderCards(freshItems, grid, playlistId);
+            }
+          }
+        })
+        .catch(function () { /* فشل الجلب — لا مشكلة، الكاش معروض */ });
+
+      return;
+    }
+
+    /* أول زيارة: اعرض spinner مؤقتاً */
+    grid.innerHTML = '<div class="yt-loading"><span class="yt-spinner"></span> جارٍّ تحميل المقاطع...</div>';
 
     fetchPlaylist(playlistId)
-      .then(function (items) { saveCache(playlistId, items); renderCards(items, grid, playlistId); })
-      .catch(function () { showIframeFallback(grid, playlistId); });
+      .then(function (items) {
+        saveCache(playlistId, items);
+        renderCards(items, grid, playlistId);
+      })
+      .catch(function () {
+        /* فشل الجلب: جرّب البيانات الثابتة أو iframe */
+        var staticItems = STATIC_DATA[playlistId] || [];
+        if (staticItems.length) {
+          renderCards(staticItems, grid, playlistId);
+        } else {
+          showIframeFallback(grid, playlistId);
+        }
+      });
   }
 
   /* ════ التهيئة ════ */
   function init() {
     injectStyles();
     loadYTApi();
-    /* تحميل أول قائمة (آية وتفسير) مباشرة عند فتح الصفحة */
     loadPlaylist('ytVideosGrid', 'PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e');
   }
 
