@@ -16,306 +16,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ══ شريط التنقل العلوي للصفحة ══ */
-    .pl-nav-bar {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-    .pl-back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 20px;
-      background: var(--clr-bg-alt);
-      border: 1.5px solid var(--clr-border);
-      border-radius: var(--radius-sm);
-      color: var(--clr-primary);
-      font-size: .9rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background .22s, border-color .22s, transform .22s;
-    }
-    .pl-back-btn:hover {
-      background: var(--clr-primary);
-      color: var(--clr-white);
-      border-color: var(--clr-primary);
-      transform: translateX(4px);
-    }
-    .pl-breadcrumb {
-      font-size: .88rem;
-      color: var(--clr-text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .pl-breadcrumb a { color: var(--clr-primary); font-weight: 600; }
-    .pl-breadcrumb a:hover { color: var(--clr-gold); }
-    .pl-breadcrumb span { color: var(--clr-text-muted); }
-
-    /* ══ رأس القائمة ══ */
-    .pl-hero {
-      background: linear-gradient(135deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%);
-      padding: 52px 20px 44px;
-      text-align: center;
-      color: var(--clr-white);
-      position: relative;
-      overflow: hidden;
-    }
-    .pl-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,.1) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 20%, rgba(201,168,76,.07) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .pl-hero__icon {
-      font-size: 4rem;
-      line-height: 1;
-      margin-bottom: 16px;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-      position: relative;
-    }
-    .pl-hero__title {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 800;
-      margin-bottom: 10px;
-      position: relative;
-    }
-    .pl-hero__desc {
-      font-size: 1rem;
-      color: rgba(255,255,255,.72);
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .pl-hero__line {
-      width: 64px;
-      height: 4px;
-      background: var(--clr-gold);
-      border-radius: 2px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    /* ══ شريط الإجراءات ══ */
-    .pl-actions-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-      padding: 16px 20px;
-      background: var(--clr-white);
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
-    }
-    .pl-count {
-      font-size: .92rem;
-      color: var(--clr-text-muted);
-      font-weight: 600;
-    }
-    .pl-count strong {
-      color: var(--clr-primary);
-      font-size: 1.1rem;
-    }
-    .btn-yt-open {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-      color: white;
-      border-radius: var(--radius-sm);
-      font-size: .9rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 3px 10px rgba(204,0,0,.3);
-      transition: transform .22s, box-shadow .22s;
-    }
-    .btn-yt-open:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(204,0,0,.4);
-      color: white;
-    }
-
-    /* ══ شبكة الفيديوهات (yt-grid) ══ */
-    #ytGrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    /* بطاقة الفيديو */
-    .yt-card {
-      background: var(--clr-white);
-      border: 1.5px solid var(--clr-border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform .26s, box-shadow .26s, border-color .26s;
-      box-shadow: var(--shadow-sm);
-    }
-    .yt-card:hover, .yt-card:focus-visible {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.12);
-      border-color: #cc0000;
-      outline: none;
-    }
-    .yt-card.yt-playing {
-      grid-column: 1 / -1;
-      cursor: default;
-      transform: none;
-      box-shadow: 0 6px 28px rgba(204,0,0,.18);
-      border-color: #cc0000;
-    }
-
-    /* الصورة المصغرة */
-    .yt-thumb {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      background: #111;
-      overflow: hidden;
-    }
-    .yt-thumb img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .4s ease;
-    }
-    .yt-card:hover .yt-thumb img { transform: scale(1.05); }
-    .yt-play-btn {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.35);
-      opacity: 0;
-      transition: opacity .26s;
-      font-size: 3rem;
-      color: white;
-    }
-    .yt-card:hover .yt-play-btn { opacity: 1; }
-
-    /* معلومات الفيديو */
-    .yt-info {
-      padding: 14px 16px 16px;
-    }
-    .yt-num {
-      font-size: .74rem;
-      color: #cc0000;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .yt-title {
-      font-size: .97rem;
-      font-weight: 700;
-      color: var(--clr-text);
-      line-height: 1.55;
-      margin-bottom: 6px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .yt-date {
-      font-size: .77rem;
-      color: #bbb;
-      display: block;
-    }
-
-    /* مؤشر التحميل */
-    .yt-loading {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--clr-text-muted);
-    }
-    .yt-spinner {
-      display: inline-block;
-      width: 46px;
-      height: 46px;
-      border: 4px solid rgba(26,71,49,.1);
-      border-top-color: #cc0000;
-      border-radius: 50%;
-      animation: ytSpin 1s linear infinite;
-      margin-bottom: 14px;
-    }
-    @keyframes ytSpin { to { transform: rotate(360deg); } }
-
-    /* مشغّل الفيديو المضمّن */
-    .yt-player-wrap {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,.5);
-    }
-    .yt-player-container {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      background: #000;
-    }
-    .yt-player-container > div,
-    .yt-player-container iframe {
-      position: absolute !important;
-      top: 0 !important; left: 0 !important;
-      width: 100% !important; height: 100% !important;
-      border: none !important;
-    }
-    .yt-player-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #111;
-      padding: 8px 14px;
-      gap: 8px;
-    }
-    .yt-close-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(255,255,255,.08);
-      color: #bbb;
-      border: none;
-      border-radius: 5px;
-      padding: 7px 14px;
-      cursor: pointer;
-      font-family: Cairo, sans-serif;
-      font-size: .85rem;
-      transition: .2s;
-      white-space: nowrap;
-    }
-    .yt-close-btn:hover { background: rgba(220,50,50,.35); color: #fff; }
-
-    /* خطأ */
-    .yt-error {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 50px 20px;
-      color: #e74c3c;
-      font-size: .95rem;
-    }
-
-    @media (max-width: 600px) {
-      #ytGrid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .yt-info { padding: 10px 12px 12px; }
-      .yt-title { font-size: .88rem; }
-      .pl-hero { padding: 36px 16px 30px; }
-      .pl-hero__icon { font-size: 3rem; }
-      .pl-actions-bar { padding: 12px 14px; }
-    }
-    @media (max-width: 400px) {
-      #ytGrid { grid-template-columns: 1fr; }
+    .pl-nav-bar{display:flex;align-items:center;gap:14px;margin-bottom:32px;flex-wrap:wrap;}
+    .pl-back-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;
+      background:var(--clr-bg-alt);border:1.5px solid var(--clr-border);
+      border-radius:var(--radius-sm);color:var(--clr-primary);font-size:.9rem;
+      font-weight:700;text-decoration:none;transition:background .22s,border-color .22s,transform .22s;}
+    .pl-back-btn:hover{background:var(--clr-primary);color:var(--clr-white);
+      border-color:var(--clr-primary);transform:translateX(4px);}
+    .pl-breadcrumb{font-size:.88rem;color:var(--clr-text-muted);display:flex;
+      align-items:center;gap:6px;flex-wrap:wrap;}
+    .pl-breadcrumb a{color:var(--clr-primary);font-weight:600;}
+    .pl-breadcrumb a:hover{color:var(--clr-gold);}
+    .pl-hero{background:linear-gradient(135deg,var(--clr-primary-dk) 0%,var(--clr-primary) 100%);
+      padding:52px 20px 44px;text-align:center;color:var(--clr-white);
+      position:relative;overflow:hidden;}
+    .pl-hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.1) 0%,transparent 60%),
+                 radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.07) 0%,transparent 50%);
+      pointer-events:none;}
+    .pl-hero__icon{font-size:4rem;line-height:1;margin-bottom:16px;
+      filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));position:relative;}
+    .pl-hero__title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;
+      margin-bottom:10px;position:relative;}
+    .pl-hero__desc{font-size:1rem;color:rgba(255,255,255,.72);
+      margin-bottom:20px;position:relative;}
+    .pl-hero__line{width:64px;height:4px;background:var(--clr-gold);
+      border-radius:2px;margin:0 auto;position:relative;}
+    .pl-actions-bar{display:flex;align-items:center;justify-content:space-between;
+      gap:12px;flex-wrap:wrap;margin-bottom:28px;padding:16px 20px;
+      background:var(--clr-white);border:1px solid var(--clr-border);
+      border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
+    .pl-count{font-size:.92rem;color:var(--clr-text-muted);font-weight:600;}
+    .pl-count strong{color:var(--clr-primary);font-size:1.1rem;}
+    .btn-yt-open{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;
+      background:linear-gradient(135deg,#ff0000 0%,#cc0000 100%);color:white;
+      border-radius:var(--radius-sm);font-size:.9rem;font-weight:700;
+      text-decoration:none;box-shadow:0 3px 10px rgba(204,0,0,.3);
+      transition:transform .22s,box-shadow .22s;}
+    .btn-yt-open:hover{transform:translateY(-2px);
+      box-shadow:0 6px 18px rgba(204,0,0,.4);color:white;}
+    @media(max-width:600px){
+      .pl-hero{padding:36px 16px 30px;}
+      .pl-hero__icon{font-size:3rem;}
+      .pl-actions-bar{padding:12px 14px;}
     }
   </style>
 </head>
@@ -328,7 +71,7 @@
       <div class="hijri-right">
         <span class="hijri-dot"></span>
         <span class="hijri-label">التاريخ الهجري</span>
-        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
+        <span class="hijri-date" id="hijriDate">جارُّ التحميل...</span>
       </div>
       <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
     </div>
@@ -370,18 +113,17 @@
     </div>
   </nav>
 
-  <!-- رأس القائمة (يُملأ بـ JS) -->
+  <!-- رأس القائمة -->
   <div class="pl-hero" id="plHero">
     <div class="pl-hero__icon" id="plIcon">🎬</div>
     <h1 class="pl-hero__title" id="plTitle">قائمة التشغيل</h1>
-    <p class="pl-hero__desc" id="plDesc">جارٍّ التحميل...</p>
+    <p class="pl-hero__desc" id="plDesc">جارُّ التحميل...</p>
     <div class="pl-hero__line"></div>
   </div>
 
   <section class="section">
     <div class="container">
 
-      <!-- شريط التنقل -->
       <div class="pl-nav-bar">
         <a href="clips.html" class="pl-back-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -396,7 +138,6 @@
         </div>
       </div>
 
-      <!-- شريط الإجراءات -->
       <div class="pl-actions-bar">
         <div class="pl-count">
           <strong id="vidCount">—</strong> مقطع في هذه القائمة
@@ -407,13 +148,8 @@
         </a>
       </div>
 
-      <!-- شبكة الفيديوهات -->
-      <div id="ytGrid">
-        <div class="yt-loading">
-          <div><span class="yt-spinner" style="display:block;margin:0 auto 14px;"></span></div>
-          جارٍّ تحميل المقاطع...
-        </div>
-      </div>
+      <!-- شبكة الفيديوها — معرّف هنا ليستخدمها youtube.js -->
+      <div id="ytGrid"></div>
 
     </div>
   </section>
@@ -422,7 +158,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo"><span>نور القرآن</span></div>
-        <p class="footer-ayah">ـ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ـ</p>
+        <p class="footer-ayah">ـ إِنَّ هٰذا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ـ</p>
         <nav class="footer-nav">
           <a href="index.html">الرئيسية</a>
           <a href="books.html">الكتب</a>
@@ -473,252 +209,47 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+  <!-- محرك التشغيل الموحّد -->
+  <script src="js/youtube.js"></script>
+
   <script>
-  (function () {
+  (function(){
     'use strict';
 
-    /* ══ بيانات القوائم ══ */
-    var PLAYLISTS = {
-      '1': { name: 'آية وتفسير',           icon: '🎬', desc: 'شرح وتفسير الآيات القرآنية الكريمة بأسلوب ميسّر',       id: 'PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e' },
-      '2': { name: 'القرآن كاملاً',         icon: '📖', desc: 'تلاوة كاملة لكتاب الله بصوت خاشع متأمِّل',             id: 'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM' },
-      '3': { name: 'القرآن وتزكية النفس',   icon: '🌿', desc: 'كيف يُزكّي القرآن النفوس ويرقّق القلوب',              id: 'PLVbjqy4Qzz1MdV23AlsPSND7d5I_pZD6w' },
-      '4': { name: 'مواعظ القرآن',          icon: '🕌', desc: 'مواعظ وعِبَر مستقاة من آيات الكتاب العزيز',           id: 'PLVbjqy4Qzz1P8e523UtvCxLDaefbfMTLF' },
-      '5': { name: 'آداب حملة القرآن',      icon: '💿', desc: 'آداب وأخلاق حاملي القرآن الكريم',                     id: 'PLVbjqy4Qzz1N3nupwtHO-2IoUikenFOjN' },
-      '6': { name: 'وقفات تدبرية',          icon: '🌙', desc: 'وقفات تأملية مع معاني الآيات ومقاصدها',               id: 'PLVbjqy4Qzz1N4YEdMDY5NvSDLYgOtTxKw' }
-    };
-
-    var CACHE_TTL = 0; // 0 = لا ينتهي
-
-    /* ── مساعدات ── */
-    function qs(sel) { return document.querySelector(sel); }
-    function vidId(link) {
-      var m = String(link || '').match(/[?&]v=([^&]+)/);
-      return m ? m[1] : '';
-    }
-    function escHtml(s) {
-      return String(s || '')
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-    function fmtDate(str) {
-      if (!str) return '';
-      try {
-        var d  = new Date(str);
-        var mo = ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
-                  'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-        return d.getDate() + ' ' + mo[d.getMonth()] + ' ' + d.getFullYear();
-      } catch(e) { return ''; }
-    }
-
-    /* ── كاش ── */
-    function loadCache(plId) {
-      try {
-        var raw = localStorage.getItem('yt_pl_' + plId);
-        if (!raw) return null;
-        var obj = JSON.parse(raw);
-        if (CACHE_TTL > 0 && Date.now() - obj.ts > CACHE_TTL) return null;
-        return obj.items;
-      } catch(e) { return null; }
-    }
-    function saveCache(plId, items) {
-      try {
-        localStorage.setItem('yt_pl_' + plId, JSON.stringify({ ts: Date.now(), items: items }));
-      } catch(e) {}
-    }
-
-    /* ── تحليل XML ── */
-    function parseXml(xmlStr) {
-      var items = [];
-      var rx = /<entry>([\u0000-\uFFFF]*?)<\/entry>/g;
-      var m;
-      while ((m = rx.exec(xmlStr)) !== null) {
-        var e = m[1];
-        var title   = (/<title>([\u0000-\uFFFF]*?)<\/title>/.exec(e)           || [])[1] || '';
-        var videoId = (/<yt:videoId>([\u0000-\uFFFF]*?)<\/yt:videoId>/.exec(e) || [])[1] || '';
-        var pub     = (/<published>([\u0000-\uFFFF]*?)<\/published>/.exec(e)   || [])[1] || '';
-        if (videoId) items.push({
-          title: title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>'),
-          link: 'https://www.youtube.com/watch?v=' + videoId,
-          pubDate: pub
-        });
-      }
-      return items;
-    }
-
-    /* ── جلب القائمة ── */
-    function fetchPlaylist(plId) {
-      var RSS  = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + plId;
-      var API1 = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&count=50';
-      var API2 = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS);
-      function t1() {
-        return fetch(API1).then(function(r){ if(!r.ok) throw 0; return r.json(); })
-          .then(function(d){ if(d.status==='ok'&&d.items&&d.items.length) return d.items; throw 0; });
-      }
-      function t2() {
-        return fetch(API2).then(function(r){ if(!r.ok) throw 0; return r.json(); })
-          .then(function(d){ var it=parseXml(d.contents||''); if(!it.length) throw 0; return it; });
-      }
-      return t1().catch(function(){ return t2(); });
-    }
-
-    /* ── مشغّل مضمَّن ── */
-    var currentPlayer = null;
-    var currentCard   = null;
-    var ytApiReady    = false;
-    var pendingPlay   = null;
-
-    function loadYTApi() {
-      if (window.YT && window.YT.Player) { ytApiReady = true; return; }
-      if (document.querySelector('script[src*="iframe_api"]')) return;
-      var tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(tag);
-    }
-    window.onYouTubeIframeAPIReady = function () {
-      ytApiReady = true;
-      if (pendingPlay) { var p = pendingPlay; pendingPlay = null; playInline(p.card, p.id); }
-    };
-
-    function restoreCard(card) {
-      if (!card) return;
-      card.classList.remove('yt-playing');
-      var w = card.querySelector('.yt-player-wrap');
-      var t = card.querySelector('.yt-thumb');
-      var i = card.querySelector('.yt-info');
-      if (w) w.remove();
-      if (t) t.style.display = '';
-      if (i) i.style.display = '';
-    }
-
-    function playInline(card, id) {
-      if (!id) return;
-      if (!ytApiReady || !window.YT || !window.YT.Player) {
-        pendingPlay = { card: card, id: id }; return;
-      }
-      if (currentCard && currentCard !== card) {
-        restoreCard(currentCard);
-        try { currentPlayer.destroy(); } catch(e) {}
-        currentPlayer = null;
-      }
-      currentCard = card;
-      card.classList.add('yt-playing');
-      var t = card.querySelector('.yt-thumb');
-      var i = card.querySelector('.yt-info');
-      if (t) t.style.display = 'none';
-      if (i) i.style.display = 'none';
-
-      var wrap = document.createElement('div');
-      wrap.className = 'yt-player-wrap';
-      wrap.innerHTML =
-        '<div class="yt-player-container"><div id="ytP-'+id+'"></div></div>' +
-        '<div class="yt-player-controls">' +
-          '<button class="yt-close-btn">' +
-            '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
-            ' إغلاق' +
-          '</button>' +
-        '</div>';
-      card.insertBefore(wrap, t);
-
-      wrap.querySelector('.yt-close-btn').addEventListener('click', function(e){
-        e.stopPropagation();
-        try { currentPlayer.destroy(); } catch(er) {}
-        currentPlayer = null;
-        restoreCard(card);
-        if (currentCard === card) currentCard = null;
-      });
-
-      currentPlayer = new YT.Player('ytP-'+id, {
-        videoId: id,
-        playerVars: { autoplay:1, rel:0, modestbranding:1, origin: window.location.origin || '' },
-        events: { onReady: function(ev){ ev.target.playVideo(); } }
-      });
-    }
-
-    /* ── iframe احتياطي ── */
-    function showIframeFallback(grid, plId) {
-      grid.innerHTML =
-        '<div style="grid-column:1/-1;position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.2);border:3px solid #c9a84c;background:#000;">' +
-          '<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" ' +
-          'src="https://www.youtube.com/embed?listType=playlist&list='+plId+'&rel=0&modestbranding=1" ' +
-          'title="قائمة تشغيل" frameborder="0" loading="lazy" ' +
-          'allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>' +
-        '</div>';
-    }
-
-    /* ── رسم البطاقات ── */
-    function renderCards(items, grid, plId) {
-      if (!items || !items.length) { showIframeFallback(grid, plId); return; }
-      qs('#vidCount').textContent = items.length;
-      grid.innerHTML = items.map(function(item, idx){
-        var id    = vidId(item.link);
-        var thumb = id ? 'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg' : '';
-        var date  = fmtDate(item.pubDate);
-        return '<article class="yt-card" data-vid="'+escHtml(id)+'" tabindex="0" role="button" aria-label="'+escHtml(item.title)+'">' +
-          '<div class="yt-thumb">' +
-            (thumb ? '<img src="'+thumb+'" alt="" loading="lazy">' : '') +
-            '<div class="yt-play-btn">&#9654;</div>' +
-          '</div>' +
-          '<div class="yt-info">' +
-            '<div class="yt-num"># '+(idx+1)+'</div>' +
-            '<h3 class="yt-title">'+escHtml(item.title)+'</h3>' +
-            (date ? '<span class="yt-date">'+date+'</span>' : '') +
-          '</div>' +
-        '</article>';
-      }).join('');
-
-      grid.querySelectorAll('.yt-card').forEach(function(card){
-        function act(){ playInline(card, card.dataset.vid); }
-        card.addEventListener('click', act);
-        card.addEventListener('keydown', function(e){
-          if (e.key==='Enter'||e.key===' ') { e.preventDefault(); act(); }
-        });
-      });
-    }
-
-    /* ── تحميل بالكاش ── */
-    function loadPlaylistPage(plId, grid) {
-      var cached = loadCache(plId);
-      if (cached && cached.length) {
-        renderCards(cached, grid, plId);
-        fetchPlaylist(plId).then(function(fresh){
-          if (fresh && fresh.length) {
-            saveCache(plId, fresh);
-            if (fresh.length !== cached.length) renderCards(fresh, grid, plId);
-          }
-        }).catch(function(){});
-        return;
-      }
-      grid.innerHTML = '<div class="yt-loading"><div><span class="yt-spinner" style="display:block;margin:0 auto 14px;"></span></div>جارٍّ تحميل المقاطع...</div>';
-      fetchPlaylist(plId)
-        .then(function(items){ saveCache(plId, items); renderCards(items, grid, plId); })
-        .catch(function(){ showIframeFallback(grid, plId); });
-    }
-
-    /* ══ التهيئة ══ */
+    /* تهيئة الصفحة بعد تحميل youtube.js */
     function init() {
+      /* انتظر youtube.js */
+      if (!window.YT_PLAYLISTS || !window.YTLoadPlaylist) {
+        return setTimeout(init, 100);
+      }
+
       var params = new URLSearchParams(window.location.search);
       var pnum   = params.get('id') || '1';
-      var pl     = PLAYLISTS[pnum];
+      var pl     = window.YT_PLAYLISTS[pnum];
 
       if (!pl) {
         document.title = 'قائمة غير موجودة | نور القرآن';
         document.getElementById('ytGrid').innerHTML =
-          '<div class="yt-error">⚠️ لم يتم العثور على هذه القائمة.<br><a href="clips.html" style="color:var(--clr-primary);font-weight:700;">العودة للمقاطع</a></div>';
+          '<div style="text-align:center;padding:50px 20px;color:#e74c3c;font-family:Cairo,sans-serif;">' +
+          '⚠️ لم يتم العثور على هذه القائمة.<br>' +
+          '<a href="clips.html" style="color:#1A4731;font-weight:700;">العودة للمقاطع</a></div>';
         return;
       }
 
-      /* تعيين بيانات رأس الصفحة */
+      /* تعيين البيانات */
       document.title = pl.name + ' | نور القرآن';
-      document.getElementById('plIcon').textContent  = pl.icon;
-      document.getElementById('plTitle').textContent = pl.name;
-      document.getElementById('plDesc').textContent  = pl.desc;
+      document.getElementById('plIcon').textContent    = pl.icon;
+      document.getElementById('plTitle').textContent   = pl.name;
+      document.getElementById('plDesc').textContent    = pl.desc;
       document.getElementById('breadName').textContent = pl.name;
       document.getElementById('ytLink').href =
-        'https://www.youtube.com/playlist?list=' + pl.id;
+        'https://www.youtube.com/playlist?list=' + pl.ytId;
 
-      loadYTApi();
-      var grid = document.getElementById('ytGrid');
-      loadPlaylistPage(pl.id, grid);
+      /* تحميل القائمة عبر youtube.js — كل الميزات مدمجة فيها */
+      window.YT_injectStyles && window.YT_injectStyles();
+      window.YT_detectBW    && window.YT_detectBW();
+      window.YT_loadApi     && window.YT_loadApi();
+      window.YTLoadPlaylist('ytGrid', pl.ytId);
     }
 
     if (document.readyState === 'loading') {
@@ -727,7 +258,7 @@
       init();
     }
 
-    /* ── أدوات مشتركة ── */
+    /* أدوات عامة */
     document.getElementById('currentYear').innerText = new Date().getFullYear();
 
     if ('serviceWorker' in navigator) {
