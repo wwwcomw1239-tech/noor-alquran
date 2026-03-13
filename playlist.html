@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">قائمة التشغيل | نور القرآن</title>
+  <meta name="description" content="مقاطع قرآنية من نور القرآن">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1A4731">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389081.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.rss2json.com">
+  <link rel="preconnect" href="https://api.allorigins.win">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ══ شريط التنقل العلوي للصفحة ══ */
+    .pl-nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .pl-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 20px;
+      background: var(--clr-bg-alt);
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      color: var(--clr-primary);
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .22s, border-color .22s, transform .22s;
+    }
+    .pl-back-btn:hover {
+      background: var(--clr-primary);
+      color: var(--clr-white);
+      border-color: var(--clr-primary);
+      transform: translateX(4px);
+    }
+    .pl-breadcrumb {
+      font-size: .88rem;
+      color: var(--clr-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pl-breadcrumb a { color: var(--clr-primary); font-weight: 600; }
+    .pl-breadcrumb a:hover { color: var(--clr-gold); }
+    .pl-breadcrumb span { color: var(--clr-text-muted); }
+
+    /* ══ رأس القائمة ══ */
+    .pl-hero {
+      background: linear-gradient(135deg, var(--clr-primary-dk) 0%, var(--clr-primary) 100%);
+      padding: 52px 20px 44px;
+      text-align: center;
+      color: var(--clr-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .pl-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,.1) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(201,168,76,.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .pl-hero__icon {
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+      position: relative;
+    }
+    .pl-hero__title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .pl-hero__desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .pl-hero__line {
+      width: 64px;
+      height: 4px;
+      background: var(--clr-gold);
+      border-radius: 2px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ══ شريط الإجراءات ══ */
+    .pl-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      padding: 16px 20px;
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .pl-count {
+      font-size: .92rem;
+      color: var(--clr-text-muted);
+      font-weight: 600;
+    }
+    .pl-count strong {
+      color: var(--clr-primary);
+      font-size: 1.1rem;
+    }
+    .btn-yt-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(204,0,0,.3);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .btn-yt-open:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(204,0,0,.4);
+      color: white;
+    }
+
+    /* ══ شبكة الفيديوهات (yt-grid) ══ */
+    #ytGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* بطاقة الفيديو */
+    .yt-card {
+      background: var(--clr-white);
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .26s, box-shadow .26s, border-color .26s;
+      box-shadow: var(--shadow-sm);
+    }
+    .yt-card:hover, .yt-card:focus-visible {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      border-color: #cc0000;
+      outline: none;
+    }
+    .yt-card.yt-playing {
+      grid-column: 1 / -1;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 6px 28px rgba(204,0,0,.18);
+      border-color: #cc0000;
+    }
+
+    /* الصورة المصغرة */
+    .yt-thumb {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #111;
+      overflow: hidden;
+    }
+    .yt-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .yt-card:hover .yt-thumb img { transform: scale(1.05); }
+    .yt-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.35);
+      opacity: 0;
+      transition: opacity .26s;
+      font-size: 3rem;
+      color: white;
+    }
+    .yt-card:hover .yt-play-btn { opacity: 1; }
+
+    /* معلومات الفيديو */
+    .yt-info {
+      padding: 14px 16px 16px;
+    }
+    .yt-num {
+      font-size: .74rem;
+      color: #cc0000;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .yt-title {
+      font-size: .97rem;
+      font-weight: 700;
+      color: var(--clr-text);
+      line-height: 1.55;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .yt-date {
+      font-size: .77rem;
+      color: #bbb;
+      display: block;
+    }
+
+    /* مؤشر التحميل */
+    .yt-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--clr-text-muted);
+    }
+    .yt-spinner {
+      display: inline-block;
+      width: 46px;
+      height: 46px;
+      border: 4px solid rgba(26,71,49,.1);
+      border-top-color: #cc0000;
+      border-radius: 50%;
+      animation: ytSpin 1s linear infinite;
+      margin-bottom: 14px;
+    }
+    @keyframes ytSpin { to { transform: rotate(360deg); } }
+
+    /* مشغّل الفيديو المضمّن */
+    .yt-player-wrap {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .yt-player-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+    }
+    .yt-player-container > div,
+    .yt-player-container iframe {
+      position: absolute !important;
+      top: 0 !important; left: 0 !important;
+      width: 100% !important; height: 100% !important;
+      border: none !important;
+    }
+    .yt-player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #111;
+      padding: 8px 14px;
+      gap: 8px;
+    }
+    .yt-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,.08);
+      color: #bbb;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 14px;
+      cursor: pointer;
+      font-family: Cairo, sans-serif;
+      font-size: .85rem;
+      transition: .2s;
+      white-space: nowrap;
+    }
+    .yt-close-btn:hover { background: rgba(220,50,50,.35); color: #fff; }
+
+    /* خطأ */
+    .yt-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      color: #e74c3c;
+      font-size: .95rem;
+    }
+
+    @media (max-width: 600px) {
+      #ytGrid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .yt-info { padding: 10px 12px 12px; }
+      .yt-title { font-size: .88rem; }
+      .pl-hero { padding: 36px 16px 30px; }
+      .pl-hero__icon { font-size: 3rem; }
+      .pl-actions-bar { padding: 12px 14px; }
+    }
+    @media (max-width: 400px) {
+      #ytGrid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scrollProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#C9A84C,#E3C46A);width:0%;z-index:99999;transition:width .1s ease;"></div>
+
+  <div class="hijri-bar">
+    <div class="container">
+      <div class="hijri-right">
+        <span class="hijri-dot"></span>
+        <span class="hijri-label">التاريخ الهجري</span>
+        <span class="hijri-date" id="hijriDate">جارٍّ التحميل...</span>
+      </div>
+      <a href="https://www.ummalqura.org.sa" target="_blank" rel="noopener noreferrer" class="hijri-source">تقويم أم القرى ↗</a>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="nav-top">
+      <div class="social-links">
+        <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo"><span class="logo-text">نور القرآن</span></a>
+      </div>
+      <div class="social-links" style="visibility:hidden;">
+        <span class="social-link"></span><span class="social-link"></span>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <div class="nav-container">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="books.html">الكتب</a></li>
+          <li><a href="clips.html" class="active">المقاطع</a></li>
+          <li><a href="about.html">عن الموقع</a></li>
+        </ul>
+        <div class="nav-sep"></div>
+        <div class="nav-actions">
+          <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <button class="search-toggle" id="searchToggle" aria-label="بحث">&#128269;</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- رأس القائمة (يُملأ بـ JS) -->
+  <div class="pl-hero" id="plHero">
+    <div class="pl-hero__icon" id="plIcon">🎬</div>
+    <h1 class="pl-hero__title" id="plTitle">قائمة التشغيل</h1>
+    <p class="pl-hero__desc" id="plDesc">جارٍّ التحميل...</p>
+    <div class="pl-hero__line"></div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- شريط التنقل -->
+      <div class="pl-nav-bar">
+        <a href="clips.html" class="pl-back-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          العودة للقوائم
+        </a>
+        <div class="pl-breadcrumb">
+          <a href="index.html">الرئيسية</a>
+          <span>›</span>
+          <a href="clips.html">المقاطع</a>
+          <span>›</span>
+          <span id="breadName">قائمة التشغيل</span>
+        </div>
+      </div>
+
+      <!-- شريط الإجراءات -->
+      <div class="pl-actions-bar">
+        <div class="pl-count">
+          <strong id="vidCount">—</strong> مقطع في هذه القائمة
+        </div>
+        <a id="ytLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-yt-open">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          فتح في يوتيوب
+        </a>
+      </div>
+
+      <!-- شبكة الفيديوهات -->
+      <div id="ytGrid">
+        <div class="yt-loading">
+          <div><span class="yt-spinner" style="display:block;margin:0 auto 14px;"></span></div>
+          جارٍّ تحميل المقاطع...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-logo"><span>نور القرآن</span></div>
+        <p class="footer-ayah">ـ إِنَّ هٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ـ</p>
+        <nav class="footer-nav">
+          <a href="index.html">الرئيسية</a>
+          <a href="books.html">الكتب</a>
+          <a href="clips.html">المقاطع</a>
+          <a href="about.html">عن الموقع</a>
+        </nav>
+        <div class="footer-social">
+          <a href="https://t.me/NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="تلجرام">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@NoorAlquran_net" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="يوتيوب">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <p class="footer-contact-label">للتواصل والاستفسار</p>
+        <a href="mailto:almuhasab9@gmail.com" class="footer-email">
+          <span class="email-icon">&#9993;</span><span>almuhasab9@gmail.com</span>
+        </a>
+      </div>
+      <div class="footer-sadaqah">
+        <p class="sadaqah-text">هذا الموقع صدقة جارية عن المطور ووالديه وكل من ساهم ونشر، نسأل الله القبول</p>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; <span id="currentYear"></span></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="العودة للأعلى" style="position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,#C9A84C,#E3C46A);color:#1A4731;border:none;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.4);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .22s;z-index:999;">↑</button>
+
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <div class="search-header">
+        <div class="search-input-wrap">
+          <span class="search-icon-inside">&#128269;</span>
+          <input type="text" id="searchInput" placeholder="ابحث في الكتب والمقاطع..." autocomplete="off">
+        </div>
+        <button class="search-close" id="searchClose">&#10005;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <p class="search-hint">ابدأ الكتابة للبحث...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    /* ══ بيانات القوائم ══ */
+    var PLAYLISTS = {
+      '1': { name: 'آية وتفسير',           icon: '🎬', desc: 'شرح وتفسير الآيات القرآنية الكريمة بأسلوب ميسّر',       id: 'PLVbjqy4Qzz1NWqxom2befYJBuB99zcd9e' },
+      '2': { name: 'القرآن كاملاً',         icon: '📖', desc: 'تلاوة كاملة لكتاب الله بصوت خاشع متأمِّل',             id: 'PLVbjqy4Qzz1NljvZXXP1TVg_hWUlt8mvM' },
+      '3': { name: 'القرآن وتزكية النفس',   icon: '🌿', desc: 'كيف يُزكّي القرآن النفوس ويرقّق القلوب',              id: 'PLVbjqy4Qzz1MdV23AlsPSND7d5I_pZD6w' },
+      '4': { name: 'مواعظ القرآن',          icon: '🕌', desc: 'مواعظ وعِبَر مستقاة من آيات الكتاب العزيز',           id: 'PLVbjqy4Qzz1P8e523UtvCxLDaefbfMTLF' },
+      '5': { name: 'آداب حملة القرآن',      icon: '💿', desc: 'آداب وأخلاق حاملي القرآن الكريم',                     id: 'PLVbjqy4Qzz1N3nupwtHO-2IoUikenFOjN' },
+      '6': { name: 'وقفات تدبرية',          icon: '🌙', desc: 'وقفات تأملية مع معاني الآيات ومقاصدها',               id: 'PLVbjqy4Qzz1N4YEdMDY5NvSDLYgOtTxKw' }
+    };
+
+    var CACHE_TTL = 0; // 0 = لا ينتهي
+
+    /* ── مساعدات ── */
+    function qs(sel) { return document.querySelector(sel); }
+    function vidId(link) {
+      var m = String(link || '').match(/[?&]v=([^&]+)/);
+      return m ? m[1] : '';
+    }
+    function escHtml(s) {
+      return String(s || '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function fmtDate(str) {
+      if (!str) return '';
+      try {
+        var d  = new Date(str);
+        var mo = ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
+                  'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+        return d.getDate() + ' ' + mo[d.getMonth()] + ' ' + d.getFullYear();
+      } catch(e) { return ''; }
+    }
+
+    /* ── كاش ── */
+    function loadCache(plId) {
+      try {
+        var raw = localStorage.getItem('yt_pl_' + plId);
+        if (!raw) return null;
+        var obj = JSON.parse(raw);
+        if (CACHE_TTL > 0 && Date.now() - obj.ts > CACHE_TTL) return null;
+        return obj.items;
+      } catch(e) { return null; }
+    }
+    function saveCache(plId, items) {
+      try {
+        localStorage.setItem('yt_pl_' + plId, JSON.stringify({ ts: Date.now(), items: items }));
+      } catch(e) {}
+    }
+
+    /* ── تحليل XML ── */
+    function parseXml(xmlStr) {
+      var items = [];
+      var rx = /<entry>([\u0000-\uFFFF]*?)<\/entry>/g;
+      var m;
+      while ((m = rx.exec(xmlStr)) !== null) {
+        var e = m[1];
+        var title   = (/<title>([\u0000-\uFFFF]*?)<\/title>/.exec(e)           || [])[1] || '';
+        var videoId = (/<yt:videoId>([\u0000-\uFFFF]*?)<\/yt:videoId>/.exec(e) || [])[1] || '';
+        var pub     = (/<published>([\u0000-\uFFFF]*?)<\/published>/.exec(e)   || [])[1] || '';
+        if (videoId) items.push({
+          title: title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>'),
+          link: 'https://www.youtube.com/watch?v=' + videoId,
+          pubDate: pub
+        });
+      }
+      return items;
+    }
+
+    /* ── جلب القائمة ── */
+    function fetchPlaylist(plId) {
+      var RSS  = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + plId;
+      var API1 = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&count=50';
+      var API2 = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS);
+      function t1() {
+        return fetch(API1).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+          .then(function(d){ if(d.status==='ok'&&d.items&&d.items.length) return d.items; throw 0; });
+      }
+      function t2() {
+        return fetch(API2).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+          .then(function(d){ var it=parseXml(d.contents||''); if(!it.length) throw 0; return it; });
+      }
+      return t1().catch(function(){ return t2(); });
+    }
+
+    /* ── مشغّل مضمَّن ── */
+    var currentPlayer = null;
+    var currentCard   = null;
+    var ytApiReady    = false;
+    var pendingPlay   = null;
+
+    function loadYTApi() {
+      if (window.YT && window.YT.Player) { ytApiReady = true; return; }
+      if (document.querySelector('script[src*="iframe_api"]')) return;
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+    window.onYouTubeIframeAPIReady = function () {
+      ytApiReady = true;
+      if (pendingPlay) { var p = pendingPlay; pendingPlay = null; playInline(p.card, p.id); }
+    };
+
+    function restoreCard(card) {
+      if (!card) return;
+      card.classList.remove('yt-playing');
+      var w = card.querySelector('.yt-player-wrap');
+      var t = card.querySelector('.yt-thumb');
+      var i = card.querySelector('.yt-info');
+      if (w) w.remove();
+      if (t) t.style.display = '';
+      if (i) i.style.display = '';
+    }
+
+    function playInline(card, id) {
+      if (!id) return;
+      if (!ytApiReady || !window.YT || !window.YT.Player) {
+        pendingPlay = { card: card, id: id }; return;
+      }
+      if (currentCard && currentCard !== card) {
+        restoreCard(currentCard);
+        try { currentPlayer.destroy(); } catch(e) {}
+        currentPlayer = null;
+      }
+      currentCard = card;
+      card.classList.add('yt-playing');
+      var t = card.querySelector('.yt-thumb');
+      var i = card.querySelector('.yt-info');
+      if (t) t.style.display = 'none';
+      if (i) i.style.display = 'none';
+
+      var wrap = document.createElement('div');
+      wrap.className = 'yt-player-wrap';
+      wrap.innerHTML =
+        '<div class="yt-player-container"><div id="ytP-'+id+'"></div></div>' +
+        '<div class="yt-player-controls">' +
+          '<button class="yt-close-btn">' +
+            '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+            ' إغلاق' +
+          '</button>' +
+        '</div>';
+      card.insertBefore(wrap, t);
+
+      wrap.querySelector('.yt-close-btn').addEventListener('click', function(e){
+        e.stopPropagation();
+        try { currentPlayer.destroy(); } catch(er) {}
+        currentPlayer = null;
+        restoreCard(card);
+        if (currentCard === card) currentCard = null;
+      });
+
+      currentPlayer = new YT.Player('ytP-'+id, {
+        videoId: id,
+        playerVars: { autoplay:1, rel:0, modestbranding:1, origin: window.location.origin || '' },
+        events: { onReady: function(ev){ ev.target.playVideo(); } }
+      });
+    }
+
+    /* ── iframe احتياطي ── */
+    function showIframeFallback(grid, plId) {
+      grid.innerHTML =
+        '<div style="grid-column:1/-1;position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.2);border:3px solid #c9a84c;background:#000;">' +
+          '<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" ' +
+          'src="https://www.youtube.com/embed?listType=playlist&list='+plId+'&rel=0&modestbranding=1" ' +
+          'title="قائمة تشغيل" frameborder="0" loading="lazy" ' +
+          'allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>' +
+        '</div>';
+    }
+
+    /* ── رسم البطاقات ── */
+    function renderCards(items, grid, plId) {
+      if (!items || !items.length) { showIframeFallback(grid, plId); return; }
+      qs('#vidCount').textContent = items.length;
+      grid.innerHTML = items.map(function(item, idx){
+        var id    = vidId(item.link);
+        var thumb = id ? 'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg' : '';
+        var date  = fmtDate(item.pubDate);
+        return '<article class="yt-card" data-vid="'+escHtml(id)+'" tabindex="0" role="button" aria-label="'+escHtml(item.title)+'">' +
+          '<div class="yt-thumb">' +
+            (thumb ? '<img src="'+thumb+'" alt="" loading="lazy">' : '') +
+            '<div class="yt-play-btn">&#9654;</div>' +
+          '</div>' +
+          '<div class="yt-info">' +
+            '<div class="yt-num"># '+(idx+1)+'</div>' +
+            '<h3 class="yt-title">'+escHtml(item.title)+'</h3>' +
+            (date ? '<span class="yt-date">'+date+'</span>' : '') +
+          '</div>' +
+        '</article>';
+      }).join('');
+
+      grid.querySelectorAll('.yt-card').forEach(function(card){
+        function act(){ playInline(card, card.dataset.vid); }
+        card.addEventListener('click', act);
+        card.addEventListener('keydown', function(e){
+          if (e.key==='Enter'||e.key===' ') { e.preventDefault(); act(); }
+        });
+      });
+    }
+
+    /* ── تحميل بالكاش ── */
+    function loadPlaylistPage(plId, grid) {
+      var cached = loadCache(plId);
+      if (cached && cached.length) {
+        renderCards(cached, grid, plId);
+        fetchPlaylist(plId).then(function(fresh){
+          if (fresh && fresh.length) {
+            saveCache(plId, fresh);
+            if (fresh.length !== cached.length) renderCards(fresh, grid, plId);
+          }
+        }).catch(function(){});
+        return;
+      }
+      grid.innerHTML = '<div class="yt-loading"><div><span class="yt-spinner" style="display:block;margin:0 auto 14px;"></span></div>جارٍّ تحميل المقاطع...</div>';
+      fetchPlaylist(plId)
+        .then(function(items){ saveCache(plId, items); renderCards(items, grid, plId); })
+        .catch(function(){ showIframeFallback(grid, plId); });
+    }
+
+    /* ══ التهيئة ══ */
+    function init() {
+      var params = new URLSearchParams(window.location.search);
+      var pnum   = params.get('id') || '1';
+      var pl     = PLAYLISTS[pnum];
+
+      if (!pl) {
+        document.title = 'قائمة غير موجودة | نور القرآن';
+        document.getElementById('ytGrid').innerHTML =
+          '<div class="yt-error">⚠️ لم يتم العثور على هذه القائمة.<br><a href="clips.html" style="color:var(--clr-primary);font-weight:700;">العودة للمقاطع</a></div>';
+        return;
+      }
+
+      /* تعيين بيانات رأس الصفحة */
+      document.title = pl.name + ' | نور القرآن';
+      document.getElementById('plIcon').textContent  = pl.icon;
+      document.getElementById('plTitle').textContent = pl.name;
+      document.getElementById('plDesc').textContent  = pl.desc;
+      document.getElementById('breadName').textContent = pl.name;
+      document.getElementById('ytLink').href =
+        'https://www.youtube.com/playlist?list=' + pl.id;
+
+      loadYTApi();
+      var grid = document.getElementById('ytGrid');
+      loadPlaylistPage(pl.id, grid);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    /* ── أدوات مشتركة ── */
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function(){
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+
+    window.addEventListener('scroll', function(){
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (sh > 0) document.getElementById('scrollProgress').style.width = (st/sh*100)+'%';
+    });
+
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function(){
+      if (window.pageYOffset > 300) { btt.style.opacity='1'; btt.style.visibility='visible'; }
+      else { btt.style.opacity='0'; btt.style.visibility='hidden'; }
+    });
+    btt.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  })();
+  </script>
+
+</body>
+</html>
