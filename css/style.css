@@ -357,6 +357,152 @@ ul { list-style: none; }
 }
 
 /* =========================================
+   بطاقات آخر الإضافات
+   ========================================= */
+.latest-section { background: var(--clr-bg-alt); }
+
+.latest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+  margin-top: 4px;
+}
+
+.latest-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-white);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform .26s ease, box-shadow .26s ease, border-color .26s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.latest-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(26,71,49,.13);
+  border-color: var(--clr-gold);
+}
+
+/* الشريط العلوي الملوّن */
+.latest-card--book::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--clr-primary) 0%, var(--clr-primary-lt) 100%);
+}
+.latest-card--clip::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, #cc0000 0%, #ff4444 100%);
+}
+
+/* شارة جديد */
+.latest-card__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--clr-primary);
+  color: var(--clr-gold);
+  font-size: .72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+  box-shadow: 0 2px 8px rgba(26,71,49,.25);
+  z-index: 2;
+}
+.latest-card__badge--clip {
+  background: #cc0000;
+  color: #fff;
+}
+
+/* الأيقونة */
+.latest-card__icon {
+  text-align: center;
+  font-size: 2.6rem;
+  padding: 22px 20px 10px;
+  line-height: 1;
+}
+
+/* المحتوى */
+.latest-card__body {
+  padding: 0 20px 14px;
+  flex: 1;
+}
+.latest-card__cat {
+  display: inline-block;
+  background: rgba(26,71,49,.09);
+  color: var(--clr-primary);
+  font-size: .74rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.latest-card__title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  line-height: 1.5;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.latest-card__author {
+  font-size: .82rem;
+  color: var(--clr-primary-lt);
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.latest-card__desc {
+  font-size: .82rem;
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* الفوتر */
+.latest-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--clr-border);
+  background: rgba(26,71,49,.03);
+  margin-top: auto;
+}
+.latest-card__type {
+  font-size: .78rem;
+  color: var(--clr-text-muted);
+  font-weight: 600;
+}
+.latest-card__action {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  transition: color .2s, transform .2s;
+  display: inline-block;
+}
+.latest-card:hover .latest-card__action {
+  color: var(--clr-gold);
+  transform: translateX(-4px);
+}
+
+/* =========================================
    صفحة عن الموقع - محسّنة
    ========================================= */
 .about-content {
@@ -891,6 +1037,7 @@ ul { list-style: none; }
   .video-thumbnail { width: 120px; height: 68px; }
   .video-title { font-size: .95rem; }
   .video-number { font-size: .8rem; }
+  .latest-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -920,4 +1067,7 @@ ul { list-style: none; }
   .btn-youtube { padding: 12px 24px; font-size: .9rem; }
   .hero-buttons { flex-direction: column; width: 100%; padding: 0 20px; }
   .btn-primary, .btn-secondary { width: 100%; }
+  .latest-grid { grid-template-columns: 1fr; }
+  .latest-card__icon { font-size: 2rem; padding: 16px 16px 8px; }
+  .latest-card__title { font-size: .95rem; }
 }
