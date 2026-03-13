@@ -121,6 +121,62 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════
+       قسم آخر الإضافات
+  ════════════════════════════════════════════ -->
+  <section class="section section-alt latest-section">
+    <div class="container">
+
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">✨ آخر الإضافات</h2>
+          <p class="section-desc">أحدث ما أُضيف إلى الموقع من كتب ومقاطع قرآنية</p>
+        </div>
+      </div>
+
+      <!-- تبويبات -->
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true"
+                  data-tab="latest-books" id="tab-latest-books">
+            <span class="tab-icon">📚</span> أحدث الكتب
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false"
+                  data-tab="latest-clips" id="tab-latest-clips">
+            <span class="tab-icon">🎬</span> أحدث المقاطع
+          </button>
+        </div>
+      </div>
+
+      <!-- لوحة الكتب -->
+      <div class="tab-panel active" id="latest-books" role="tabpanel">
+        <div class="latest-grid" id="latestBooksGrid">
+          <!-- تُملأ بالجافاسكريبت -->
+        </div>
+        <div class="tab-footer">
+          <a href="books.html" class="btn-view-all">
+            <span>عرض جميع الكتب</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 3 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- لوحة المقاطع -->
+      <div class="tab-panel" id="latest-clips" role="tabpanel">
+        <div class="latest-grid" id="latestClipsGrid">
+          <!-- تُملأ بالجافاسكريبت -->
+        </div>
+        <div class="tab-footer">
+          <a href="clips.html" class="btn-view-all">
+            <span>عرض جميع المقاطع</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 3 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section class="cta-section">
     <div class="container">
       <div class="cta-box">
@@ -186,6 +242,98 @@
   <script src="js/data.js"></script>
   <script src="js/search.js"></script>
   <script src="js/main.js"></script>
+
+  <script>
+    /* ── قسم آخر الإضافات ── */
+    (function () {
+      const BOOKS_COUNT = 6;
+      const CLIPS_COUNT = 6;
+
+      /* ── استخراج آخر N عنصر له isNew أو آخر N عنصر ── */
+      function getLatest(arr, n) {
+        var newItems = arr.filter(function(i){ return i.isNew; });
+        if (newItems.length >= n) return newItems.slice(-n).reverse();
+        return arr.slice(-n).reverse();
+      }
+
+      /* ── خريطة أسماء الأقسام ── */
+      var CAT_NAMES = {
+        tadabbur: 'التدبر',
+        tafsir:   'التفسير',
+        tajweed:  'التجويد',
+        ulum:     'علوم القرآن',
+        lugha:    'لغة القرآن',
+        fadail:   'فضائل القرآن'
+      };
+
+      /* ── بناء بطاقة كتاب ── */
+      function buildBookCard(item) {
+        var catLabel = CAT_NAMES[item.category] || item.category;
+        return '<a href="' + (item.download || '#') + '" target="_blank" rel="noopener noreferrer" class="latest-card latest-card--book">'
+          + '<div class="latest-card__badge">جديد ✦</div>'
+          + '<div class="latest-card__icon">📖</div>'
+          + '<div class="latest-card__body">'
+          +   '<span class="latest-card__cat">' + catLabel + '</span>'
+          +   '<h3 class="latest-card__title">' + item.title + '</h3>'
+          +   '<p class="latest-card__author">' + item.author + '</p>'
+          +   '<p class="latest-card__desc">' + item.desc.substring(0, 100) + '…</p>'
+          + '</div>'
+          + '<div class="latest-card__footer">'
+          +   '<span class="latest-card__type">📚 كتاب</span>'
+          +   '<span class="latest-card__action">تحميل ←</span>'
+          + '</div>'
+          + '</a>';
+      }
+
+      /* ── بناء بطاقة مقطع ── */
+      function buildClipCard(item) {
+        var catLabel = CAT_NAMES[item.category] || item.category;
+        return '<a href="' + (item.download || '#') + '" target="_blank" rel="noopener noreferrer" class="latest-card latest-card--clip">'
+          + '<div class="latest-card__badge latest-card__badge--clip">جديد ✦</div>'
+          + '<div class="latest-card__icon">🎬</div>'
+          + '<div class="latest-card__body">'
+          +   '<span class="latest-card__cat">' + catLabel + '</span>'
+          +   '<h3 class="latest-card__title">' + item.title + '</h3>'
+          +   '<p class="latest-card__author">' + item.author + '</p>'
+          +   '<p class="latest-card__desc">' + item.desc.substring(0, 100) + '…</p>'
+          + '</div>'
+          + '<div class="latest-card__footer">'
+          +   '<span class="latest-card__type">🎬 مقطع</span>'
+          +   '<span class="latest-card__action">مشاهدة ←</span>'
+          + '</div>'
+          + '</a>';
+      }
+
+      /* ── تعبئة الشبكتين ── */
+      var booksGrid = document.getElementById('latestBooksGrid');
+      var clipsGrid = document.getElementById('latestClipsGrid');
+
+      if (booksGrid && window.SITE_DATA) {
+        var latestBooks = getLatest(SITE_DATA.books, BOOKS_COUNT);
+        booksGrid.innerHTML = latestBooks.map(buildBookCard).join('');
+      }
+      if (clipsGrid && window.SITE_DATA) {
+        var latestClips = getLatest(SITE_DATA.clips, CLIPS_COUNT);
+        clipsGrid.innerHTML = latestClips.map(buildClipCard).join('');
+      }
+
+      /* ── منطق التبويبات ── */
+      var tabBtns  = document.querySelectorAll('.latest-section .tab-btn');
+      var tabPanes = document.querySelectorAll('.latest-section .tab-panel');
+
+      tabBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var target = this.dataset.tab;
+          tabBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          tabPanes.forEach(function(p){ p.classList.remove('active'); });
+          this.classList.add('active');
+          this.setAttribute('aria-selected','true');
+          var pane = document.getElementById(target);
+          if (pane) pane.classList.add('active');
+        });
+      });
+    })();
+  </script>
 
   <script>
     if ('serviceWorker' in navigator) {
